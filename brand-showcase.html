@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>printaway — brand showcase</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Sora:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void:#0A0A0B;
+    --bone:#F5F2ED;
+    --graphite:#3A3A3D;
+    --aluminum:#B8B8B4;
+    --violet:#7C5CFF;
+    --amber:#FF7A33;
+    --unit:8px;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--void);
+    color:var(--bone);
+    font-family:'Sora',sans-serif;
+    line-height:1.6;
+  }
+  .wrap{max-width:960px;margin:0 auto;padding:calc(var(--unit)*8) calc(var(--unit)*6);}
+  h1,h2,h3{font-family:'Space Grotesk',sans-serif;font-weight:700;margin:0;}
+  .mono{font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:0.08em;}
+  .eyebrow{font-size:12px;color:var(--aluminum);margin-bottom:calc(var(--unit)*2);}
+
+  /* ---------- header ---------- */
+  header{display:flex;align-items:center;justify-content:space-between;padding:calc(var(--unit)*5) calc(var(--unit)*6);border-bottom:0.5px solid rgba(245,242,237,0.15);}
+  .logo{display:flex;align-items:center;gap:14px;}
+  .logo svg{width:28px;height:28px;}
+  .logo span{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:20px;letter-spacing:-0.02em;}
+  .wordmark{position:relative;display:inline-block;}
+  .wordmark::after{content:"";position:absolute;left:-3px;right:-3px;top:50%;height:2px;background:var(--bone);z-index:-1;}
+  nav{display:flex;gap:28px;}
+  nav a{color:var(--aluminum);text-decoration:none;font-size:12px;letter-spacing:0.08em;}
+  nav a.active{color:var(--bone);}
+
+  /* ---------- divider ---------- */
+  .layer-divider{display:flex;flex-direction:column;gap:5px;align-items:center;margin:calc(var(--unit)*10) 0;}
+  .layer-divider span{height:1px;background:rgba(245,242,237,0.25);display:block;}
+  .layer-divider span:nth-child(1){width:120px;}
+  .layer-divider span:nth-child(2){width:70px;}
+  .layer-divider span:nth-child(3){width:150px;}
+
+  /* ---------- section titles ---------- */
+  section{margin-bottom:calc(var(--unit)*14);}
+  .section-title{font-size:32px;margin-bottom:calc(var(--unit)*5);}
+
+  /* ---------- palette ---------- */
+  .palette{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1px;background:rgba(245,242,237,0.1);}
+  .swatch{background:var(--void);padding:calc(var(--unit)*4) calc(var(--unit)*3);min-height:120px;display:flex;flex-direction:column;justify-content:flex-end;gap:6px;}
+  .swatch .chip{width:32px;height:32px;border-radius:4px;margin-bottom:8px;}
+  .swatch .name{font-family:'Space Grotesk',sans-serif;font-weight:500;font-size:15px;}
+  .swatch .hex{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--aluminum);}
+
+  /* ---------- type specimen ---------- */
+  .type-row{padding:calc(var(--unit)*4) 0;border-bottom:0.5px solid rgba(245,242,237,0.12);}
+  .type-row:last-child{border-bottom:none;}
+  .type-label{font-size:11px;color:var(--aluminum);margin-bottom:8px;}
+  .display-sample{font-size:56px;line-height:1.05;letter-spacing:-0.01em;}
+  .body-sample{font-size:18px;max-width:520px;color:var(--bone);}
+  .mono-sample{font-size:14px;color:var(--bone);text-transform:none;letter-spacing:0.04em;}
+
+  /* ---------- hero reveal demo ---------- */
+  .hero-demo{display:flex;gap:calc(var(--unit)*6);align-items:center;flex-wrap:wrap;}
+  .reveal-wrap{position:relative;flex-shrink:0;}
+  .ambient-glow{
+    position:absolute;width:440px;height:440px;border-radius:50%;
+    top:50%;left:50%;transform:translate(-50%,-50%) scale(1);
+    background:radial-gradient(circle, rgba(124,92,255,0.32) 0%, rgba(124,92,255,0) 68%);
+    filter:blur(6px);opacity:0.18;pointer-events:none;z-index:0;
+    animation:ambientPulse 4s ease-in-out infinite;
+  }
+  @keyframes ambientPulse{
+    0%,100%{opacity:0.14;transform:translate(-50%,-50%) scale(1);}
+    50%{opacity:0.28;transform:translate(-50%,-50%) scale(1.06);}
+  }
+  .reveal-stage{position:relative;z-index:1;width:300px;height:250px;background:var(--void);overflow:hidden;flex-shrink:0;border:0.5px solid rgba(245,242,237,0.15);}
+  .reveal-stage svg{position:absolute;inset:0;width:100%;height:100%;z-index:1;}
+  .mask-band{position:absolute;left:0;width:100%;background:var(--void);transform-origin:bottom;z-index:3;}
+  .light-sweep{
+    position:absolute;top:50%;left:-55%;width:75%;height:220%;z-index:2;
+    transform:translate(0%,-50%);
+    background:radial-gradient(ellipse 42% 28% at 50% 50%,
+      rgba(245,242,237,0.55) 0%,
+      rgba(245,242,237,0.28) 22%,
+      rgba(124,92,255,0.3) 42%,
+      rgba(124,92,255,0.1) 62%,
+      rgba(124,92,255,0) 78%);
+    filter:blur(20px);
+    mix-blend-mode:screen;pointer-events:none;
+  }
+  .hero-copy{flex:1;min-width:240px;}
+  .hero-copy p{color:var(--aluminum);max-width:360px;margin:12px 0 20px;}
+  .spec-strip{font-size:13px;color:var(--aluminum);margin-bottom:20px;}
+  button.replay{background:none;border:0.5px solid var(--bone);color:var(--bone);font-family:'JetBrains Mono',monospace;font-size:12px;text-transform:uppercase;letter-spacing:0.08em;padding:12px 20px;cursor:pointer;}
+  button.replay:hover{background:var(--bone);color:var(--void);}
+  button.cta{background:var(--violet);border:none;color:var(--bone);font-family:'JetBrains Mono',monospace;font-size:12px;text-transform:uppercase;letter-spacing:0.08em;padding:12px 22px;cursor:pointer;margin-left:12px;}
+
+  /* ---------- product cards ---------- */
+  .card-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:32px;}
+  .card{background:var(--graphite);padding:0;position:relative;overflow:hidden;transition:transform 180ms ease-out;cursor:pointer;}
+  .card:hover{transform:translateY(-4px);}
+  .card-img{aspect-ratio:6/5;background:var(--void);display:flex;align-items:center;justify-content:center;position:relative;}
+  .card-img svg{width:70%;height:70%;}
+  .badge{position:absolute;top:10px;left:10px;font-size:10px;padding:4px 8px;background:rgba(10,10,11,0.7);color:var(--aluminum);}
+  .badge.last{color:var(--amber);}
+  .card-info{padding:16px;}
+  .card-info .name{font-family:'Space Grotesk',sans-serif;font-size:16px;margin-bottom:6px;}
+  .spec-slide{max-height:0;overflow:hidden;transition:max-height 180ms ease-out;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--aluminum);letter-spacing:0.04em;}
+  .card:hover .spec-slide{max-height:24px;margin-top:6px;}
+
+  /* ---------- studio panel ---------- */
+  .studio-panel{background:var(--void);border:0.5px solid rgba(245,242,237,0.2);padding:calc(var(--unit)*4);display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+  .studio-controls label{display:block;font-size:11px;color:var(--aluminum);margin-bottom:6px;}
+  .studio-controls input[type=range]{width:100%;margin-bottom:20px;accent-color:var(--violet);}
+  .readout{font-family:'JetBrains Mono',monospace;font-size:13px;}
+  .readout div{display:flex;justify-content:space-between;padding:8px 0;border-bottom:0.5px solid rgba(245,242,237,0.12);}
+  .readout span:last-child{color:var(--violet);}
+
+  footer{padding:calc(var(--unit)*5) calc(var(--unit)*6);border-top:0.5px solid rgba(245,242,237,0.15);color:var(--aluminum);font-size:12px;}
+
+  @media (prefers-reduced-motion: reduce){
+    .mask-band{transition:none !important;animation:none !important;opacity:0;}
+    .ambient-glow{animation:none !important;opacity:0.15;}
+    .light-sweep{transition:none !important;display:none;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <svg viewBox="0 0 100 100" aria-hidden="true">
+      <rect x="20" y="60" width="60" height="8" fill="#F5F2ED"/>
+      <rect x="26" y="46" width="54" height="8" fill="#F5F2ED"/>
+      <rect x="32" y="32" width="48" height="8" fill="#F5F2ED"/>
+      <rect x="38" y="18" width="42" height="8" fill="#F5F2ED"/>
+    </svg>
+    <span class="wordmark">printaway</span>
+  </div>
+  <nav>
+    <a href="#" class="active mono">Shop</a>
+    <a href="#" class="mono">Studio</a>
+    <a href="#" class="mono">About</a>
+  </nav>
+</header>
+
+<div class="wrap">
+
+  <section>
+    <p class="eyebrow mono">Brand & design system — visual reference</p>
+    <p class="body-sample" style="color:var(--aluminum)">This companion reference shows the system from <strong style="color:var(--bone)">DESIGN.md</strong> in motion: the color palette, type pairing, the signature layer-reveal, and how Shop and Studio diverge in the UI. Scroll to see the reveal animation trigger.</p>
+  </section>
+
+  <div class="layer-divider" aria-hidden="true"><span></span><span></span><span></span></div>
+
+  <section>
+    <h2 class="section-title">Color system</h2>
+    <div class="palette">
+      <div class="swatch"><div class="chip" style="background:#0A0A0B;border:0.5px solid rgba(245,242,237,0.2)"></div><div class="name">Void black</div><div class="hex">#0A0A0B</div></div>
+      <div class="swatch"><div class="chip" style="background:#F5F2ED"></div><div class="name">Bone</div><div class="hex">#F5F2ED</div></div>
+      <div class="swatch"><div class="chip" style="background:#3A3A3D"></div><div class="name">Graphite</div><div class="hex">#3A3A3D</div></div>
+      <div class="swatch"><div class="chip" style="background:#B8B8B4"></div><div class="name">Aluminum</div><div class="hex">#B8B8B4</div></div>
+      <div class="swatch"><div class="chip" style="background:#7C5CFF"></div><div class="name">Cure violet</div><div class="hex">#7C5CFF</div></div>
+      <div class="swatch"><div class="chip" style="background:#FF7A33"></div><div class="name">Hot amber</div><div class="hex">#FF7A33</div></div>
+    </div>
+  </section>
+
+  <div class="layer-divider" aria-hidden="true"><span></span><span></span><span></span></div>
+
+  <section>
+    <h2 class="section-title">Typography</h2>
+    <div class="type-row">
+      <div class="type-label mono">Display — Neue Machina (shown here in Space Grotesk as a free stand-in)</div>
+      <div class="display-sample">built in layers</div>
+    </div>
+    <div class="type-row">
+      <div class="type-label mono">Body — General Sans (shown here in Sora as a free stand-in)</div>
+      <div class="body-sample">Most 3D printing companies sell the process. This one sells the object, and treats the process as the reason to trust it.</div>
+    </div>
+    <div class="type-row">
+      <div class="type-label mono">Utility / mono — JetBrains Mono</div>
+      <div class="mono-sample">PLA · 0.2MM LAYER HEIGHT · 3H 40M PRINT TIME · $38.00</div>
+    </div>
+  </section>
+
+  <div class="layer-divider" aria-hidden="true"><span></span><span></span><span></span></div>
+
+  <section>
+    <h2 class="section-title">Signature motion: layer reveal + light sweep</h2>
+    <div class="hero-demo">
+      <div class="reveal-wrap">
+        <div class="ambient-glow" id="glow" aria-hidden="true"></div>
+        <div class="reveal-stage" id="stage">
+          <svg viewBox="0 0 300 250" role="img" aria-label="Illustrative vase-shaped 3D printed object">
+            <defs>
+              <pattern id="lines" width="300" height="9" patternUnits="userSpaceOnUse">
+                <rect width="300" height="9" fill="#B8B8B4"/>
+                <line x1="0" y1="9" x2="300" y2="9" stroke="#3A3A3D" stroke-width="0.75"/>
+              </pattern>
+            </defs>
+            <path id="obj-path" d="M150,20 C170,20 185,38 185,68 C185,98 163,110 163,140 C163,168 202,180 202,208 C202,224 178,236 150,236 C122,236 98,224 98,208 C98,180 137,168 137,140 C137,110 115,98 115,68 C115,38 130,20 150,20 Z" fill="url(#lines)" stroke="#7C5CFF" stroke-width="1.5"/>
+          </svg>
+          <div class="light-sweep" id="sweep"></div>
+          <!-- mask bands generated by JS -->
+        </div>
+      </div>
+      <div class="hero-copy">
+        <p class="eyebrow mono">Homepage hero, scroll-triggered</p>
+        <p>Two moves, back to back. First the build: 8 bands sweep away bottom-to-top, 480ms each, 40ms stagger. Then the light turns on: the rim flares, a specular highlight sweeps once across the surface, and a soft violet glow breathes behind the whole scene — the Apple-reveal move, simulated in CSS instead of shot on video.</p>
+        <div class="spec-strip mono">PLA · 3H 40M · $38.00</div>
+        <button class="replay" id="replay">Replay ↻</button><button class="cta">Add to cart</button>
+      </div>
+    </div>
+  </section>
+
+  <div class="layer-divider" aria-hidden="true"><span></span><span></span><span></span></div>
+
+  <section>
+    <h2 class="section-title">Shop — product cards</h2>
+    <p style="color:var(--aluminum);margin-top:0 0 20px;max-width:480px;">Hover a card: it lifts, and a mono spec strip slides up from the bottom edge.</p>
+    <div class="card-row">
+      <div class="card">
+        <div class="card-img"><span class="badge mono">In stock</span>
+          <svg viewBox="0 0 100 100" aria-hidden="true"><path d="M50,10 C58,10 64,18 64,28 C64,38 56,42 56,52 C56,62 68,68 68,82 C68,90 58,94 50,94 C42,94 32,90 32,82 C32,68 44,62 44,52 C44,42 36,38 36,28 C36,18 42,10 50,10 Z" fill="#B8B8B4"/></svg>
+        </div>
+        <div class="card-info"><div class="name">Terrace vessel</div><div class="spec-slide mono">PLA · 3H 40M · $38</div></div>
+      </div>
+      <div class="card">
+        <div class="card-img"><span class="badge last mono">Last one</span>
+          <svg viewBox="0 0 100 100" aria-hidden="true"><rect x="30" y="20" width="40" height="60" fill="#B8B8B4"/></svg>
+        </div>
+        <div class="card-info"><div class="name">Column tray</div><div class="spec-slide mono">PETG · 5H 10M · $54</div></div>
+      </div>
+      <div class="card">
+        <div class="card-img"><span class="badge mono">Ships in 48h</span>
+          <svg viewBox="0 0 100 100" aria-hidden="true"><polygon points="50,15 80,50 50,85 20,50" fill="#B8B8B4"/></svg>
+        </div>
+        <div class="card-info"><div class="name">Facet planter</div><div class="spec-slide mono">PLA · 2H 05M · $29</div></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="layer-divider" aria-hidden="true"><span></span><span></span><span></span></div>
+
+  <section>
+    <h2 class="section-title">Studio — the configurator</h2>
+    <p style="color:var(--aluminum);max-width:480px;">Not a form — a control panel. Live mono readouts update as parameters change.</p>
+    <div class="studio-panel">
+      <div class="studio-controls">
+        <label class="mono">Size (mm)</label>
+        <input type="range" min="40" max="200" value="90" id="size">
+        <label class="mono">Infill (%)</label>
+        <input type="range" min="10" max="100" value="20" id="infill">
+      </div>
+      <div class="readout" id="readout">
+        <div><span>SIZE</span><span id="out-size">90MM</span></div>
+        <div><span>INFILL</span><span id="out-infill">20%</span></div>
+        <div><span>EST. PRINT TIME</span><span id="out-time">2H 40M</span></div>
+        <div><span>EST. COST</span><span id="out-cost">$31.00</span></div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  Reference companion to DESIGN.md — palette, type, and motion values here are the source of truth; implement from the tokens, not by eye.
+</footer>
+
+<script>
+  // build the reveal mask bands
+  const stage = document.getElementById('stage');
+  const BANDS = 8;
+  function buildBands(){
+    stage.querySelectorAll('.mask-band').forEach(b => b.remove());
+    for(let i=0;i<BANDS;i++){
+      const band = document.createElement('div');
+      band.className = 'mask-band';
+      const heightPct = 100/BANDS;
+      band.style.height = heightPct + '%';
+      band.style.top = (100 - (i+1)*heightPct) + '%';
+      band.style.transform = 'scaleY(1)';
+      band.style.transition = 'transform 480ms cubic-bezier(0.16,1,0.3,1), opacity 480ms cubic-bezier(0.16,1,0.3,1)';
+      band.style.transitionDelay = (i*40) + 'ms';
+      stage.appendChild(band);
+    }
+  }
+  const REVEAL_TOTAL_MS = (BANDS - 1) * 40 + 480; // last band's delay + its own duration
+
+  function playRimIgnition(){
+    const objPath = document.getElementById('obj-path');
+    objPath.style.transition = 'none';
+    objPath.style.stroke = '#7C5CFF';
+    objPath.style.strokeWidth = '4';
+    void objPath.getBoundingClientRect(); // force reflow so the transition below actually animates
+    requestAnimationFrame(()=>{
+      objPath.style.transition = 'stroke-width 700ms ease-out';
+      objPath.style.strokeWidth = '1.5';
+    });
+  }
+
+  function playSweep(){
+    const sweep = document.getElementById('sweep');
+    sweep.style.transition = 'none';
+    sweep.style.transform = 'translate(0%,-50%)';
+    void sweep.offsetWidth; // force reflow
+    requestAnimationFrame(()=>{
+      sweep.style.transition = 'transform 1100ms cubic-bezier(0.4,0,0.2,1)';
+      sweep.style.transform = 'translate(220%,-50%)';
+    });
+  }
+
+  function playReveal(){
+    buildBands();
+    requestAnimationFrame(()=>{
+      requestAnimationFrame(()=>{
+        stage.querySelectorAll('.mask-band').forEach(b=>{
+          b.style.transform = 'scaleY(0)';
+          b.style.opacity = '0';
+        });
+      });
+    });
+    // the light turns on right after the build finishes
+    setTimeout(()=>{
+      playRimIgnition();
+      playSweep();
+    }, REVEAL_TOTAL_MS + 60);
+  }
+  playReveal();
+  document.getElementById('replay').addEventListener('click', playReveal);
+
+  // studio configurator live readout
+  const sizeInput = document.getElementById('size');
+  const infillInput = document.getElementById('infill');
+  function updateReadout(){
+    const size = parseInt(sizeInput.value,10);
+    const infill = parseInt(infillInput.value,10);
+    const minutes = Math.round(size * 1.2 + infill * 1.6);
+    const hours = Math.floor(minutes/60);
+    const mins = minutes % 60;
+    const cost = (size * 0.18 + infill * 0.12 + 8).toFixed(2);
+    document.getElementById('out-size').textContent = size + 'MM';
+    document.getElementById('out-infill').textContent = infill + '%';
+    document.getElementById('out-time').textContent = hours + 'H ' + String(mins).padStart(2,'0') + 'M';
+    document.getElementById('out-cost').textContent = '$' + cost;
+  }
+  sizeInput.addEventListener('input', updateReadout);
+  infillInput.addEventListener('input', updateReadout);
+  updateReadout();
+</script>
+
+</body>
+</html>
