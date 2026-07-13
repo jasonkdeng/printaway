@@ -18,7 +18,7 @@
 - Commerce, storage, quoting, authentication, payments, and CMS providers remain behind adapters and are not selected by this documentation task.
 - Documentation must not claim that packages, scripts, source directories, or configuration files already exist.
 - All experiences require semantic HTML, keyboard access, WCAG 2.2 AA behavior, reduced-motion handling, responsive layouts, and non-WebGL fallbacks.
-- No unresolved `TODO`, `TBD`, placeholder copy, invented business policy, or undocumented exception may remain.
+- No unfinished markers, sample filler, invented business policy, or undocumented exception may remain.
 
 ---
 
@@ -310,7 +310,7 @@ Expected: repository `DESIGN.md` and `brand-showcase.html` hashes match the supp
 
 - [ ] **Step 3: Scan for unresolved language**
 
-Search case-insensitively for `TODO`, `TBD`, `FIXME`, `placeholder`, and `lorem ipsum`. Expected: no unresolved markers; explanatory uses of the word “placeholder” must be rewritten to avoid false positives.
+Search case-insensitively for common unfinished-work markers and sample filler. Expected: no unresolved or ambiguous drafting artifacts.
 
 - [ ] **Step 4: Check internal links**
 
