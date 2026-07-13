@@ -1,14 +1,14 @@
-# PrintAway Quality Gates
+# Printaway Quality Gates
 
 ## Purpose
 
-This document defines the evidence required before a PrintAway change is considered ready. It applies to application code, content, styling, motion, and product media.
+This document defines the evidence required before a Printaway change is considered ready. It applies to application code, content, styling, motion, and product media.
 
-The repository is currently documentation-first. The commands below become executable when the Next.js scaffold exposes the documented scripts.
+The initial Next.js scaffold exposes the commands below. Their output remains the only evidence that a given change has passed; unfinished workflows and missing browser dependencies must be reported as unverified.
 
 ## Required checks
 
-The future `package.json` must expose:
+`package.json` exposes:
 
 ```bash
 npm run lint
@@ -44,17 +44,17 @@ Cover pure logic for:
 - schema parsing and stable error codes;
 - stale estimate response handling.
 
-Tests use representative valid, boundary, and invalid values. Currency is explicit and money uses integer minor units.
+Tests use representative valid, boundary, and invalid values. Money uses integer minor units and an explicit currency from the business-approved launch configuration. Quote-submission fixtures use only the approved contact and consent schemas. Until those business decisions exist, the corresponding checks remain required but unverified; fixtures must not establish a default currency or contact-field contract.
 
 ### Component tests
 
 Cover observable behavior for:
 
-- Shop filters and URL state;
+- Shop material and availability filters and URL state;
 - product variant and quantity selection;
 - add-to-cart feedback;
 - cart quantity changes, removal, price conflict, and unavailable lines;
-- Studio step progression;
+- all six Studio steps in order and `STEP n OF 6` progress labels;
 - invalid field messages and error summary focus;
 - estimate updates and unavailable estimate recovery;
 - upload progress and failed upload recovery;
@@ -69,7 +69,7 @@ Critical journeys:
 1. Home → Shop → product detail → select variant → cart.
 2. Shop product with unavailable variant → choose another valid variant.
 3. Cart price change → review required → cart remains intact.
-4. Studio → material → dimensions → finish → quantity → estimate.
+4. Studio → Reference → Material → Size → Finish → Quantity → Review and submit.
 5. Studio invalid dimensions → correction → valid continuation.
 6. Studio estimate unavailable → submit for confirmed quote.
 7. Studio submission failure → entered data remains available.
@@ -86,13 +86,13 @@ Tests should assert headings, accessible names, visible state, URL state, and us
 Every route must provide:
 
 - semantic landmarks and a logical heading hierarchy;
-- visible focus that meets contrast requirements;
+- a visible focus indicator with at least 3:1 contrast against adjacent colours;
 - keyboard access to every action and form control;
 - accessible names for icon-only controls;
 - labels, instructions, and errors associated with their fields;
 - an error summary that can receive focus when a submission fails;
 - status announcements that do not steal focus;
-- at least WCAG 2.2 AA contrast for text, controls, and focus indicators;
+- WCAG 2.2 AA contrast in default, hover, active, focus, error, and selected states: at least 4.5:1 for normal text and 3:1 for large text, essential component boundaries, graphical objects, and focus indicators;
 - no state conveyed by colour alone;
 - touch targets large enough for reliable use, with 44 CSS pixels as the default target;
 - a useful page when JavaScript or WebGL is unavailable;
@@ -184,12 +184,12 @@ See [the asset guide](ASSET_GUIDE.md) for detailed model and texture budgets.
 
 ## Visual review
 
-Compare affected routes against `DESIGN.md` and `brand-showcase.html`.
+Compare affected routes against `DESIGN.md`, the canonical visual contract. Use `brand-showcase.html` only as an illustrative companion; when they differ, `DESIGN.md` wins.
 
 Review:
 
-- Void Black, Bone, Graphite, Aluminum, Cure Violet, and Hot Amber tokens;
-- Space Grotesk or the approved display-face implementation, General Sans or its approved body implementation, and JetBrains Mono utility text;
+- Void Black, Bone, Graphite, Aluminum, Cure Violet, and Hot Amber tokens using the approved contrast pairings;
+- Neue Machina Bold/ExtraBold display type, General Sans Regular/Medium body type, and JetBrains Mono Regular/Medium utility type;
 - 8 px spacing rhythm;
 - flat surfaces and limited shadow use;
 - line icon vocabulary;
@@ -200,7 +200,7 @@ Review:
 - hero-only gradient/light treatment;
 - allowed motion timing and reduced-motion behavior.
 
-The showcase is a visual reference. Do not copy its illustrative SVG product geometry into production.
+The showcase is not production application code or a token source. Recreate only behavior approved by `DESIGN.md` through the application architecture; do not copy the showcase's illustrative geometry, fixtures, CSS, or JavaScript.
 
 ## Content and data review
 
@@ -227,7 +227,7 @@ Each applicable route is reviewed in these states:
 | Shop | Loading, populated, empty catalog, no filter results, request error |
 | Product detail | Loading media, available, made to order, unavailable, missing product, model failure |
 | Cart | Empty, populated, quantity update, removal, price conflict, unavailable line, handoff failure |
-| Studio | Each step, invalid input, incompatible choice, estimating, estimate unavailable, manual review, submission success, submission failure |
+| Studio | All six steps in order, invalid input, incompatible choice, estimating, estimate unavailable, manual review, submission success, submission failure |
 | Policies | Published, missing content |
 | Global | Keyboard-only, narrow viewport, browser zoom, slow network, disabled WebGL, reduced motion |
 
@@ -257,4 +257,4 @@ Before merge or release:
 - [Architecture](ARCHITECTURE.md)
 - [Content guide](CONTENT_GUIDE.md)
 - [Asset guide](ASSET_GUIDE.md)
-- [Interactive showcase](../brand-showcase.html)
+- [Illustrative brand showcase](../brand-showcase.html)

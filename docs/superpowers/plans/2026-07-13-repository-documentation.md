@@ -1,10 +1,10 @@
-# PrintAway Repository Documentation Implementation Plan
+# Printaway Repository Documentation Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+> **Superseded historical record — do not execute.** This plan records how the documentation baseline was originally created. Its unchecked boxes are not current work. `AGENTS.md` and the current documentation hierarchy govern all changes; byte-for-byte source-fidelity instructions below no longer apply.
 
-**Goal:** Add the approved source references and a complete documentation system that makes the empty PrintAway repository safe and predictable for agent-assisted development.
+**Goal:** Add the approved source references and a complete documentation system that makes the empty Printaway repository safe and predictable for agent-assisted development.
 
-**Architecture:** Keep project-wide authority in a short root `AGENTS.md`, with detailed concerns split into focused files under `docs/`. Preserve the supplied design references verbatim, cross-link all documents, and distinguish present repository state from future implementation contracts.
+**Architecture:** Keep project-wide authority in a short root `AGENTS.md`, with detailed concerns split into focused files under `docs/`. The original import preserved supplied design references; subsequent changes align them through the current authority hierarchy. Cross-link all documents and distinguish present repository state from future implementation contracts.
 
 **Tech Stack:** Markdown, standalone HTML reference, Next.js App Router, strict TypeScript, Tailwind CSS, React Three Fiber/Drei, Zod, Vitest/Testing Library, Playwright.
 
@@ -22,7 +22,7 @@
 
 ---
 
-### Task 1: Preserve the design source material
+### Task 1: Record the original design source import
 
 **Files:**
 - Create: `DESIGN.md`
@@ -30,19 +30,19 @@
 
 **Interfaces:**
 - Consumes: the user-supplied `DESIGN.md` and `brand-showcase.html`.
-- Produces: canonical design source files referenced by every later documentation task.
+- Produces: canonical `DESIGN.md` plus the non-canonical illustrative showcase referenced by later documentation tasks.
 
 - [ ] **Step 1: Add the canonical design specification**
 
-Create root `DESIGN.md` with the supplied content unchanged. Preserve headings, tokens, examples, and motion values.
+At initial import, create root `DESIGN.md` from the supplied content. Current edits follow `AGENTS.md` and the approved documentation hierarchy rather than a byte-for-byte preservation rule.
 
-- [ ] **Step 2: Add the interactive showcase**
+- [ ] **Step 2: Add the illustrative showcase**
 
-Create root `brand-showcase.html` with the supplied standalone HTML, CSS, SVG, and JavaScript unchanged.
+At initial import, create root `brand-showcase.html` from the supplied companion. Current edits may correct it for alignment, but it remains illustrative and non-canonical.
 
 - [ ] **Step 3: Validate source fidelity**
 
-Compare SHA-256 hashes of both repository files with the supplied workspace copies. Expected: each pair of hashes is identical.
+This was an initial-import check only. Hash equality with the supplied workspace copies is not a current acceptance gate.
 
 - [ ] **Step 4: Validate the showcase structure**
 
@@ -50,7 +50,7 @@ Confirm the file contains a document type, one `<html lang="en">`, a viewport-re
 
 - [ ] **Step 5: Commit**
 
-Commit message: `docs: add PrintAway design references`.
+Commit message: `docs: add Printaway design references`.
 
 ---
 
@@ -105,7 +105,7 @@ Commit message: `docs: add agent development instructions`.
 
 - [ ] **Step 1: Replace the placeholder README**
 
-Explain PrintAway in one paragraph; distinguish Shop and Studio; list the approved stack; state that the repository is in documentation-first setup; link every authoritative document; include the eventual install, development, validation, and build commands as a future workflow clearly labeled unavailable until scaffolding.
+Explain Printaway in one paragraph; distinguish Shop and Studio; list the approved stack; state that the repository is in documentation-first setup; link every authoritative document; include the eventual install, development, validation, and build commands as a future workflow clearly labeled unavailable until scaffolding.
 
 - [ ] **Step 2: Define users and jobs**
 
@@ -121,7 +121,7 @@ Specify gallery density, filters appropriate to a small catalog, product cards, 
 
 - [ ] **Step 5: Define Studio behavior**
 
-Specify the material → size → finish → quantity flow, live estimate semantics, upload/reference requirements, validation behavior, review step, quote submission, and machine-style readout.
+Specify the six-step Reference → Material → Size → Finish → Quantity → Review and submit flow, live estimate semantics, validation behavior, quote submission, and machine-style readout.
 
 - [ ] **Step 6: Define state and failure behavior**
 
@@ -141,7 +141,7 @@ Link `README.md` to the product spec and all guides; link the product spec to `D
 
 - [ ] **Step 10: Commit**
 
-Commit message: `docs: define PrintAway product scope`.
+Commit message: `docs: define Printaway product scope`.
 
 ---
 
@@ -164,11 +164,11 @@ Specify responsibilities for `src/app`, `src/features/shop`, `src/features/studi
 
 - [ ] **Step 3: Define domain models**
 
-Describe stable fields and invariants for Product, ProductVariant, Material, StudioConfiguration, Estimate, CartLine, and QuoteRequest. Use provider-neutral identifiers and minor currency units.
+Describe stable fields and invariants for Product, ProductVariant, Material, StudioConfiguration, Estimate, and CartLine. Reserve the launch currency and explicit QuoteContact/QuoteRequest fields for business confirmation; use provider-neutral identifiers and minor currency units.
 
 - [ ] **Step 4: Define adapter interfaces**
 
-Describe CatalogRepository, CartStore, EstimateService, QuoteRepository, AssetRepository, and ContentRepository responsibilities, inputs, outputs, and failure categories without selecting a vendor.
+Describe CatalogRepository, CartStore, EstimateService, AssetRepository, and ContentRepository responsibilities, inputs, outputs, and failure categories without selecting a vendor. Keep QuoteRepository as a required future boundary whose request signature is defined only after business approval of contact and consent fields.
 
 - [ ] **Step 5: Define rendering boundaries**
 
@@ -267,7 +267,7 @@ Set p75 targets of LCP at or below 2.5 seconds, INP at or below 200 milliseconds
 
 - [ ] **Step 5: Define visual review**
 
-Require comparison with `DESIGN.md` and `brand-showcase.html`; verify tokens, type hierarchy, spacing, flat surfaces, Shop/Studio distinction, motion timing, and allowed gradient exceptions.
+Require comparison with canonical `DESIGN.md`; use `brand-showcase.html` only as an illustrative companion. Verify tokens, type hierarchy, spacing, flat surfaces, Shop/Studio distinction, motion timing, and allowed gradient exceptions.
 
 - [ ] **Step 6: Define route-state matrix**
 
@@ -306,7 +306,7 @@ Expected: all nine approved files exist on `main`.
 
 - [ ] **Step 2: Verify source fidelity**
 
-Expected: repository `DESIGN.md` and `brand-showcase.html` hashes match the supplied files.
+Historical initial-import expectation only. Current files are expected to evolve under the repository authority hierarchy, so source hashes need not match the supplied files.
 
 - [ ] **Step 3: Scan for unresolved language**
 
@@ -318,7 +318,7 @@ Extract relative Markdown links and confirm every local target exists. Expected:
 
 - [ ] **Step 5: Check terminology and authority**
 
-Expected: all files use PrintAway consistently; Shop and Studio remain distinct; technical choices match the approved spec; `DESIGN.md` is the visual authority; the showcase is never described as production code.
+Expected: all files use Printaway consistently; Shop and Studio remain distinct; technical choices match the approved spec; `DESIGN.md` is the visual authority; the showcase is never described as production code.
 
 - [ ] **Step 6: Check repository-state honesty**
 

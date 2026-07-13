@@ -1,4 +1,4 @@
-# PrintAway Content Guide
+# Printaway Content Guide
 
 ## Purpose
 
@@ -8,7 +8,7 @@ If this guide conflicts with `DESIGN.md`, follow `DESIGN.md`.
 
 ## Voice
 
-PrintAway sounds like the person who operates the printer:
+Printaway sounds like the person who operates the printer:
 
 - precise;
 - calm;
@@ -52,7 +52,7 @@ Use plain declarative sentences. Name the real material, unit, limitation, and a
 
 ### Brand
 
-Use `PrintAway` in prose and document titles. The visual wordmark may use lowercase `printaway` as specified in `DESIGN.md`.
+Use `Printaway` in prose and document titles. The visual wordmark uses lowercase `printaway` as specified in `DESIGN.md`.
 
 ### Experiences
 
@@ -76,7 +76,7 @@ Use the recognized material name first, followed by a useful explanation:
 
 These are structural examples, not approved product claims. Published descriptions require verified properties.
 
-Use finish names consistently across product data, filters, Studio, and cart. Do not use two labels for the same production finish.
+Use finish names consistently across product data, Studio, and cart. Do not use two labels for the same production finish.
 
 ## Interface patterns
 
@@ -192,13 +192,14 @@ Do not copy a specifications table into prose.
 
 Use concise uppercase utility text for the visual strip:
 
-`PETG · 0.2 MM LAYERS · 5 H 10 MIN · $54 CAD`
+`{MATERIAL} · {LAYER HEIGHT} · {PRINT TIME} · {FORMATTED PRICE}`
 
 Rules:
 
 - Use middle dots as separators.
 - Keep the order consistent within a grid.
 - Do not show an unverified time.
+- `{FORMATTED PRICE}` includes the approved amount format and explicit business-approved currency.
 - Do not hide required product information only in this strip.
 - Provide the same information in normal page content for assistive technology and touch users.
 
@@ -224,9 +225,11 @@ Studio copy should make each decision feel controlled rather than conversational
 
 ### Step structure
 
+Studio uses exactly six steps in this order: Reference, Material, Size, Finish, Quantity, then Review and submit.
+
 Each step uses:
 
-1. an eyebrow or progress label, such as `STEP 2 OF 5 · MATERIAL`;
+1. an eyebrow or progress label, such as `STEP 2 OF 6 · MATERIAL`;
 2. a direct heading, such as `Choose a material`;
 3. one short explanation of why the choice matters;
 4. field labels and constraints;
@@ -338,7 +341,7 @@ Examples:
 
 - `Products couldn't be loaded. Try again.`
 - `That variant is no longer available. Choose another material or finish.`
-- `The price changed from $38 to $42 CAD. Review the cart before checkout.`
+- `The price changed from {previous formatted price} to {current formatted price}. Review the cart before checkout.`
 - `Estimate unavailable. You can still submit this configuration for a confirmed quote.`
 - `The request wasn't submitted. Your configuration is still here.`
 
@@ -393,7 +396,7 @@ Do not use the icon name, such as `Rotate icon`.
 
 Keep live-region messages short and event-based:
 
-- `Estimate updated: $64 CAD, approximately 4 hours 10 minutes.`
+- `Estimate updated: {formatted price}, approximately {formatted duration}.`
 - `Material changed to PETG. Finish selection cleared.`
 - `Quote request submitted. Reference PA-1042.`
 
@@ -403,7 +406,7 @@ Do not announce every range-input movement. Announce after a settled change or e
 
 Page titles use:
 
-`{Specific page or product} — PrintAway`
+`{Specific page or product} — Printaway`
 
 Descriptions state the object, material or purpose, and relevant action. Avoid lists of keywords.
 
@@ -414,7 +417,7 @@ Social images must use approved product media, retain safe crop space, and never
 Before publishing a factual claim, record its source in product or material content:
 
 - manufacturer technical data;
-- PrintAway test method and date;
+- Printaway test method and date;
 - production system data;
 - approved business policy;
 - authoritative inventory or price source.

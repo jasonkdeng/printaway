@@ -1,8 +1,8 @@
-# PrintAway Product Specification
+# Printaway Product Specification
 
 ## Purpose
 
-PrintAway helps someone either purchase a finished small-batch 3D-printed object or prepare a clear custom-print request. The experience should feel like a precise workshop: calm, product-led, technically credible, and easy to operate.
+Printaway helps someone either purchase a finished small-batch 3D-printed object or prepare a clear custom-print request. The experience should feel like a precise workshop: calm, product-led, technically credible, and easy to operate.
 
 This specification defines the first releasable web product. It does not define business policies or select external service providers.
 
@@ -56,7 +56,7 @@ Policy pages must not ship with invented terms. A route may remain unpublished u
 
 The homepage must:
 
-- state what PrintAway makes without generic 3D-printing hype;
+- state what Printaway makes without generic 3D-printing hype;
 - show one hero product with an authored still or optimized model;
 - offer clear paths to `Shop objects` and `Configure a print`;
 - explain the value of material and process choices in concrete terms;
@@ -71,7 +71,7 @@ The homepage must:
 The Shop is a small gallery, not a marketplace. It must:
 
 - use generous spacing and product-first imagery;
-- support only useful filters backed by real catalog data, initially material, use, and availability;
+- support only useful filters backed by real catalog data, initially material and availability;
 - retain filter state in the URL when filters exist;
 - show product name, starting or exact price, material, key dimension, and availability;
 - use the documented mono specification strip without hiding essential information exclusively behind hover;
@@ -150,7 +150,7 @@ Review must show:
 - material, dimensions, unit, finish, and quantity;
 - provisional cost and production-time estimates when available;
 - exclusions or assumptions used in the estimate;
-- customer contact fields required for follow-up;
+- business-approved customer contact fields required for follow-up;
 - consent text tied to an approved privacy policy before collecting personal information;
 - a single `Submit quote request` action.
 
@@ -248,11 +248,11 @@ The first release excludes:
 
 Implementation must stop for confirmation before encoding:
 
-- actual products, prices, taxes, currencies, and inventory rules;
+- actual products, prices, taxes, launch currency, and inventory rules;
 - supported materials, colors, dimensions, finishes, and tolerances;
 - production, dispatch, pickup, and shipping promises;
 - return, privacy, upload-retention, and acceptable-use policies;
-- quote contact fields and response expectations;
+- quote contact fields, consent requirements, and response expectations;
 - accepted upload types and maximum sizes;
 - payment and checkout provider;
 - commerce, content, storage, email, analytics, and error-monitoring providers.
@@ -261,7 +261,7 @@ Implementation must stop for confirmation before encoding:
 
 - [Agent instructions](../AGENTS.md)
 - [Design system](../DESIGN.md)
-- [Interactive showcase](../brand-showcase.html)
+- [Illustrative brand showcase](../brand-showcase.html)
 - [Architecture](ARCHITECTURE.md)
 - [Content guide](CONTENT_GUIDE.md)
 - [Asset guide](ASSET_GUIDE.md)

@@ -1,6 +1,12 @@
-# PrintAway
+# Printaway
 
-PrintAway is a product-first 3D-printing storefront for small-batch objects and custom commissions. **Shop** presents ready-to-buy pieces as a restrained gallery. **Studio** guides a customer through material, size, finish, and quantity while a machine-style panel shows provisional production and price estimates.
+## Current status
+
+The repository now contains the first strict Next.js App Router scaffold, shared design tokens, staged routes, and test tooling. It does not yet contain approved catalog data, business-approved currency or Studio contact requirements, policies, production media, or provider adapters.
+
+See [the implementation plan](docs/IMPLEMENTATION_PLAN.md) for the staged path from the scaffold to a release-ready application.
+
+Printaway is a product-first 3D-printing storefront for small-batch objects and custom commissions. **Shop** presents ready-to-buy pieces as a restrained gallery. **Studio** guides a customer through a six-step reference, material, size, finish, quantity, and review flow while a machine-style panel shows provisional production and price estimates.
 
 The repository is currently in its documentation-first setup phase. The application has not been scaffolded yet.
 
@@ -24,14 +30,14 @@ Read these before implementation:
 
 - [Agent instructions](AGENTS.md)
 - [Brand and design system](DESIGN.md)
-- [Interactive brand showcase](brand-showcase.html)
+- [Illustrative brand showcase](brand-showcase.html)
 - [Product specification](docs/PRODUCT_SPEC.md)
 - [Application architecture](docs/ARCHITECTURE.md)
 - [Content guide](docs/CONTENT_GUIDE.md)
 - [3D asset guide](docs/ASSET_GUIDE.md)
 - [Quality gates](docs/QUALITY.md)
 
-`DESIGN.md` is the design authority. The showcase demonstrates the system but is not production application code.
+`DESIGN.md` is the design authority. The showcase is a non-canonical illustrative companion, not production application code or a token source.
 
 ## Planned experience
 

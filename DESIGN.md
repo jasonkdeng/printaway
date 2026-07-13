@@ -1,4 +1,4 @@
-# printaway — brand & design system
+# Printaway — brand & design system
 
 **Prepared for:** a 3D printing studio operating between Toronto and Waterloo, Ontario — ready-made printed objects and custom/commissioned prints.
 **Prepared by:** freelance UX/brand design
@@ -10,13 +10,15 @@
 
 This is a working system, not a mood board. Every rule below is written so a developer, photographer, sign shop, or the next designer you hire can pick it up and produce something on-brand without asking you what you meant. Where a decision is still open (the legal company name, for instance), it's flagged explicitly — everything else is a committed direction.
 
+Product names, materials, prices, currencies, inventory labels, production times, shipping claims, and estimates shown in examples demonstrate presentation only. They are not approved business data. `docs/PRODUCT_SPEC.md` identifies the business decisions that must be confirmed before implementation or publication.
+
 ---
 
 ## 1. Brand strategy
 
 ### 1.1 Positioning
 
-Most 3D printing companies sell the process — "additive manufacturing," "rapid prototyping," filament specs. This brand sells the object and treats the process as the reason to trust it, not the headline. The printer is the workshop; the storefront is the gallery. Every design decision below exists to make a printed object look like it deserves a plinth and a spotlight, whether it's a $22 desk object or a one-off commission.
+Most 3D printing companies sell the process — "additive manufacturing," "rapid prototyping," filament specs. This brand sells the object and treats the process as the reason to trust it, not the headline. The printer is the workshop; the storefront is the gallery. Every design decision below exists to make a printed object look like it deserves a plinth and a spotlight, whether it's a small desk object or a one-off commission.
 
 ### 1.2 Two cities, one identity
 
@@ -55,7 +57,7 @@ If a design choice could plausibly belong to a children's toy brand or a SaaS da
 
 Confirmed: **Printaway** (set as `printaway`, always lowercase, in the wordmark; sentence case in running text — "Printaway").
 
-The name is more playful and more literal than the working name this system was first drafted around — it says exactly what the shop does, no decoding required, and it reads equally well on a storefront sign in Toronto and a shipping label out of Waterloo. The job of the rest of this system is to keep that friendliness from tipping into "novelty gift shop": the color, type, and motion stay precise and a little industrial specifically so **printaway** doesn't read as cutesy. Playful name, serious craft — that tension is the brand.
+The name is more playful and more literal than the working name this system was first drafted around — it says exactly what the shop does, no decoding required, and it reads equally well on a storefront sign in Toronto and a shipping label out of Waterloo. The job of the rest of this system is to keep that friendliness from tipping into "novelty gift shop": the color, type, and motion stay precise and a little industrial specifically so **Printaway** doesn't read as cutesy. Playful name, serious craft — that tension is the brand.
 
 One practical note: because "away" reads adjacent to takeout/delivery apps (as in "get it delivered"), keep supporting copy anchored to *making* and *printing* early and often on first touch (homepage hero, storefront sign, packaging) so the name lands as "print, away from a factory floor" rather than "printing delivered to you." It's a one-line copy discipline, not a design constraint.
 
@@ -91,12 +93,29 @@ Six named colors. No off-palette hex values anywhere — packaging, signage, and
 | **Bone** | `#F5F2ED` | Primary text on dark, and the rare light surface (packaging interior, print invoices). Warm off-white, not clinical white. |
 | **Graphite** | `#3A3A3D` | Secondary dark surface — cards, dividers, the "shelf" behind a product on light-mode assets. |
 | **Aluminum** | `#B8B8B4` | Secondary/muted text, raw-material reference (this is what unpainted PLA and machined aluminum actually look like under gallery light). |
-| **Cure violet** | `#7C5CFF` | Primary signal color. This is not a decorative accent — it's the actual wavelength of the light that cures photopolymer resin. Use it for the one thing per screen that wants attention: a CTA, a live status, a price. |
-| **Hot amber** | `#FF7A33` | Secondary signal color, used sparingly — the color of a heated nozzle. Reserved for scarcity/urgency only: "1 left," "limited batch," an overheating build-plate warning in the studio configurator. Never used decoratively. |
+| **Cure Violet** | `#7C5CFF` | Primary signal color. This is not a decorative accent — it's the actual wavelength of the light that cures photopolymer resin. Use it for the one thing per screen that wants attention: a CTA, a live status, a price. |
+| **Hot Amber** | `#FF7A33` | Secondary signal color, used sparingly — the color of a heated nozzle. Reserved for scarcity/urgency only: "1 left," "limited batch," an overheating build-plate warning in the Studio configurator. Never used decoratively. |
 
 **Distribution guideline:** roughly 60% Void Black/Graphite, 30% Bone, 10% signal colors combined — and within that 10%, Hot Amber should be a sliver (under 2% of any given screen). If a page feels like it has "a lot of purple" or "a lot of orange," that's a bug, not a style.
 
-**Accessibility:** Bone-on-Void-Black body text passes AA comfortably. Cure violet on Void Black is AA for large text (24px+) and UI elements/icons, but is not reliable for small body copy — never set a paragraph of small text in violet; reserve it for headlines, buttons, and short labels.
+### 4.1 WCAG 2.2 AA pairings
+
+Keep text and essential indicators fully opaque. These token pairings are approved:
+
+| Foreground | Background | Contrast | Approved use |
+|---|---|---:|---|
+| Bone | Void Black | 17.72:1 | Primary text and controls on the default surface |
+| Void Black | Bone | 17.72:1 | Primary text and focus indicators on rare light surfaces |
+| Aluminum | Void Black | 9.95:1 | Secondary text and utility labels |
+| Bone | Graphite | 10.15:1 | Primary text on secondary dark surfaces |
+| Graphite | Bone | 10.15:1 | Secondary text on rare light surfaces |
+| Aluminum | Graphite | 5.70:1 | Secondary text on secondary dark surfaces |
+| Void Black | Cure Violet | 4.55:1 | Text and icons on primary signal fills |
+| Cure Violet | Void Black | 4.55:1 | Short labels, prices, and essential indicators; never paragraphs |
+| Void Black | Hot Amber | 7.62:1 | Text and icons on warning or scarcity fills |
+| Hot Amber | Void Black | 7.62:1 | Warning or scarcity labels |
+
+Do not use Aluminum text on Bone, or Bone or Aluminum text on Cure Violet or Hot Amber fills. Aluminum on Bone is 1.78:1, Bone on Cure Violet is 3.89:1, and Bone on Hot Amber is 2.33:1; each fails normal-text AA. Cure Violet on Graphite is 2.61:1, which fails normal text, large text, and essential UI contrast. A Cure Violet control placed on Graphite needs a Bone or Aluminum boundary, and Graphite against Void Black must not be the only focus or control boundary. Pair every colour-coded stock, warning, error, selection, or live-status state with visible text or an icon.
 
 ---
 
@@ -150,7 +169,7 @@ Every product photograph on the site, in packaging, and on social templates is c
 - **Hero sections:** the product/subject occupies at most 45% of viewport width on desktop. The rest stays Void Black or Bone — no filler texture, no decorative shapes to "balance" it.
 - **Product grids:** minimum 64px gutter between cards at desktop; cards never touch the viewport edge (96px outer margin minimum, per the grid above).
 - **Off-center placement:** never dead-center a hero product shot. Bias it to a lower third or one side, the way a single object sits in a dark gallery window — the empty space should feel like it's doing the framing, not like it's leftover.
-- **One CTA per screen.** If there are two buttons, one is secondary (outline, Bone text) and one is primary (Cure violet fill). Never two filled buttons on one screen.
+- **One CTA per screen.** If there are two buttons, one is secondary (outline, Bone text) and one is primary (Cure Violet fill with Void Black text). Never two filled buttons on one screen.
 
 ---
 
@@ -160,7 +179,7 @@ This is the section that carries the "moody, modern lighting that intrigues the 
 
 - **Single dominant key light**, 30–45° above and to one side of the object. Let it cast a real, slightly hard-edged shadow — this is workshop/gallery light, not beauty-dish e-commerce light. Shadows are part of the composition, not something to eliminate.
 - **Background is always Void Black or deep Graphite seamless.** No white sweep, no lifestyle backdrops, no in-home "on a shelf" staging for hero shots.
-- **A thin rim/edge light in Cure violet or cool white** separates the object's silhouette from the black background. This is the one place the violet accent shows up in photography rather than UI — a literal nod to the glow of a resin cure chamber. This same rim light is what animates on-screen (Section 8.2) — the site isn't just showing a photo of the light, it's letting the light move.
+- **A thin rim/edge light in Cure Violet or cool white** separates the object's silhouette from the black background. This is the one place the violet accent shows up in photography rather than UI — a literal nod to the glow of a resin cure chamber. This same rim light is what animates on-screen (Section 8.2) — the site isn't just showing a photo of the light, it's letting the light move.
 - **Macro layer-line inserts:** extreme close-up shots of the actual print texture (the ridged surface you get from FDM layers, or the faint striations on a resin part), lit hard from the side to raise the ridges. Use these small, as texture accents in otherwise-empty negative space — a 200px inset in a large black field, never full-bleed decoration.
 - **No overexplained lifestyle shots.** A hand holding the product is fine as a small secondary/detail image on a product page; it is never the hero. The hero is the object, alone, lit like it's the only thing in the room.
 - **Custom/Studio photography is allowed to be rawer:** shots of the object mid-print, still on the bed, nozzle in frame, ambient light low except for the printer's own LED glow. This is intentional — Shop photography is "finished gallery piece," Studio photography is "you're watching it get made."
@@ -184,9 +203,9 @@ The one motion idea this brand should be remembered for. When a hero product ima
 
 The layer reveal is the *build*. This is the *light turning on* — the second half of the same moment, and the direct answer to "I want to see more lighting play, like an Apple reveal." Apple does this in video; here it's simulated with real-time CSS/canvas so it costs nothing to load and still works on a phone. Three things happen in sequence, immediately after the layer reveal finishes:
 
-1. **Rim-light ignition** — the Cure-violet edge light around the object (the rim light from Section 7's photography direction) flares slightly brighter for ~200ms, then settles back to its steady, quiet level. It should read as "the light just switched on," not as a flash.
+1. **Rim-light ignition** — the Cure Violet edge light around the object (the rim light from Section 7's photography direction) flares slightly brighter for ~200ms, then settles back to its steady, quiet level. It should read as "the light just switched on," not as a flash.
 2. **Specular sweep** — a soft, angled highlight travels once across the surface of the object, left to right, over 900–1100ms, `ease-in-out`. This is the Apple-keynote move: a single continuous pass of light across a physical surface, not a looping shimmer. **Build this as a heavily blurred ellipse (not a gradient rectangle).** A linear-gradient band, even one that fades to transparent at its own edges, still reads as a moving box the moment you look for it — the fix is an elliptical radial falloff *combined with* a large blur (roughly 20px at this scale) applied to the whole element, so there's no straight edge anywhere for the eye to catch, in any direction.
-3. **Ambient glow** — a large, very soft, blurred glow in Cure violet (roughly 15–30% opacity, well outside the object's silhouette) breathes gently behind the whole scene — a slow 4s ease-in-out pulse, barely noticeable, giving the sense there's a real light source alive in the room rather than a static graphic.
+3. **Ambient glow** — a large, very soft, blurred glow in Cure Violet (roughly 15–30% opacity, well outside the object's silhouette) rises and falls once over 4s with `ease-in-out`, then settles at its quiet resting opacity. It gives the sense that a real light source turned on without becoming ambient spectacle.
 
 Rules that keep this from sliding into "generic glowy AI website":
 - This sequence runs **once**, right after the layer reveal, not on a loop. If someone stares at the hero for ten seconds, it should go still — a lit room, not a disco.
@@ -196,7 +215,7 @@ Rules that keep this from sliding into "generic glowy AI website":
 ### 8.3 Hover (product cards)
 
 - Card lifts 4px, a soft shadow appears (this is one of the only places a shadow is allowed — everywhere else stays flat).
-- A thin mono-type spec strip slides up from the bottom edge of the card: material, print time, price — e.g. `PLA · 3H 40M · $38`. This is the "operating the machine" detail showing up even in the curated Shop.
+- A thin mono-type spec strip slides up from the bottom edge of the card: material, print time, price — e.g. `PLA · 3H 40M · {FORMATTED PRICE}`. This is the "operating the machine" detail showing up even in the curated Shop.
 - Duration: 180ms ease-out. No bounce, no overshoot — this brand doesn't do playful spring physics.
 - On product-detail pages (not thumbnail grids), hovering the object itself replays a short, contained version of the specular sweep (8.2, step 2) — this is the one place the light sweep is allowed to repeat on demand, since it's user-triggered rather than ambient.
 
@@ -234,9 +253,9 @@ A small crosshair/reticle replaces the default cursor on the custom-print config
 
 ### 10.2 Studio (custom/commissioned prints)
 
-- A step-based configurator, not a form. Each step (material → size → finish → quantity) fills one focused screen.
-- A persistent live readout panel, styled like a machine control panel: mono type, Void Black background, updating in real time as the person adjusts parameters — `EST. PRINT TIME: 4H 10M`, `MATERIAL: PETG`, `EST. COST: $64`. This is the literal "operating the machine yourself" feeling the brand strategy calls for.
-- The crosshair cursor (8.4) lives here.
+- A six-step configurator, not a single form: Reference → Material → Size → Finish → Quantity → Review and submit. Each step fills one focused screen.
+- A persistent live readout panel, styled like a machine control panel: mono type, Void Black background, updating in real time as the person adjusts parameters — `EST. PRINT TIME: 4H 10M`, `MATERIAL: PETG`, `EST. COST: {FORMATTED PRICE}`. This is the literal "operating the machine yourself" feeling the brand strategy calls for.
+- The crosshair cursor (8.5) lives here.
 - No product grid aesthetic here at all — Studio should never look like it was assembled from the same template as Shop. That contrast is the point.
 
 ---
@@ -255,7 +274,7 @@ Precise, calm, a little dry. This brand talks like the person who actually runs 
 
 ## 12. Physical & storefront applications
 
-- **Signage:** edge-lit acrylic in Void Black, with Bone or Cure-violet backlit lettering — no printed vinyl banners, no illuminated plastic lightbox signs.
+- **Signage:** edge-lit acrylic in Void Black, with Bone or Cure Violet backlit lettering — no printed vinyl banners, no illuminated plastic lightbox signs.
 - **Window display:** one hero object per week, on a dark plinth, lit by a single spotlight from a fixed angle — literally the photography direction in Section 7, staged physically. Rotate weekly to create a reason to walk by again; never display more than one "hero" object in the window at a time.
 - **In-store shelving:** deliberately under-stocked. Three to five objects visible per shelf section maximum, each with real space around it — the negative-space rule applies physically, not just on-screen.
 - **Business cards / print collateral:** Void Black stock, Bone ink, mark only (no wordmark) embossed rather than printed where budget allows — texture over color.
@@ -272,7 +291,7 @@ Precise, calm, a little dry. This brand talks like the person who actually runs 
 | Packaging exterior | Void Black | Mark only | No wordmark, embossed if possible |
 | Packaging interior | Bone | Wordmark, Body M care copy | The one place the palette flips light |
 | Social template | 6:5 product frame | Mono caption strip | Product frame ratio from Section 6.3, always |
-| Storefront sign | Edge-lit Void Black acrylic | Wordmark or mark | Bone or Cure-violet backlight only |
+| Storefront sign | Edge-lit Void Black acrylic | Wordmark or mark | Bone or Cure Violet backlight only |
 
 ---
 
@@ -282,13 +301,13 @@ Precise, calm, a little dry. This brand talks like the person who actually runs 
 - Let negative space carry weight — an empty two-thirds of a hero section is a choice, not a gap to fill.
 - Keep every number on the site in mono type.
 - Let Studio and Shop look meaningfully different from each other.
-- Reserve Cure violet and Hot amber for the one thing per screen that needs attention.
+- Reserve Cure Violet and Hot Amber for the one thing per screen that needs attention.
 
 **Don't:**
 - Add a gradient to a structural surface — buttons, cards, backgrounds, badges, nav bars are flat fields, on-screen and in print, no exceptions. The **only** gradient/glow allowed anywhere in the system is the hero light sweep and ambient glow in Section 8.2, because those are standing in for an actual light source, not decorating a surface. If you're not sure whether a gradient qualifies, it doesn't.
 - Use stock e-commerce iconography (cart badges, generic 3D cube clip art, gear icons).
 - Center-crop hero product photography.
-- Let Hot amber become a decorative color — it means scarcity/urgency and nothing else.
+- Let Hot Amber become a decorative color — it means scarcity/urgency and nothing else.
 - Add a numbered step system (01 / 02 / 03) to content that isn't a genuine sequence.
 - Use more than one Display 3XL/2XL headline per page.
 
