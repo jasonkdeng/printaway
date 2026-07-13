@@ -1,1 +1,64 @@
-# printaway
+# PrintAway
+
+PrintAway is a product-first 3D-printing storefront for small-batch objects and custom commissions. **Shop** presents ready-to-buy pieces as a restrained gallery. **Studio** guides a customer through material, size, finish, and quantity while a machine-style panel shows provisional production and price estimates.
+
+The repository is currently in its documentation-first setup phase. The application has not been scaffolded yet.
+
+## Direction
+
+The approved application stack is:
+
+- Next.js App Router
+- TypeScript in strict mode
+- Tailwind CSS
+- React Three Fiber and Drei
+- Zod
+- Vitest and Testing Library
+- Playwright
+
+Commerce, payment, storage, quoting, authentication, and content providers will be selected only when the product needs them. Repository-owned adapters will keep those choices out of components and domain logic.
+
+## Project references
+
+Read these before implementation:
+
+- [Agent instructions](AGENTS.md)
+- [Brand and design system](DESIGN.md)
+- [Interactive brand showcase](brand-showcase.html)
+- [Product specification](docs/PRODUCT_SPEC.md)
+- [Application architecture](docs/ARCHITECTURE.md)
+- [Content guide](docs/CONTENT_GUIDE.md)
+- [3D asset guide](docs/ASSET_GUIDE.md)
+- [Quality gates](docs/QUALITY.md)
+
+`DESIGN.md` is the design authority. The showcase demonstrates the system but is not production application code.
+
+## Planned experience
+
+### Shop
+
+A spacious catalog of pre-made prints with strong product imagery, useful technical specifications, honest availability, and direct purchase actions.
+
+### Studio
+
+A focused configurator for custom work. Each step asks for one meaningful decision and updates a persistent readout. Estimates remain clearly provisional until validated by the server or converted into a quote.
+
+## Planned development workflow
+
+After the Next.js scaffold and `package.json` exist, contributors will use:
+
+```bash
+npm install
+npm run dev
+npm run lint
+npm run typecheck
+npm run test
+npm run test:e2e
+npm run build
+```
+
+These commands define the required script interface for the future scaffold; they are not available in the current documentation-only repository.
+
+## Status
+
+The design system, product boundaries, architecture, content rules, asset pipeline, and quality expectations are documented. The next development phase is the application scaffold and foundational design tokens.
