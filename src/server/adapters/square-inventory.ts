@@ -10,7 +10,7 @@ const squareInventoryResponseSchema = z.object({
     quantity: z.coerce.number().finite(),
     state: z.string(),
     calculated_at: z.string().datetime(),
-  })),
+  })).default([]),
 });
 
 type FetchLike = typeof fetch;
@@ -29,7 +29,7 @@ export class SquareInventoryRepository implements InventoryRepository {
 
   public async getCurrentLevel(input: { variationId: string }): Promise<InventoryLevel | null> {
     const url = new URL(`/v2/inventory/${encodeURIComponent(input.variationId)}`, getSquareApiBaseUrl(this.config.SQUARE_ENVIRONMENT));
-    url.searchParams.set("location_id", this.config.SQUARE_LOCATION_ID);
+    url.searchParams.set("location_ids", this.config.SQUARE_LOCATION_ID);
 
     const response = await this.fetchImplementation(url, {
       headers: {

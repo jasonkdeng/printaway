@@ -7,7 +7,7 @@ describe("SquareInventoryRepository", () => {
     const fetchImplementation = async (input: URL | RequestInfo): Promise<Response> => {
       const url = new URL(input.toString());
       expect(url.pathname).toBe("/v2/inventory/variation-id");
-      expect(url.searchParams.get("location_id")).toBe("location-id");
+      expect(url.searchParams.get("location_ids")).toBe("location-id");
       return Response.json({
         counts: [
           { quantity: "3", state: "IN_STOCK", calculated_at: "2026-07-14T12:00:00.000Z" },
@@ -35,6 +35,17 @@ describe("SquareInventoryRepository", () => {
       SQUARE_ACCESS_TOKEN: "access-token",
       SQUARE_ENVIRONMENT: "production",
     }, async () => Response.json({ counts: [] }));
+
+    await expect(repository.getCurrentLevel({ variationId: "variation-id" })).resolves.toBeNull();
+  });
+
+  it("treats a successful Square response with no counts field as no sellable quantity", async () => {
+    const repository = new SquareInventoryRepository({
+      SQUARE_APPLICATION_ID: "application-id",
+      SQUARE_LOCATION_ID: "location-id",
+      SQUARE_ACCESS_TOKEN: "access-token",
+      SQUARE_ENVIRONMENT: "production",
+    }, async () => Response.json({ errors: [] }));
 
     await expect(repository.getCurrentLevel({ variationId: "variation-id" })).resolves.toBeNull();
   });
