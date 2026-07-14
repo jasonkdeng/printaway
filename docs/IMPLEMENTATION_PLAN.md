@@ -17,14 +17,14 @@ Exit evidence: lint, strict type-check, unit tests, Chromium desktop and mobile 
 
 ## Stage 2 — Approved data and business configuration
 
-**Status: in progress.**
+**Status: complete (configuration boundary).**
 
 - Confirm launch currency and its server-side validation. **Completed: CAD.**
 - Confirm Studio contact fields, consent wording, and response expectations. **Completed: required name and email; optional phone and company; explicit privacy consent; typical response within 48 hours, subject to complexity.**
 - Supply approved catalog, material, availability, media, and policy content.
 - Introduce repository-owned interfaces and server-only configuration schemas without selecting a provider prematurely.
 
-Exit evidence: reviewed content fixtures, Zod boundary tests, and an explicit business decision record. These fixtures must not create a default currency or contact contract before approval.
+Exit evidence: reviewed initial catalog fixtures, upload and retention configuration, Zod boundary tests, a Supabase migration with RLS/private storage boundaries, and an explicit business decision record. Initial catalog fixtures are not publishable product records until dimensions, finishes, availability, and approved media are supplied. The migration remains unapplied to the remote project.
 
 ## Stage 3 — Shop
 
