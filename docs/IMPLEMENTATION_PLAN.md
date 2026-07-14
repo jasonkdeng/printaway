@@ -28,11 +28,13 @@ Exit evidence: reviewed initial catalog fixtures, upload and retention configura
 
 ## Stage 3 — Shop
 
-**Status: pending Stage 2.**
+**Status: in progress.**
 
 - Implement the restrained product gallery, product detail route, inventory presentation, and cart entry points.
 - Support only material and availability filtering in the initial Shop experience, with URL state and recovery states.
 - Deliver accessible image-first product information; introduce 3D only where responsive stills cannot communicate the object.
+- Add Square configuration and an inventory repository boundary. Live quantities remain disabled until Square credentials and one item-variation ID per product are configured; the catalog must not duplicate sellable inventory.
+- Keep product summaries and limitations visibly marked as approval-pending placeholders until reviewed content is supplied.
 
 Exit evidence: domain, component, and Playwright coverage for filter state, unavailable products, quantity selection, and cart feedback at the required review widths.
 
@@ -51,7 +53,7 @@ Exit evidence: keyboard, validation-summary, reduced-motion, upload-failure, sta
 **Status: pending Stages 2–4.**
 
 - Build cart state and persistence behind `CartStore`.
-- Add commerce and quote adapters only after the business approves the required providers and workflow.
+- Add Square checkout and Google OAuth account-cart adapters after the required server credentials and exact Square catalog mappings are configured.
 - Keep provider types and payment details outside components and domain logic.
 
 Exit evidence: server-boundary tests, price-conflict and unavailable-line journeys, and safe failure states.

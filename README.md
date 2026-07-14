@@ -2,7 +2,7 @@
 
 ## Current status
 
-The repository now contains the first strict Next.js App Router scaffold, shared design tokens, staged routes, and test tooling. It does not yet contain approved catalog data, business-approved currency or Studio contact requirements, policies, production media, or provider adapters.
+The repository contains the strict Next.js App Router scaffold, shared design tokens, staged routes, CAD money handling, the approved Studio contact/consent configuration, initial Shop fixtures, and server-only Supabase and Square configuration boundaries. Production media, live Square mappings, authentication, cart persistence, checkout, and quote submission remain staged.
 
 See [the implementation plan](docs/IMPLEMENTATION_PLAN.md) for the staged path from the scaffold to a release-ready application.
 
@@ -22,7 +22,7 @@ The approved application stack is:
 - Vitest and Testing Library
 - Playwright
 
-Commerce, payment, storage, quoting, authentication, and content providers will be selected only when the product needs them. Repository-owned adapters will keep those choices out of components and domain logic.
+Supabase is the approved production database and private upload storage boundary; Square is the approved payment and Shop-inventory provider; Vercel is the hosting and analytics provider. Google OAuth is approved for account-backed cart persistence. Repository-owned adapters keep those choices out of components and domain logic.
 
 ## Project references
 
