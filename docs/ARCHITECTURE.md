@@ -97,7 +97,7 @@ Do not create barrel files that obscure server/client boundaries. Server-only mo
 The following shapes establish stable application language. Exact implementation may use Zod-inferred types, but field meaning must remain provider-neutral.
 
 ```ts
-type CurrencyCode = string; // Narrowed by a server-side Zod schema after business approval.
+type CurrencyCode = "CAD"; // Confirmed launch currency; parsed at the server boundary.
 
 type Money = {
   amountMinor: number;
@@ -437,7 +437,7 @@ No documentation in this repository substitutes for legal or security review.
 
 Tests must target observable behavior and contracts. Avoid tests that merely restate implementation structure.
 
-Money tests inject the business-approved launch currency. Quote submission tests use only the approved contact and consent schemas. Until those decisions exist, the corresponding implementation checks remain required but unverified; fixtures must not establish a default currency or contact-field contract.
+Money tests use the confirmed CAD launch currency. Quote submission tests use only the approved contact and consent schemas. Until those decisions exist, the corresponding implementation checks remain required but unverified; fixtures must not establish a contact-field contract.
 
 ## Architecture decision rule
 

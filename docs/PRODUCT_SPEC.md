@@ -248,7 +248,7 @@ The first release excludes:
 
 Implementation must stop for confirmation before encoding:
 
-- actual products, prices, taxes, launch currency, and inventory rules;
+- actual products, prices, taxes, and inventory rules; launch currency is CAD;
 - supported materials, colors, dimensions, finishes, and tolerances;
 - production, dispatch, pickup, and shipping promises;
 - return, privacy, upload-retention, and acceptable-use policies;

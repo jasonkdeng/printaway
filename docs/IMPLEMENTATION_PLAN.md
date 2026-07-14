@@ -17,10 +17,10 @@ Exit evidence: lint, strict type-check, unit tests, Chromium desktop and mobile 
 
 ## Stage 2 — Approved data and business configuration
 
-**Status: blocked by business confirmation.**
+**Status: in progress.**
 
-- Confirm launch currency and its server-side validation.
-- Confirm Studio contact fields, consent wording, and response expectations.
+- Confirm launch currency and its server-side validation. **Completed: CAD.**
+- Confirm Studio contact fields, consent wording, and response expectations. **Completed: required name and email; optional phone and company; explicit privacy consent; typical response within 48 hours, subject to complexity.**
 - Supply approved catalog, material, availability, media, and policy content.
 - Introduce repository-owned interfaces and server-only configuration schemas without selecting a provider prematurely.
 
