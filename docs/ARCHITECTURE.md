@@ -1,13 +1,13 @@
-# PrintAway Application Architecture
+# Printaway Application Architecture
 
 ## Status
 
-This document defines the architecture for the first application scaffold. The repository does not yet contain the paths, packages, or scripts described here.
+This document defines the architecture for the first application scaffold. The base paths, packages, and scripts now exist; domain workflows, provider adapters, and approved production data remain staged work.
 
 ## Architectural principles
 
 1. **Server first.** Render routes and data-dependent UI with Server Components unless an interaction, browser API, or WebGL boundary requires a Client Component.
-2. **Domain before provider.** PrintAway-owned models and interfaces describe products, configurations, estimates, carts, and quotes. External services adapt to them.
+2. **Domain before provider.** Printaway-owned models and interfaces describe products, configurations, estimates, carts, and quotes. External services adapt to them.
 3. **Thin routes.** Route files compose feature modules, metadata, and loading/error boundaries; they do not contain substantial domain logic.
 4. **Pure calculations.** Validation, compatibility, totals, and estimate calculations live in framework-neutral functions.
 5. **Small client islands.** Hydrate only the configurator, cart controls, filters, and 3D viewer surfaces that need it.
@@ -97,7 +97,7 @@ Do not create barrel files that obscure server/client boundaries. Server-only mo
 The following shapes establish stable application language. Exact implementation may use Zod-inferred types, but field meaning must remain provider-neutral.
 
 ```ts
-type CurrencyCode = "CAD";
+type CurrencyCode = "CAD"; // Confirmed launch currency; parsed at the server boundary.
 
 type Money = {
   amountMinor: number;
@@ -176,35 +176,25 @@ type CartLine = {
   unitPrice: Money;
 };
 
-type QuoteContact = {
-  name: string;
-  email: string;
-  phone?: string;
-};
-
-type QuoteRequest = {
-  configuration: StudioConfiguration;
-  contact: QuoteContact;
-  consentVersion: string;
-};
-
 type QuoteReceipt = {
   reference: string;
   submittedAt: string;
 };
 ```
 
+The launch currency and quote-contact contract are intentionally not selected here. After business approval, define the accepted ISO 4217 `CurrencyCode` through a server-side Zod boundary and add explicit Zod-backed `QuoteContact` and `QuoteRequest` domain types. The approved quote request must identify the applicable consent policy and version. Do not assume a currency code or any particular contact fields, and do not replace the missing decision with an open-ended record or all-optional fields.
+
 Rules:
 
 - IDs are opaque strings.
 - Slugs are presentation identifiers, not database keys.
-- Money uses integer minor units and an explicit currency.
+- Money uses integer minor units and an explicit, boundary-validated currency.
 - Physical dimensions use millimetres internally. UI may convert values at the boundary.
 - Availability is a discriminated union, not a collection of partially related booleans.
 - A provisional estimate never becomes the cart or checkout price without authoritative validation.
 - Customer contact and upload metadata are not stored in analytics events.
 
-CAD is the initial domain currency because PrintAway is initially scoped in Canada. Multi-currency presentation remains outside the first release.
+The first release supports one explicit business-approved launch currency. No default currency is encoded before approval, and multi-currency presentation remains outside the first release.
 
 ## Schemas and validation
 
@@ -257,12 +247,6 @@ interface EstimateService {
   ): Promise<Estimate>;
 }
 
-interface QuoteRepository {
-  create(
-    request: QuoteRequest,
-  ): Promise<QuoteReceipt>;
-}
-
 interface CartStore {
   read(): Promise<CartLine[]>;
   replace(lines: CartLine[]): Promise<void>;
@@ -277,6 +261,8 @@ interface ContentRepository {
 }
 ```
 
+`QuoteRepository` remains a required repository-owned provider boundary, but its request type and `create` signature are deliberately deferred with the contact decision. Add that explicit interface here only after the business approves the required contact fields, consent policy, and response expectations.
+
 Provider adapters may add private helpers but must return these application types or explicit application errors. Components never import a provider SDK.
 
 ## Use cases
@@ -287,7 +273,7 @@ Server-side use cases coordinate interfaces:
 - `getProductDetail`: resolve the product and generate a missing-product result.
 - `validateCart`: re-read variants, compare price and availability, and return changed-line decisions.
 - `calculateStudioEstimate`: validate compatibility, calculate or request an estimate, and return assumptions.
-- `createQuoteRequest`: validate consent and contact data, verify reference IDs, submit the request, and return a receipt.
+- `createQuoteRequest` (business-gated): once the contact and consent schemas are approved, validate them, verify reference IDs, submit the request through `QuoteRepository`, and return a receipt.
 - `getPolicyPage`: read approved versioned content or return a missing-policy result.
 
 Pure domain functions must cover:
@@ -364,7 +350,9 @@ See [the asset guide](ASSET_GUIDE.md) for production constraints.
 
 ### Studio estimate
 
-1. The client maintains a `StudioConfiguration` draft.
+Studio follows Reference → Material → Size → Finish → Quantity → Review and submit.
+
+1. The client maintains a `StudioConfiguration` draft across the six steps.
 2. Pure client-safe rules give immediate compatibility feedback.
 3. Debounced or step-boundary requests send validated inputs to the server.
 4. The server runs the authoritative estimate service.
@@ -373,10 +361,12 @@ See [the asset guide](ASSET_GUIDE.md) for production constraints.
 
 ### Quote submission
 
+This flow is not implementable until the business approves the quote-contact fields, privacy policy, consent requirements, and response expectations. Those decisions must produce explicit domain schemas and the `QuoteRepository` interface before implementation begins.
+
 1. The client validates fields for immediate feedback.
 2. The server parses the complete request again.
 3. Reference IDs are checked without trusting client file paths.
-4. Consent is tied to a published policy version.
+4. Consent is tied to the approved published policy and version.
 5. The quote repository stores or forwards the request.
 6. A stable receipt reference is returned.
 7. The client renders success without exposing internal provider IDs.
@@ -441,11 +431,13 @@ No documentation in this repository substitutes for legal or security review.
 
 - **Domain unit tests:** schemas, compatibility, dimensions, quantity, totals, badges, and estimate state.
 - **Adapter contract tests:** provider fixtures parse into the same application models and failures.
-- **Component tests:** filters, variant selection, cart updates, Studio steps, status announcements, and fallback states.
+- **Component tests:** material and availability filters, variant selection, cart updates, Studio steps, status announcements, and fallback states.
 - **Playwright tests:** browse → product → cart; configure → estimate → submit; price change; unavailable product; failed estimate; keyboard-only flow; reduced motion; WebGL-disabled fallback.
 - **Visual review:** required widths and states from [quality gates](QUALITY.md).
 
 Tests must target observable behavior and contracts. Avoid tests that merely restate implementation structure.
+
+Money tests use the confirmed CAD launch currency. Quote submission tests use only the approved contact and consent schemas. Until those decisions exist, the corresponding implementation checks remain required but unverified; fixtures must not establish a contact-field contract.
 
 ## Architecture decision rule
 

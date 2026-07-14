@@ -1,16 +1,18 @@
-# PrintAway Repository Documentation Design
+# Printaway Repository Documentation Design
 
 **Date:** 2026-07-13  
-**Status:** Approved  
+**Status:** Superseded historical record
 **Repository:** `jasonkdeng/printaway`
+
+> This file records the original documentation-design decision. It is not a current source of implementation requirements. `AGENTS.md` and its current reading order govern all current work; the hierarchy below is historical, with `DESIGN.md` canonical for visual decisions and `brand-showcase.html` illustrative only.
 
 ## Goal
 
-Prepare the empty PrintAway repository for reliable agent-assisted development by adding an authoritative documentation system grounded in the supplied brand specification and interactive brand showcase.
+Prepare the empty Printaway repository for reliable agent-assisted development by adding an authoritative documentation system grounded in the supplied brand specification and an illustrative brand showcase.
 
-## Source-of-truth hierarchy
+## Historical source-of-truth hierarchy
 
-When guidance conflicts, contributors and agents must apply it in this order:
+At the time this record was approved, conflicts were resolved in this order:
 
 1. `AGENTS.md` for repository workflow, engineering constraints, and completion criteria.
 2. `DESIGN.md` for visual identity, interaction design, motion, typography, color, and brand voice.
@@ -39,7 +41,7 @@ The root operating manual for all agentic contributors. It will define:
 
 A concise human entry point covering:
 
-- PrintAway's product proposition;
+- Printaway's product proposition;
 - the distinction between Shop and Studio;
 - the approved stack;
 - current repository status;
@@ -52,7 +54,7 @@ The supplied brand and visual design system will be preserved as the canonical d
 
 ### `brand-showcase.html`
 
-The supplied interactive HTML reference will be preserved at the repository root. It demonstrates the palette, type hierarchy, signature layer reveal, light sweep, product-card behavior, and Studio readout treatment. It is a visual reference, not production application code.
+The supplied HTML companion will be kept at the repository root. It illustrates the palette, type hierarchy, signature layer reveal, light sweep, product-card behavior, and Studio readout treatment. It is neither a source of truth nor production application code.
 
 ### `docs/PRODUCT_SPEC.md`
 
@@ -141,7 +143,7 @@ Shop is a restrained gallery for pre-made products. It prioritizes product image
 
 ### Studio
 
-Studio is a focused, step-based custom-print configurator. It uses a live machine-style readout and must not look like a repurposed Shop grid. Estimates are clearly labeled until server-side validation or a quote makes them authoritative.
+Studio is a focused six-step custom-print configurator: Reference, Material, Size, Finish, Quantity, then Review and submit. It uses a live machine-style readout and must not look like a repurposed Shop grid. Estimates are clearly labeled until server-side validation or a quote makes them authoritative.
 
 ## Quality strategy
 
@@ -154,7 +156,7 @@ Documentation must make these requirements non-optional:
 - responsive layouts from small screens upward;
 - performance budgets for images, fonts, JavaScript, and 3D assets;
 - automated coverage of pricing, configuration, cart, and quote logic;
-- visual comparison against `DESIGN.md` and `brand-showcase.html`.
+- visual comparison against canonical `DESIGN.md`, with `brand-showcase.html` used only as an illustrative companion.
 
 ## Scope boundaries
 

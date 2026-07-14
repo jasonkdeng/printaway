@@ -1,10 +1,10 @@
 # AGENTS.md
 
-This file applies to the entire PrintAway repository. It is the operating contract for human and agentic contributors.
+This file applies to the entire Printaway repository. It is the operating contract for human and agentic contributors.
 
 ## Project state
 
-PrintAway is currently documentation-first. The application scaffold, package manifest, source directories, and validation scripts do not exist yet. Do not report the site as runnable until those files are added and the documented checks pass.
+Printaway has an initial application scaffold, package manifest, source directories, and validation scripts. It is not a complete commerce or Studio submission application: catalog data, business-approved currency and contact requirements, policies, assets, and provider adapters remain unimplemented. Do not report an unverified command or unfinished workflow as runnable.
 
 ## Read before changing anything
 
@@ -24,10 +24,10 @@ If instructions conflict, the earlier source in this list wins. `DESIGN.md` alwa
 
 ## Product intent
 
-PrintAway has two deliberately different experiences:
+Printaway has two deliberately different experiences:
 
 - **Shop** is a restrained gallery for small-batch, ready-to-buy printed objects.
-- **Studio** is a focused custom-print configurator with a live machine-style readout.
+- **Studio** is a focused six-step configurator — Reference, Material, Size, Finish, Quantity, then Review and submit — with a live machine-style readout.
 
 Do not collapse Studio into a product-grid template. Do not turn Shop into a dense marketplace catalog. The product object is the visual subject; manufacturing detail provides trust.
 
@@ -49,7 +49,7 @@ Commerce, payments, storage, authentication, quoting, and CMS providers must sit
 
 ## Planned repository shape
 
-These paths are a contract for the future scaffold, not a claim about current files:
+These paths define the intended scaffold shape. Create a path only when its responsibility is needed; a present directory is not a claim that its workflow is complete:
 
 ```text
 src/
@@ -129,6 +129,7 @@ Rules:
 - Use the 8 px spacing system and the documented type hierarchy.
 - Keep surfaces flat. Gradients are reserved for the hero light-source effect described in `DESIGN.md`.
 - Use Hot Amber only for scarcity, warnings, or destructive attention.
+- Follow the approved foreground/background pairings in `DESIGN.md`: signal-colour fills use Void Black text, and colour is never the only carrier of meaning.
 - Use line icons only when they improve wayfinding or explain a specification.
 - Keep animation restrained: no springy bounce, ornamental scroll effects, or repeated ambient hero spectacle.
 - Implement every animated behavior with a complete `prefers-reduced-motion` alternative.
@@ -146,6 +147,7 @@ Rules:
 ### Copy and data
 
 - Follow `docs/CONTENT_GUIDE.md`.
+- Use `Printaway` in prose and document titles; reserve lowercase `printaway` for the visual wordmark and lowercase asset or repository names.
 - Use plain, specific language and real units.
 - Never invent prices, stock, production times, shipping claims, material properties, policies, testimonials, or sustainability claims.
 - Keep example fixtures clearly separated from production content.
@@ -170,7 +172,7 @@ For implementation work:
 - Run the narrowest relevant test while iterating.
 - Before completion, run lint, typecheck, the relevant unit/component tests, applicable Playwright journeys, and a production build.
 - Inspect the browser console for affected routes.
-- Compare visual work against `DESIGN.md` and the showcase at required review widths.
+- Compare visual work against `DESIGN.md` at the required review widths. Use the showcase only as a non-canonical illustrative companion.
 - Verify keyboard-only, reduced-motion, loading, empty, error, and WebGL-unavailable states where relevant.
 
 Do not claim a check passed unless its current output was inspected. If a required check cannot run, state exactly why and what remains unverified.

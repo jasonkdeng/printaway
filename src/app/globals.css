@@ -1,0 +1,19 @@
+@import "tailwindcss";
+@import "../styles/tokens.css";
+@import "../styles/motion.css";
+
+html {
+  background: var(--pa-void);
+}
+
+body {
+  min-height: 100vh;
+  background: var(--pa-void);
+  color: var(--pa-bone);
+  font-family: var(--pa-font-body);
+}
+
+::selection {
+  background: var(--pa-cure-violet);
+  color: var(--pa-void);
+}

@@ -1,0 +1,24 @@
+:root {
+  --pa-void: #0a0a0b;
+  --pa-bone: #f5f2ed;
+  --pa-graphite: #3a3a3d;
+  --pa-aluminum: #b8b8b4;
+  --pa-cure-violet: #7c5cff;
+  --pa-hot-amber: #ff7a33;
+  --pa-font-display: "Neue Machina", Arial, sans-serif;
+  --pa-font-body: "General Sans", Arial, sans-serif;
+  --pa-font-mono: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+}
+
+@theme inline {
+  --color-void: var(--pa-void);
+  --color-bone: var(--pa-bone);
+  --color-graphite: var(--pa-graphite);
+  --color-aluminum: var(--pa-aluminum);
+  --color-cure-violet: var(--pa-cure-violet);
+  --color-hot-amber: var(--pa-hot-amber);
+  --font-display: var(--pa-font-display);
+  --font-body: var(--pa-font-body);
+  --font-mono: var(--pa-font-mono);
+  --spacing: 0.5rem;
+}

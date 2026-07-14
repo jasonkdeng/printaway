@@ -1,8 +1,8 @@
-# PrintAway 3D Asset Guide
+# Printaway 3D Asset Guide
 
 ## Purpose
 
-PrintAway's product media should make real objects easier to understand. This guide defines how models and hero renders are authored outside the web application, prepared for delivery, and validated before publication.
+Printaway's product media should make real objects easier to understand. This guide defines how models and hero renders are authored outside the web application, prepared for delivery, and validated before publication.
 
 The website may render an approved asset. It must not invent production geometry in React Three Fiber.
 
@@ -85,6 +85,7 @@ For catalog consistency:
 - reserve Cure Violet glow and the specular sweep for the deliberate hero or user-triggered product-detail moment;
 - do not add gradients to cards, buttons, backgrounds, or badges;
 - test Bone and Aluminum surfaces against Void Black and Graphite without clipping highlights.
+- treat material colours in media as product content, not interface tokens; any overlaid text, controls, or status indicators must use the approved contrast pairings from `DESIGN.md`.
 
 The viewer owns responsive camera adjustment. Do not export a separate model for every viewport unless the object genuinely requires a different composition.
 
