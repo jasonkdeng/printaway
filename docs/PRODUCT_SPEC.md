@@ -4,7 +4,7 @@
 
 Printaway helps someone either purchase a finished small-batch 3D-printed object or prepare a clear custom-print request. The experience should feel like a precise workshop: calm, product-led, technically credible, and easy to operate.
 
-This specification defines the first releasable web product. It does not define business policies or select external service providers.
+This specification defines the first releasable web product. Confirmed business and provider decisions are recorded in [the decision record](DECISIONS.md); this document does not invent additional policies or providers.
 
 ## Experience principles
 
@@ -183,7 +183,7 @@ The cart must:
 - persist through a reasonable same-device return once a storage strategy is selected;
 - remain usable without WebGL.
 
-Payment and checkout behavior will be specified with the selected commerce provider. The current product scope requires a clean adapter boundary, not a provider choice.
+Square is the selected payment and checkout provider. Payment and checkout behavior must remain behind the repository-owned adapter boundary until its server credentials, item-variation mappings, tax treatment, and delivery/refund terms are configured.
 
 ## Content and data requirements
 
@@ -246,16 +246,15 @@ The first release excludes:
 
 ## Decisions that require business input
 
-Implementation must stop for confirmation before encoding:
+The following are confirmed and may be encoded through repository-owned boundaries: CAD currency; required name/email and optional phone/company for Studio; explicit privacy consent; the listed upload types and 10 MB limit; Supabase database/private storage; Vercel hosting and analytics; Google OAuth for account-backed carts; Square online checkout and authoritative Shop inventory; the initial catalog fixture dimensions, materials, finishes, colours, provisional prices, and sold-out status.
 
-- actual products, prices, taxes, and inventory rules; launch currency is CAD;
-- supported materials, colors, dimensions, finishes, and tolerances;
-- production, dispatch, pickup, and shipping promises;
-- return, privacy, upload-retention, and acceptable-use policies;
-- quote contact fields, consent requirements, and response expectations;
-- accepted upload types and maximum sizes;
-- payment and checkout provider;
-- commerce, content, storage, email, analytics, and error-monitoring providers.
+Implementation must still stop for confirmation before encoding:
+
+- exact Square item-variation IDs and server credentials;
+- taxes, production, dispatch, pickup, shipping, return, and refund terms;
+- approved production product media, summaries, and limitations;
+- production upload deletion/review operations and active service providers beyond those confirmed;
+- checkout implementation details and the actual authorized product catalog.
 
 ## Related references
 

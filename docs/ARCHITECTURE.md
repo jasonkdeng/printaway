@@ -182,7 +182,7 @@ type QuoteReceipt = {
 };
 ```
 
-The launch currency and quote-contact contract are intentionally not selected here. After business approval, define the accepted ISO 4217 `CurrencyCode` through a server-side Zod boundary and add explicit Zod-backed `QuoteContact` and `QuoteRequest` domain types. The approved quote request must identify the applicable consent policy and version. Do not assume a currency code or any particular contact fields, and do not replace the missing decision with an open-ended record or all-optional fields.
+Launch currency is CAD. A quote request requires a name, email, and explicit privacy consent; phone and company remain optional. Those choices are represented through server-side Zod schemas. Quote submission remains staged until it can tie consent to a published policy version and use its repository boundary.
 
 Rules:
 
@@ -194,7 +194,7 @@ Rules:
 - A provisional estimate never becomes the cart or checkout price without authoritative validation.
 - Customer contact and upload metadata are not stored in analytics events.
 
-The first release supports one explicit business-approved launch currency. No default currency is encoded before approval, and multi-currency presentation remains outside the first release.
+The first release supports CAD only. Multi-currency presentation remains outside the first release.
 
 ## Schemas and validation
 
@@ -259,9 +259,16 @@ interface ContentRepository {
     version: string;
   } | null>;
 }
+
+interface InventoryRepository {
+  getCurrentLevel(input: { variationId: string }): Promise<{
+    quantity: number;
+    observedAt: string;
+  } | null>;
+}
 ```
 
-`QuoteRepository` remains a required repository-owned provider boundary, but its request type and `create` signature are deliberately deferred with the contact decision. Add that explicit interface here only after the business approves the required contact fields, consent policy, and response expectations.
+`QuoteRepository` remains a required repository-owned boundary. Its implementation is staged until it can persist the approved contact and consent contract without exposing provider details.
 
 Provider adapters may add private helpers but must return these application types or explicit application errors. Components never import a provider SDK.
 
@@ -273,7 +280,7 @@ Server-side use cases coordinate interfaces:
 - `getProductDetail`: resolve the product and generate a missing-product result.
 - `validateCart`: re-read variants, compare price and availability, and return changed-line decisions.
 - `calculateStudioEstimate`: validate compatibility, calculate or request an estimate, and return assumptions.
-- `createQuoteRequest` (business-gated): once the contact and consent schemas are approved, validate them, verify reference IDs, submit the request through `QuoteRepository`, and return a receipt.
+- `createQuoteRequest`: validate the approved contact and consent schemas, verify reference IDs, submit the request through `QuoteRepository`, and return a receipt.
 - `getPolicyPage`: read approved versioned content or return a missing-policy result.
 
 Pure domain functions must cover:
@@ -336,7 +343,7 @@ See [the asset guide](ASSET_GUIDE.md) for production constraints.
 
 1. The route parses search parameters.
 2. A server use case requests provider-neutral catalog data.
-3. The adapter parses the provider response with Zod.
+3. The catalog and inventory adapters parse provider responses with Zod. Square item-variation inventory is the authoritative sellable quantity.
 4. The route renders product cards with image-first media.
 5. Client filters update the URL; navigation requests the next server-rendered result.
 
@@ -361,7 +368,7 @@ Studio follows Reference → Material → Size → Finish → Quantity → Revie
 
 ### Quote submission
 
-This flow is not implementable until the business approves the quote-contact fields, privacy policy, consent requirements, and response expectations. Those decisions must produce explicit domain schemas and the `QuoteRepository` interface before implementation begins.
+The approved quote-contact and consent schemas are available. This flow remains staged until consent can be tied to a published policy version and the repository implementation is configured.
 
 1. The client validates fields for immediate feedback.
 2. The server parses the complete request again.
@@ -375,7 +382,7 @@ This flow is not implementable until the business approves the quote-contact fie
 
 1. The cart is revalidated on the server.
 2. Changed price or availability returns a review-required result.
-3. A selected commerce adapter creates the handoff only after confirmation.
+3. The Square commerce adapter creates the handoff only after confirmation.
 4. The client navigates to the provider or internal checkout.
 5. Handoff failure leaves the cart intact and offers a retry.
 
@@ -407,7 +414,7 @@ Rules:
 - URL search parameters own shareable Shop filters.
 - Local component state owns uncommitted Studio steps.
 - The selected cart strategy owns cart persistence behind `CartStore`.
-- The server owns authoritative product, availability, estimate, quote, and policy data.
+- The server owns authoritative product, availability, estimate, quote, and policy data. Square is the inventory authority for Shop variants; its server-only adapter supplies the current quantity.
 - Do not introduce a global client-state library during scaffolding. Add one only when real cross-tree state cannot be handled cleanly by URL, server state, context, or a feature-local reducer.
 - Do not store customer contact data or uploaded model contents in browser persistence by default.
 
@@ -437,7 +444,7 @@ No documentation in this repository substitutes for legal or security review.
 
 Tests must target observable behavior and contracts. Avoid tests that merely restate implementation structure.
 
-Money tests use the confirmed CAD launch currency. Quote submission tests use only the approved contact and consent schemas. Until those decisions exist, the corresponding implementation checks remain required but unverified; fixtures must not establish a contact-field contract.
+Money tests use the confirmed CAD launch currency. Quote submission tests use only the approved contact and consent schemas; provider integration tests remain pending the repository implementation.
 
 ## Architecture decision rule
 

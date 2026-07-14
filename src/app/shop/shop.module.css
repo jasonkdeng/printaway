@@ -1,0 +1,35 @@
+.page, .detail { max-width: 90rem; margin: 0 auto; padding: 3rem 1.5rem 5rem; }
+.header { max-width: 46rem; }
+.label, .filters label, .inventoryNote, .cardBody p, .price, .back, .media, .detailMedia, .specifications dt { font-family: var(--pa-font-mono); font-size: .75rem; letter-spacing: .09em; text-transform: uppercase; }
+.label, .inventoryNote, .cardBody p, .specifications dt { color: var(--pa-aluminum); }
+.header h1, .detail h1 { margin: 1rem 0 0; font-family: var(--pa-font-display); font-size: clamp(3rem, 7vw, 6rem); line-height: .9; letter-spacing: -.06em; }
+.header > p:last-child { max-width: 40rem; margin: 1.5rem 0 0; color: var(--pa-aluminum); font-size: 1.0625rem; line-height: 1.65; }
+.filters { display: flex; flex-wrap: wrap; align-items: end; gap: .75rem; margin-top: 3rem; }
+.filters label { width: auto; }
+.filters select, .filters button, .filters a { min-height: 2.75rem; border: 1px solid var(--pa-graphite); background: var(--pa-void); color: var(--pa-bone); padding: .5rem .75rem; font-family: var(--pa-font-mono); font-size: .75rem; }
+.filters button { background: var(--pa-cure-violet); border-color: var(--pa-cure-violet); color: var(--pa-void); font-weight: 700; cursor: pointer; }
+.filters a, .back { text-decoration: none; }
+.inventoryNote { margin: 1rem 0 0; }
+.grid { display: grid; grid-template-columns: repeat(1, minmax(0, 1fr)); gap: 3rem; margin: 4rem 0 0; padding: 0; list-style: none; }
+.card { border-top: 1px solid var(--pa-graphite); padding-top: 1rem; }
+.media, .detailMedia { display: grid; place-items: center; aspect-ratio: 6 / 5; background: var(--pa-graphite); color: var(--pa-aluminum); }
+.cardBody { padding-top: 1rem; }
+.card h2 { margin: 0; font-family: var(--pa-font-display); font-size: 2rem; letter-spacing: -.04em; }
+.card h2 a { color: var(--pa-bone); text-decoration: none; }
+.card h2 a:hover, .back:hover { color: var(--pa-cure-violet); }
+.cardBody p { margin: .75rem 0 0; }
+.price { color: var(--pa-bone) !important; }
+.unavailable { color: var(--pa-hot-amber) !important; font-weight: 700; }
+.empty { margin-top: 4rem; border: 1px solid var(--pa-graphite); padding: 2rem; }
+.empty h2 { margin: 0; font-family: var(--pa-font-display); font-size: 2rem; }
+.empty p { color: var(--pa-aluminum); }
+.empty a { color: var(--pa-bone); }
+.detail { display: grid; gap: 2rem; }
+.back { color: var(--pa-aluminum); }
+.detailMedia { max-width: 42rem; }
+.specifications { display: grid; gap: 0; margin: 2rem 0 0; border-top: 1px solid var(--pa-graphite); }
+.specifications div { display: grid; grid-template-columns: minmax(9rem, 1fr) 2fr; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid var(--pa-graphite); }
+.specifications dt, .specifications dd { margin: 0; }
+.specifications dd { color: var(--pa-bone); }
+.detailNote { max-width: 38rem; color: var(--pa-aluminum); line-height: 1.65; }
+@media (min-width: 48rem) { .page, .detail { padding: 4rem clamp(2rem, 6vw, 6rem) 6rem; } .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 4rem; row-gap: 5rem; } .detail { grid-template-columns: minmax(0, 1fr) minmax(18rem, .8fr); align-items: start; } .back { grid-column: 1 / -1; } }
