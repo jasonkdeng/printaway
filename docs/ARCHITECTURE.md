@@ -2,7 +2,16 @@
 
 ## Status
 
-This document defines the architecture for the first application scaffold. The base paths, packages, and scripts now exist; domain workflows, provider adapters, and approved production data remain staged work.
+This document defines the architecture for the current application and its remaining staged boundaries. The scaffold, Square-backed Shop inventory, session cart, and Stage 4A Studio client workflow exist; production media, account persistence, checkout, uploads, estimates, and quote submission remain staged.
+
+### Current Studio foundation
+
+- `/studio` remains a Server Component route that renders static page framing around one narrow `StudioConfigurator` client island.
+- A feature-local `StudioDraft` reducer owns uncommitted step, reference-metadata, preference, dimension, quantity, contact, consent, issue, and announcement state.
+- `validateStudioStep` is a pure domain boundary. It reuses the approved reference metadata and quote contact/consent schemas without importing provider types.
+- Selected `File` objects are never copied into the reducer. The browser input remains local and only file name/byte-length metadata is validated and represented in the draft.
+- The readout presents selected values and em dashes for unavailable estimates. Step-transition announcements are separate from the visual readout so typing does not create excessive live-region output.
+- No Stage 4A action calls Supabase, an estimate service, or a quote repository. Submission is disabled and the route does not persist contact details.
 
 ## Architectural principles
 
@@ -305,7 +314,7 @@ Use Server Components for:
 - product copy and specifications;
 - materials and policy pages;
 - initial cart data when the persistence strategy supports it;
-- Studio material and finish options.
+- Studio page framing and approved static copy.
 
 ### Client islands
 
@@ -315,8 +324,8 @@ Client Components are appropriate for:
 - variant and quantity selection;
 - add-to-cart interaction;
 - cart quantity changes;
-- Studio step state and readout announcements;
-- file selection and upload progress;
+- Studio step state, validation, local file selection, and settled readout announcements;
+- upload progress once the upload adapter is implemented;
 - interactive model controls;
 - user-triggered motion replay.
 
@@ -355,16 +364,20 @@ See [the asset guide](ASSET_GUIDE.md) for production constraints.
 4. The cart store persists normalized `CartLine` values.
 5. The UI announces success or a typed availability/price error.
 
-### Studio estimate
+### Studio interactive foundation
 
 Studio follows Reference → Material → Size → Finish → Quantity → Review and submit.
 
-1. The client maintains a `StudioConfiguration` draft across the six steps.
-2. Pure client-safe rules give immediate compatibility feedback.
-3. Debounced or step-boundary requests send validated inputs to the server.
-4. The server runs the authoritative estimate service.
-5. The readout displays the result as estimated, manual review, or unavailable.
-6. Stale responses are ignored using a request identity or cancellation signal.
+1. The client maintains a `StudioDraft` in a feature-local reducer across the six steps.
+2. Continue validates the active step and preserves valid data when another field fails.
+3. Completed steps become revisitable; future steps remain unavailable until reached.
+4. Reference files are checked locally against approved metadata rules but are not uploaded or persisted.
+5. The readout displays selected preferences and em dashes for estimate values, with `Manual review required` visible throughout.
+6. Review validates approved contact and privacy-consent fields, then reports that submission is unavailable while retaining the draft.
+
+### Future Studio estimate
+
+The normalized `StudioConfiguration` and `EstimateService` remain planned server boundaries. Once approved compatibility rules, machine limits, and estimate inputs exist, validated step-boundary requests may request authoritative estimates. Stale responses must be ignored with request identity or cancellation, and every returned value remains provisional until quote review.
 
 ### Quote submission
 
@@ -412,11 +425,11 @@ Rules:
 ## State and persistence
 
 - URL search parameters own shareable Shop filters.
-- Local component state owns uncommitted Studio steps.
+- A feature-local reducer owns the current uncommitted Studio draft. It is intentionally not synchronized to local storage, session storage, a global store, or a server.
 - The selected cart strategy owns cart persistence behind `CartStore`.
 - The server owns authoritative product, availability, estimate, quote, and policy data. Square is the inventory authority for Shop variants; its server-only adapter supplies the current quantity.
 - Do not introduce a global client-state library during scaffolding. Add one only when real cross-tree state cannot be handled cleanly by URL, server state, context, or a feature-local reducer.
-- Do not store customer contact data or uploaded model contents in browser persistence by default.
+- Do not store Studio contact data, selected-file contents, or reference metadata in browser persistence. Stage 4A follows this rule; future persistence requires an explicit reviewed boundary.
 
 ## Security and privacy boundaries
 
@@ -436,15 +449,15 @@ No documentation in this repository substitutes for legal or security review.
 
 ## Testing architecture
 
-- **Domain unit tests:** schemas, compatibility, dimensions, quantity, totals, badges, and estimate state.
+- **Domain unit tests:** schemas, Studio draft/reducer validation, dimensions, quantity, totals, badges, compatibility, and estimate state when those rules exist.
 - **Adapter contract tests:** provider fixtures parse into the same application models and failures.
-- **Component tests:** material and availability filters, variant selection, cart updates, Studio steps, status announcements, and fallback states.
-- **Playwright tests:** browse → product → cart; configure → estimate → submit; price change; unavailable product; failed estimate; keyboard-only flow; reduced motion; WebGL-disabled fallback.
+- **Component tests:** material and availability filters, variant selection, cart updates, Studio steps, validation-summary focus, local-reference messaging, retained drafts, status announcements, and fallback states.
+- **Playwright tests:** implemented Shop/cart journeys and the current Studio foundation run now; configure → estimate → submit, price change, failed estimate, full keyboard-only submission, and WebGL-disabled fallback remain required as their production boundaries are added.
 - **Visual review:** required widths and states from [quality gates](QUALITY.md).
 
 Tests must target observable behavior and contracts. Avoid tests that merely restate implementation structure.
 
-Money tests use the confirmed CAD launch currency. Quote submission tests use only the approved contact and consent schemas; provider integration tests remain pending the repository implementation.
+Money tests use the confirmed CAD launch currency. Studio foundation tests use only the approved reference, contact, and consent schemas. Quote-provider integration tests remain pending the repository implementation.
 
 ## Architecture decision rule
 

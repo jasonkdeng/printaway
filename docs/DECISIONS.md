@@ -10,6 +10,14 @@ This record holds confirmed implementation decisions. It does not create a busin
 
 **Not decided:** tax treatment and price display conventions beyond CAD remain separate decisions.
 
+## 2026-07-15 - Studio interactive foundation boundary
+
+**Decision:** Stage 4A provides an in-memory six-step Studio draft without uploading files, calculating estimates, persisting contact data, or submitting quote requests. PLA, ABS, Default, and Glossy are preference labels only; they do not establish suitability, compatibility, price, production time, or manufacturability.
+
+**Implementation:** Reference selection validates the approved file names and 10 MB limit locally and stores only typed metadata in the Studio reducer. Dimensions accept positive numeric millimetre values, quantity accepts a positive whole number without an invented maximum, and Review uses the approved contact and privacy-consent schemas. The readout shows selected values, em dashes for unknown estimates, and `Manual review required`. Submission remains visibly disabled.
+
+**Not decided:** machine-volume limits, material/finish compatibility, an estimate formula or service, production upload handling, and the quote repository/submission contract remain separate implementation decisions.
+
 ## Confirmed implementation decisions
 
 - Studio quote requests require a name and email. Phone and company are optional. Quote requests require explicit privacy consent. Printaway typically provides a quote or reaches out within 48 hours, although complex projects may take longer.
