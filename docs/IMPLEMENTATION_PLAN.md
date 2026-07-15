@@ -28,7 +28,7 @@ Exit evidence: reviewed initial catalog fixtures, upload and retention configura
 
 ## Stage 3 — Shop
 
-**Status: in progress.**
+**Status: complete (Shop and session-cart foundation).**
 
 - Implement the restrained product gallery, product detail route, inventory presentation, and cart entry points.
 - Support only material and availability filtering in the initial Shop experience, with URL state and recovery states.
@@ -36,15 +36,16 @@ Exit evidence: reviewed initial catalog fixtures, upload and retention configura
 - Add Square configuration and an inventory repository boundary. Live quantities remain disabled until Square credentials and one item-variation ID per product are configured; the catalog must not duplicate sellable inventory.
 - Keep product summaries and limitations visibly marked as approval-pending placeholders until reviewed content is supplied.
 
-Exit evidence: domain, component, and Playwright coverage for filter state, unavailable products, quantity selection, and cart feedback at the required review widths.
+Exit evidence: domain coverage for cart quantity and totals, browser coverage for filter recovery and Shop navigation, and a server-only Square inventory boundary. Account-backed cart persistence and checkout remain Stage 5 work.
 
 ## Stage 4 — Studio
 
-**Status: pending Stage 2.**
+**Status: in progress — interactive foundation.**
 
 - Implement the focused configurator in the canonical six-step order.
 - Add upload, compatibility, estimate, validation, and recovery states behind repository-owned boundaries.
 - Keep all client estimates explicitly provisional until a server response confirms them.
+- The interactive foundation keeps draft data in memory, validates locally selected reference metadata, and exposes manual-review readouts without uploading, estimating, or submitting data.
 
 Exit evidence: keyboard, validation-summary, reduced-motion, upload-failure, stale-estimate, and WebGL-unavailable coverage.
 
