@@ -35,18 +35,24 @@ export default async function ShopPage({ searchParams }: { searchParams: Promise
         <p>Initial product fixtures use provisional CAD pricing. Product media, dimensions, finishes, and inventory are still being documented.</p>
       </header>
       <form className={styles.filters} action="/shop">
-        <label htmlFor="material">Material</label>
-        <select defaultValue={material ?? ""} id="material" name="material">
-          <option value="">All materials</option>
-          {materials.map((item) => <option key={item} value={item}>{item}</option>)}
-        </select>
-        <label htmlFor="availability">Availability</label>
-        <select defaultValue={availability ?? ""} id="availability" name="availability">
-          <option value="">All availability</option>
-          <option value="available">Available now</option>
-        </select>
-        <button type="submit">Apply filter</button>
-        {material ? <Link href="/shop">Clear filter</Link> : null}
+        <div className={styles.filterField}>
+          <label htmlFor="material">Material</label>
+          <select defaultValue={material ?? ""} id="material" name="material">
+            <option value="">All materials</option>
+            {materials.map((item) => <option key={item} value={item}>{item}</option>)}
+          </select>
+        </div>
+        <div className={styles.filterField}>
+          <label htmlFor="availability">Availability</label>
+          <select defaultValue={availability ?? ""} id="availability" name="availability">
+            <option value="">All availability</option>
+            <option value="available">Available now</option>
+          </select>
+        </div>
+        <div className={styles.filterActions}>
+          <button type="submit">Apply filter</button>
+          {material || availability ? <Link href="/shop">Clear filter</Link> : null}
+        </div>
       </form>
       {products.length ? (
         <ul className={styles.grid} aria-label="Initial product catalog">
@@ -66,7 +72,6 @@ export default async function ShopPage({ searchParams }: { searchParams: Promise
         <section className={styles.empty} aria-live="polite">
           <h2>No objects match these filters.</h2>
           <p>All current products are sold out or do not match these filters.</p>
-          <Link href="/shop">Clear filter</Link>
         </section>
       )}
     </section>
