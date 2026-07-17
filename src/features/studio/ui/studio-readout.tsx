@@ -1,4 +1,5 @@
 import type { StudioDraft } from "@/features/studio/domain/studio-draft";
+import type { StudioEstimate } from "@/features/studio/domain/studio-estimate";
 
 import styles from "./studio-configurator.module.css";
 
@@ -7,7 +8,7 @@ function formatSize(draft: StudioDraft): string {
   return lengthMm && widthMm && heightMm ? `${lengthMm} × ${widthMm} × ${heightMm} mm` : "—";
 }
 
-export function StudioReadout({ draft }: { draft: StudioDraft }) {
+export function StudioReadout({ draft, estimate }: { draft: StudioDraft; estimate: StudioEstimate | null }) {
   const values = [
     ["Material", draft.material ?? "—"],
     ["Size", formatSize(draft)],
@@ -22,7 +23,7 @@ export function StudioReadout({ draft }: { draft: StudioDraft }) {
     <aside aria-labelledby="readout-heading" className={styles.readout}>
       <div className={styles.readoutHeader}>
         <p id="readout-heading">Live readout</p>
-        <span>Manual review required</span>
+        <span>{estimate?.status === "unavailable" ? "Estimate unavailable" : "Manual review required"}</span>
       </div>
       <dl>
         {values.map(([label, value]) => (
@@ -32,7 +33,11 @@ export function StudioReadout({ draft }: { draft: StudioDraft }) {
           </div>
         ))}
       </dl>
-      <p className={styles.readoutNote}>No material, time, cost, or manufacturability estimate is calculated in this foundation.</p>
+      <p className={styles.readoutNote}>
+        {estimate?.status === "unavailable"
+          ? "Estimate unavailable. You can still submit this configuration for a confirmed quote."
+          : "No material, time, cost, or manufacturability estimate is calculated without manual review."}
+      </p>
     </aside>
   );
 }

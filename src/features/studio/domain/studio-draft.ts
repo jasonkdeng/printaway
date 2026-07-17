@@ -57,7 +57,10 @@ export type StudioValidationIssue = {
     | "name_required"
     | "email_required"
     | "email_invalid"
-    | "privacy_consent_required";
+    | "privacy_consent_required"
+    | "unsupported_material"
+    | "incompatible_finish"
+    | "outside_build_volume";
   field: string;
   message: string;
 };

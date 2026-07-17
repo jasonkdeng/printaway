@@ -13,6 +13,7 @@ import {
   type StudioValidationIssue,
 } from "@/features/studio/domain/studio-draft";
 import type { StudioStep } from "@/features/studio/domain/studio-steps";
+import type { StudioCapabilities } from "@/features/studio/domain/studio-configuration";
 
 import styles from "./studio-configurator.module.css";
 
@@ -21,6 +22,8 @@ type StudioStepFormProps = {
   dispatch: Dispatch<StudioAction>;
   step: StudioStep;
   onFilesSelected: (files: FileList | null) => void;
+  onRemoveReference: (id: string) => void;
+  capabilities: StudioCapabilities | null;
 };
 
 const stepContent = {
@@ -58,8 +61,11 @@ function FieldError({ issue }: { issue: StudioValidationIssue | undefined }) {
   return issue ? <p className={styles.fieldError} id={`${issue.field}-error`}>{issue.message}</p> : null;
 }
 
-export function StudioStepForm({ draft, dispatch, step, onFilesSelected }: StudioStepFormProps) {
+export function StudioStepForm({ draft, dispatch, step, onFilesSelected, onRemoveReference, capabilities }: StudioStepFormProps) {
   const content = stepContent[step];
+  const configuredMaterial = capabilities?.materials.find((material) => material.name === draft.material);
+  const materials = capabilities?.materials.map((material) => material.name) ?? studioFoundationOptions.materials;
+  const finishes = configuredMaterial?.finishes ?? studioFoundationOptions.finishes;
 
   return (
     <div className={styles.stepBody}>
@@ -90,7 +96,7 @@ export function StudioStepForm({ draft, dispatch, step, onFilesSelected }: Studi
               {draft.references.map((reference) => (
                 <li key={reference.id}>
                   <span>{reference.fileName}</span>
-                  <button onClick={() => dispatch({ type: "remove_reference", id: reference.id })} type="button">Remove</button>
+                  <button onClick={() => { onRemoveReference(reference.id); dispatch({ type: "remove_reference", id: reference.id }); }} type="button">Remove</button>
                 </li>
               ))}
             </ul>
@@ -111,10 +117,11 @@ export function StudioStepForm({ draft, dispatch, step, onFilesSelected }: Studi
                 value={draft.material ?? ""}
               >
                 <option value="">Choose material</option>
-                {studioFoundationOptions.materials.map((material) => <option key={material}>{material}</option>)}
+                {materials.map((material) => <option key={material}>{material}</option>)}
               </select>
             </span>
           </label>
+          {configuredMaterial ? <p className={styles.helper}>{configuredMaterial.description} {configuredMaterial.properties} {configuredMaterial.uses} {configuredMaterial.limitations} Colours: {configuredMaterial.colours.join(", ")}.</p> : null}
           <FieldError issue={issueFor(draft.issues, "material")} />
         </div>
       ) : null}
@@ -158,7 +165,7 @@ export function StudioStepForm({ draft, dispatch, step, onFilesSelected }: Studi
                 value={draft.finish ?? ""}
               >
                 <option value="">Choose finish</option>
-                {studioFoundationOptions.finishes.map((finish) => <option key={finish}>{finish}</option>)}
+                {finishes.map((finish) => <option key={finish}>{finish}</option>)}
               </select>
             </span>
           </label>
