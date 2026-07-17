@@ -18,6 +18,14 @@ This record holds confirmed implementation decisions. It does not create a busin
 
 **Not decided:** machine-volume limits, material/finish compatibility, an estimate formula or service, production upload handling, and the quote repository/submission contract remain separate implementation decisions.
 
+## 2026-07-15 - Studio production boundary
+
+**Decision:** Studio uses a server-owned capability profile, a manual-review estimate service, private Supabase signed uploads, idempotent quote preparation/finalization, and four-day retention. Uploads remain quarantined and non-public.
+
+**Implementation:** Submission activates only when a privacy-policy version, approved capability JSON, Supabase secret key, and rate-limit secret are configured. The client retains files only in component memory until consent and server validation pass. A daily Vercel Cron route removes private objects before expired quote records.
+
+**Not decided:** exact printer dimensions, compatibility values, approved material claims, policy approval/version, and remote Supabase/Vercel configuration. Until supplied, the application keeps submission disabled.
+
 ## Confirmed implementation decisions
 
 - Studio quote requests require a name and email. Phone and company are optional. Quote requests require explicit privacy consent. Printaway typically provides a quote or reaches out within 48 hours, although complex projects may take longer.

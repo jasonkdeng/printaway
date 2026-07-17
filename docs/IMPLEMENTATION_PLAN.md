@@ -40,16 +40,17 @@ Exit evidence: domain coverage for cart quantity and totals, component coverage 
 
 ## Stage 4 — Studio
 
-**Status: in progress — interactive foundation.**
+**Status: in progress — production boundary implemented, activation gated.**
 
 - Implement the focused configurator in the canonical six-step order.
 - Add upload, compatibility, estimate, validation, and recovery states behind repository-owned boundaries.
 - Keep all client estimates explicitly provisional until a server response confirms them.
-- The interactive foundation keeps draft data in memory, validates locally selected reference metadata, and exposes manual-review readouts without uploading, estimating, or submitting data.
+- The interactive foundation keeps draft data in memory, validates locally selected reference metadata, and exposes manual-review readouts without uploading, estimating, or submitting data until production activation is configured.
+- Stage 4B–4D adds normalized configuration and capability contracts, an authoritative manual-review estimate endpoint, repository-owned private-upload and quote-submission adapters, idempotency, quarantined private storage, retention cleanup, and a production-gated submit action.
 
 Foundation evidence: pure domain validation and reducer coverage; component coverage for all steps, validation-summary focus, local-reference messaging, readout updates, and retained input; responsive Chromium coverage at 320, 375, 768, 1024, and 1440 px; reduced-motion stability; lint, strict type-check, unit/component tests, Playwright, and production build passed on 2026-07-15.
 
-Stage 4 remains incomplete until reference uploads, approved compatibility and machine limits, authoritative estimate behavior, quote persistence/submission, and their failure/recovery states are implemented and verified.
+Stage 4 remains incomplete until approved capability and material content is supplied, the privacy policy is approved and versioned, Supabase migration and private bucket are deployed, server secrets and Vercel Cron are configured, and live upload/submission recovery states are verified.
 
 ## Stage 5 — Cart, checkout, and quote submission
 

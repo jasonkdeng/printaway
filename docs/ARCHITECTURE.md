@@ -375,21 +375,21 @@ Studio follows Reference → Material → Size → Finish → Quantity → Revie
 5. The readout displays selected preferences and em dashes for estimate values, with `Manual review required` visible throughout.
 6. Review validates approved contact and privacy-consent fields, then reports that submission is unavailable while retaining the draft.
 
-### Future Studio estimate
+### Studio estimate boundary
 
-The normalized `StudioConfiguration` and `EstimateService` remain planned server boundaries. Once approved compatibility rules, machine limits, and estimate inputs exist, validated step-boundary requests may request authoritative estimates. Stale responses must be ignored with request identity or cancellation, and every returned value remains provisional until quote review.
+The normalized `StudioConfiguration` and `EstimateService` are server boundaries. The current service can authoritatively return `manual_review` without fabricating numerical material, time, or cost values. Approved capability configuration supplies material/finish compatibility and build-volume validation. The client requests estimates only after a settled configuration reaches Review, cancels superseded work, and ignores stale responses. Every future numerical value remains provisional until quote review.
 
-### Quote submission
+### Quote submission and private references
 
-The approved quote-contact and consent schemas are available. This flow remains staged until consent can be tied to a published policy version and the repository implementation is configured.
+The quote repository and private-reference repository are implemented behind server-only Supabase adapters, but activation remains gated by an approved privacy-policy version, capabilities, privileged secret, and rate-limit secret.
 
 1. The client validates fields for immediate feedback.
 2. The server parses the complete request again.
-3. Reference IDs are checked without trusting client file paths.
+3. A valid request receives short-lived signed private upload URLs; files remain local until this point.
 4. Consent is tied to the approved published policy and version.
 5. The quote repository stores or forwards the request.
-6. A stable receipt reference is returned.
-7. The client renders success without exposing internal provider IDs.
+6. Finalization verifies expected private objects and byte lengths, then returns a stable public reference.
+7. The client renders success without exposing internal provider IDs, storage paths, or signed URLs.
 
 ### Checkout handoff
 
@@ -429,7 +429,7 @@ Rules:
 - The selected cart strategy owns cart persistence behind `CartStore`.
 - The server owns authoritative product, availability, estimate, quote, and policy data. Square is the inventory authority for Shop variants; its server-only adapter supplies the current quantity.
 - Do not introduce a global client-state library during scaffolding. Add one only when real cross-tree state cannot be handled cleanly by URL, server state, context, or a feature-local reducer.
-- Do not store Studio contact data, selected-file contents, or reference metadata in browser persistence. Stage 4A follows this rule; future persistence requires an explicit reviewed boundary.
+- Do not store Studio contact data, selected-file contents, or reference metadata in browser persistence. Selected `File` objects stay only in the mounted configurator ref until submit or removal.
 
 ## Security and privacy boundaries
 

@@ -9,11 +9,11 @@ The repository currently includes:
 - a strict Next.js App Router application and shared design-token system;
 - CAD money handling and approved contact, consent, and reference-file validation;
 - a Square-backed Shop inventory boundary, product-detail purchasing, and a session-scoped cart;
-- the Stage 4A Studio interactive foundation with in-memory draft state, step validation, a manual-review readout, and a disabled submission state;
+- the Stage 4 Studio implementation boundary: typed capability validation, manual-review estimate state, private-upload/quote repository adapters, and a production-gated submission flow;
 - server-only Supabase and Square configuration boundaries;
 - Vitest, Testing Library, and Playwright coverage for the implemented journeys.
 
-Production product media and copy, Google-backed cart persistence, Square checkout, Studio file uploads, compatibility rules, estimates, and quote submission remain staged. Studio currently selects and validates reference metadata locally; it does not upload files, calculate estimates, persist contact data, or send quote requests.
+Production product media and copy, Google-backed cart persistence, Square checkout, Studio capabilities, privacy-policy approval, remote Supabase migration, and quote activation remain staged. Studio submission stays disabled unless its policy version, capability profile, server secret, and rate-limit secret are all configured.
 
 See [the implementation plan](docs/IMPLEMENTATION_PLAN.md) for the staged path to release readiness.
 
@@ -54,7 +54,7 @@ A restrained catalog and product-detail flow with URL-backed material and availa
 
 ### Studio
 
-A six-step in-memory configurator with local reference validation, PLA/ABS material preferences, positive millimetre dimensions, Default/Glossy finish preferences, whole-number quantity, approved contact/consent validation, and a persistent manual-review readout. Unknown estimates display an em dash. Files are not uploaded and quote submission is visibly unavailable.
+A six-step in-memory configurator with local reference validation, typed configuration normalization, capability-aware server validation, and an authoritative manual-review estimate state. When deliberately activated, references upload only after consent through short-lived private URLs; the server finalizes an idempotent quote request and returns an opaque public reference. Selected files and contact data are never stored in browser persistence.
 
 ## Development workflow
 
