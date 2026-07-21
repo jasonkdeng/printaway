@@ -45,4 +45,4 @@ This record holds confirmed implementation decisions. It does not create a busin
 
 ## Delivery note
 
-The Stage 2 Supabase migration is committed locally at `supabase/migrations/20260714052437_stage_two_catalog_and_uploads.sql`. It has not been applied to the remote Supabase project; applying it requires authenticated project access and a review of the retention/deletion job before production data is collected.
+The Stage 2 and Stage 4 Supabase migrations were applied to project `kczuhxsclbephazisqoa` on 2026-07-20. The private `reference-uploads` bucket is present and non-public. The follow-up rate-limit privilege migration restricts the SECURITY DEFINER function to the server role.
