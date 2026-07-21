@@ -1,5 +1,9 @@
 import Link from "next/link";
 
+import type { AccountSession } from "@/server/auth/account-session";
+
+import { AccountControl } from "./account-control";
+
 const links = [
   { href: "/shop", label: "Shop" },
   { href: "/studio", label: "Studio" },
@@ -7,7 +11,7 @@ const links = [
   { href: "/about", label: "About" },
 ];
 
-export function SiteHeader() {
+export function SiteHeader({ account }: { account: AccountSession | null }) {
   return (
     <header className="border-b border-graphite">
       <nav aria-label="Primary" className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-3 py-3 sm:px-6 lg:px-12">
@@ -23,6 +27,7 @@ export function SiteHeader() {
           <Link className="text-bone hover:text-aluminum focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cure-violet" href="/cart">
             Cart
           </Link>
+          <AccountControl account={account} />
         </div>
       </nav>
     </header>
