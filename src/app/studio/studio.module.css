@@ -1,0 +1,45 @@
+.page {
+  max-width: 90rem;
+  margin: 0 auto;
+  padding: 3rem 1.5rem 5rem;
+}
+
+.header {
+  max-width: 58rem;
+}
+
+.label {
+  margin: 0;
+  color: var(--pa-aluminum);
+  font-family: var(--pa-font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.header h1 {
+  margin: 1rem 0 0;
+  font-family: var(--pa-font-display);
+  font-size: 2.75rem;
+  line-height: 0.95;
+  letter-spacing: -0.05em;
+}
+
+.header > p:last-child {
+  max-width: 66ch;
+  margin: 1.5rem 0 0;
+  color: var(--pa-aluminum);
+  font-family: var(--pa-font-body);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+@media (min-width: 48rem) {
+  .page {
+    padding: 4rem clamp(3rem, 6vw, 6rem) 6rem;
+  }
+
+  .header h1 {
+    font-size: 4.5rem;
+  }
+}

@@ -2,10 +2,10 @@
 .header { max-width: 46rem; }
 .label, .filters label, .inventoryNote, .cardBody p, .price, .back, .media, .detailMedia, .specifications dt { font-family: var(--pa-font-mono); font-size: .75rem; letter-spacing: .09em; text-transform: uppercase; }
 .label, .inventoryNote, .cardBody p, .specifications dt { color: var(--pa-aluminum); }
-.header h1, .detail h1 { margin: 1rem 0 0; font-family: var(--pa-font-display); font-size: clamp(3rem, 7vw, 6rem); line-height: .9; letter-spacing: -.06em; }
+.header h1 { margin: 1rem 0 0; font-family: var(--pa-font-display); font-size: clamp(3rem, 7vw, 6rem); line-height: .9; letter-spacing: -.06em; }
 .header > p:last-child { max-width: 40rem; margin: 1.5rem 0 0; color: var(--pa-aluminum); font-size: 1.0625rem; line-height: 1.65; }
-.filters { display: flex; flex-wrap: wrap; align-items: end; gap: .75rem; margin-top: 3rem; }
-.filters label { width: auto; }
+.filters { display: flex; flex-wrap: wrap; align-items: center; gap: 2rem; margin-top: 3rem; }
+.filterField, .filterActions { display: flex; align-items: center; gap: 1rem; }
 .filters select, .filters button, .filters a { min-height: 2.75rem; border: 1px solid var(--pa-graphite); background: var(--pa-void); color: var(--pa-bone); padding: .5rem .75rem; font-family: var(--pa-font-mono); font-size: .75rem; }
 .filters button { background: var(--pa-cure-violet); border-color: var(--pa-cure-violet); color: var(--pa-void); font-weight: 700; cursor: pointer; }
 .filters a, .back { text-decoration: none; }
@@ -27,9 +27,16 @@
 .detail { display: grid; gap: 2rem; }
 .back { color: var(--pa-aluminum); }
 .detailMedia { max-width: 42rem; }
+.detailContent { min-width: 0; }
+.detail h1 { margin: 1rem 0 0; font-family: var(--pa-font-display); font-size: 2rem; line-height: 1; letter-spacing: -.04em; }
 .specifications { display: grid; gap: 0; margin: 2rem 0 0; border-top: 1px solid var(--pa-graphite); }
-.specifications div { display: grid; grid-template-columns: minmax(9rem, 1fr) 2fr; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid var(--pa-graphite); }
+.specifications div { display: grid; grid-template-columns: minmax(7rem, .8fr) minmax(0, 1.2fr); gap: 1rem; padding: 1rem 0; border-bottom: 1px solid var(--pa-graphite); }
 .specifications dt, .specifications dd { margin: 0; }
-.specifications dd { color: var(--pa-bone); }
-.detailNote { max-width: 38rem; color: var(--pa-aluminum); line-height: 1.65; }
-@media (min-width: 48rem) { .page, .detail { padding: 4rem clamp(2rem, 6vw, 6rem) 6rem; } .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 4rem; row-gap: 5rem; } .detail { grid-template-columns: minmax(0, 1fr) minmax(18rem, .8fr); align-items: start; } .back { grid-column: 1 / -1; } }
+.specifications dd { color: var(--pa-bone); font-family: var(--pa-font-mono); font-size: .75rem; line-height: 1.6; letter-spacing: .02em; }
+.detailNote { max-width: 66ch; color: var(--pa-aluminum); font-family: var(--pa-font-body); font-size: 1rem; line-height: 1.6; }
+.limitations { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--pa-graphite); }
+.limitations h2 { margin: 0; font-family: var(--pa-font-display); font-size: 1.625rem; line-height: 1; letter-spacing: -.04em; }
+.limitations ul { display: grid; gap: 1rem; max-width: 66ch; margin: 1.5rem 0 0; padding: 0; list-style: none; }
+.limitations li { display: grid; grid-template-columns: .5rem minmax(0, 1fr); gap: 1rem; color: var(--pa-aluminum); font-family: var(--pa-font-body); font-size: 1rem; line-height: 1.6; }
+.limitations li::before { width: .5rem; height: .5rem; margin-top: .55rem; background: var(--pa-aluminum); content: ""; }
+@media (min-width: 48rem) { .page, .detail { padding: 4rem clamp(2rem, 6vw, 6rem) 6rem; } .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 4rem; row-gap: 5rem; } .detail { grid-template-columns: minmax(0, 1fr) minmax(18rem, .8fr); align-items: start; } .detail h1 { font-size: 3rem; } .specifications div { grid-template-columns: minmax(9rem, 1fr) minmax(0, 2fr); } .limitations h2 { font-size: 2rem; } .back { grid-column: 1 / -1; } }

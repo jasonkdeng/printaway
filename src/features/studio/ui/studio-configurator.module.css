@@ -1,0 +1,497 @@
+.configurator {
+  margin-top: 3rem;
+}
+
+.progress {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  margin: 0;
+  padding: 1px;
+  background: var(--pa-graphite);
+  list-style: none;
+}
+
+.progress button {
+  width: 100%;
+  min-height: 5.5rem;
+  border: 0;
+  background: var(--pa-void);
+  color: var(--pa-aluminum);
+  padding: 0.75rem;
+  text-align: left;
+}
+
+.progress button:not(:disabled) {
+  cursor: pointer;
+}
+
+.progress button[data-state="current"] {
+  background: var(--pa-graphite);
+  color: var(--pa-bone);
+}
+
+.progress button:focus-visible,
+.editor button:focus-visible,
+.field input:focus-visible,
+.field textarea:focus-visible,
+.field select:focus-visible,
+.fileField:has(input:focus-visible),
+.consent input:focus-visible,
+.policyLink:focus-visible {
+  outline: 2px solid var(--pa-cure-violet);
+  outline-offset: 3px;
+}
+
+.progress span,
+.progress small,
+.stepLabel,
+.field > span:first-child,
+.fileField > span,
+.helper,
+.localNotice,
+.fieldError,
+.reviewSummary,
+.readout,
+.actions button,
+.status,
+.policyLink {
+  font-family: var(--pa-font-mono);
+  font-size: 0.75rem;
+}
+
+.progress span,
+.progress small,
+.stepLabel,
+.field > span:first-child,
+.fileField > span,
+.reviewSummary dt,
+.readout dt,
+.actions button {
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.progress strong {
+  display: block;
+  margin-top: 0.5rem;
+  color: inherit;
+  font-family: var(--pa-font-body);
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.25;
+}
+
+.progress small {
+  display: block;
+  margin-top: 0.5rem;
+  color: var(--pa-aluminum);
+}
+
+.workspace {
+  display: grid;
+  gap: 3rem;
+  margin-top: 3rem;
+  cursor: crosshair;
+}
+
+.editor {
+  min-width: 0;
+  border-top: 1px solid var(--pa-graphite);
+  padding-top: 1.5rem;
+}
+
+.stepLabel {
+  margin: 0;
+  color: var(--pa-aluminum);
+}
+
+.stepBody h2,
+.errorSummary h2 {
+  margin: 1rem 0 0;
+  font-family: var(--pa-font-display);
+  font-size: 2rem;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.stepDescription {
+  max-width: 66ch;
+  margin: 1rem 0 0;
+  color: var(--pa-aluminum);
+  font-family: var(--pa-font-body);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.fieldStack,
+.dimensionGrid,
+.review {
+  margin-top: 2rem;
+}
+
+.fieldStack,
+.review {
+  display: grid;
+  gap: 1rem;
+}
+
+.dimensionGrid,
+.contactGrid {
+  display: grid;
+  gap: 1rem;
+}
+
+.field {
+  display: grid;
+  gap: 0.5rem;
+  min-width: 0;
+  color: var(--pa-aluminum);
+}
+
+.field input,
+.field textarea,
+.field select {
+  width: 100%;
+  min-height: 2.75rem;
+  border: 1px solid var(--pa-bone);
+  border-radius: 0;
+  background: var(--pa-bone);
+  color: var(--pa-void);
+  padding: 0.625rem 0.75rem;
+  font-family: var(--pa-font-body);
+  font-size: 1rem;
+  line-height: 1.5;
+  cursor: text;
+}
+
+.field textarea {
+  min-height: 8rem;
+  resize: vertical;
+}
+
+.selectWrap {
+  position: relative;
+  display: block;
+}
+
+.selectWrap::after {
+  position: absolute;
+  top: 50%;
+  right: 1rem;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-right: 1px solid var(--pa-graphite);
+  border-bottom: 1px solid var(--pa-graphite);
+  content: "";
+  pointer-events: none;
+  transform: translateY(-70%) rotate(45deg);
+}
+
+.field select {
+  appearance: none;
+  padding-right: 2.75rem;
+  cursor: pointer;
+}
+
+.fileField {
+  display: grid;
+  gap: 0.75rem;
+  min-height: 2.75rem;
+  border: 1px solid var(--pa-bone);
+  background: var(--pa-void);
+  color: var(--pa-bone);
+  padding: 0.75rem;
+  cursor: pointer;
+}
+
+.fileField input {
+  width: 100%;
+  color: var(--pa-aluminum);
+  font-family: var(--pa-font-body);
+  font-size: 0.875rem;
+  cursor: pointer;
+}
+
+.helper,
+.localNotice {
+  max-width: 66ch;
+  margin: 0;
+  color: var(--pa-aluminum);
+  line-height: 1.6;
+}
+
+.localNotice {
+  border-left: 2px solid var(--pa-aluminum);
+  padding-left: 0.75rem;
+  color: var(--pa-bone);
+}
+
+.referenceList {
+  display: grid;
+  gap: 1px;
+  margin: 0;
+  padding: 1px;
+  background: var(--pa-graphite);
+  list-style: none;
+}
+
+.referenceList li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 2.75rem;
+  background: var(--pa-void);
+  padding: 0.5rem 0.75rem;
+  font-family: var(--pa-font-mono);
+  font-size: 0.75rem;
+}
+
+.referenceList button {
+  min-height: 2.75rem;
+  border: 1px solid var(--pa-graphite);
+  background: var(--pa-void);
+  color: var(--pa-bone);
+  padding: 0.5rem 0.75rem;
+  cursor: pointer;
+}
+
+.fieldError {
+  margin: 0;
+  color: var(--pa-bone);
+  line-height: 1.5;
+}
+
+.fieldError::before {
+  color: var(--pa-hot-amber);
+  content: "Warning · ";
+}
+
+.errorSummary {
+  margin-top: 1.5rem;
+  border-left: 3px solid var(--pa-hot-amber);
+  padding: 0 0 0 1rem;
+}
+
+.errorSummary h2 {
+  margin-top: 0;
+  font-size: 1.625rem;
+}
+
+.errorSummary ul {
+  margin: 1rem 0 0;
+  padding-left: 1.25rem;
+  color: var(--pa-aluminum);
+  line-height: 1.6;
+}
+
+.reviewSummary,
+.readout dl {
+  display: grid;
+  margin: 0;
+  border-top: 1px solid var(--pa-graphite);
+}
+
+.reviewSummary div,
+.readout dl div {
+  display: grid;
+  grid-template-columns: minmax(7rem, 0.8fr) minmax(0, 1.2fr);
+  gap: 1rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--pa-graphite);
+}
+
+.reviewSummary dt,
+.reviewSummary dd,
+.readout dt,
+.readout dd {
+  margin: 0;
+}
+
+.reviewSummary dt,
+.readout dt {
+  color: var(--pa-aluminum);
+}
+
+.reviewSummary dd,
+.readout dd {
+  color: var(--pa-bone);
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.contactGrid {
+  margin-top: 1rem;
+}
+
+.consent {
+  display: grid;
+  grid-template-columns: 1.5rem minmax(0, 1fr);
+  gap: 0.75rem;
+  align-items: start;
+  color: var(--pa-aluminum);
+  font-family: var(--pa-font-body);
+  font-size: 0.875rem;
+  line-height: 1.6;
+  cursor: pointer;
+}
+
+.consent input {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin: 0;
+  accent-color: var(--pa-cure-violet);
+  cursor: pointer;
+}
+
+.policyLink {
+  display: inline-block;
+  min-height: 2.75rem;
+  margin-top: 0.75rem;
+  color: var(--pa-bone);
+  line-height: 2.75rem;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.actions button {
+  min-height: 2.75rem;
+  border-radius: 0;
+  padding: 0.75rem 1rem;
+}
+
+.primaryAction {
+  border: 1px solid var(--pa-cure-violet);
+  background: var(--pa-cure-violet);
+  color: var(--pa-void);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.secondaryAction {
+  border: 1px solid var(--pa-bone);
+  background: var(--pa-void);
+  color: var(--pa-bone);
+  cursor: pointer;
+}
+
+.disabledAction {
+  border: 1px solid var(--pa-graphite);
+  background: var(--pa-void);
+  color: var(--pa-aluminum);
+  cursor: not-allowed;
+}
+
+.status {
+  min-height: 1.5rem;
+  margin: 0.75rem 0 0;
+  color: var(--pa-bone);
+  line-height: 1.5;
+}
+
+.successNotice {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--bone);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.successNotice a {
+  color: var(--bone);
+  text-underline-offset: 0.3em;
+}
+
+.readout {
+  min-width: 0;
+  border: 1px solid var(--pa-graphite);
+  background: var(--pa-void);
+  padding: 1rem;
+  cursor: crosshair;
+}
+
+.readoutHeader {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding-bottom: 1rem;
+}
+
+.readoutHeader p,
+.readoutHeader span {
+  margin: 0;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.readoutHeader p {
+  color: var(--pa-bone);
+}
+
+.readoutHeader span {
+  color: var(--pa-aluminum);
+}
+
+.readoutNote {
+  max-width: 48ch;
+  margin: 1rem 0 0;
+  color: var(--pa-aluminum);
+  line-height: 1.6;
+}
+
+@media (min-width: 48rem) {
+  .progress {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .dimensionGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .contactGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .stepBody h2 {
+    font-size: 2.5rem;
+  }
+}
+
+@media (min-width: 64rem) {
+  .progress {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+
+  .workspace {
+    grid-template-columns: minmax(0, 1.35fr) minmax(18rem, 0.65fr);
+    align-items: start;
+    gap: 4rem;
+  }
+
+  .readout {
+    position: sticky;
+    top: 2rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .configurator *,
+  .configurator *::before,
+  .configurator *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}

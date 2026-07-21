@@ -1,10 +1,14 @@
 .surface { display: grid; min-height: calc(100vh - 4.5rem); grid-template-columns: minmax(0, 1fr); }
 .shop, .studio { position: relative; overflow: hidden; }
-.shop { background: var(--pa-bone); color: var(--pa-void); }
+.shop { background: color-mix(in srgb, var(--pa-bone) 88%, var(--pa-aluminum)); color: var(--pa-void); }
 .studio { background: var(--pa-void); color: var(--pa-bone); border-top: 1px solid var(--pa-graphite); }
 .shopContent, .studioContent { position: relative; z-index: 1; max-width: 48rem; margin: 0 auto; padding: 4rem 1.5rem; }
-.spotlight { position: absolute; top: 0; left: 50%; width: 12rem; height: 23rem; transform: translateX(-50%); background: radial-gradient(ellipse at top, rgba(255,255,255,.88) 0%, rgba(255,255,255,.38) 30%, rgba(245,242,237,0) 72%); pointer-events: none; }
-.spotlight::before { content: ""; position: absolute; left: calc(50% - 1.75rem); top: 0; width: 3.5rem; height: .55rem; border-radius: 50%; background: var(--pa-void); box-shadow: 0 .35rem .7rem rgba(10,10,11,.28); }
+.spotlight { position: absolute; top: 0; left: 50%; width: min(46rem, 100%); height: clamp(22rem, 48vw, 34rem); transform: translateX(-50%); pointer-events: none; }
+.lightHousing { position: absolute; z-index: 2; top: 0; left: 50%; width: 5rem; height: .625rem; transform: translateX(-50%); border-radius: 0 0 50% 50%; background: color-mix(in srgb, var(--pa-aluminum) 88%, var(--pa-bone)); box-shadow: 0 .25rem .55rem color-mix(in srgb, var(--pa-graphite) 18%, transparent); }
+.lightBeam { position: absolute; top: 3rem; left: 50%; width: min(38rem, 96vw); height: clamp(17rem, 34vw, 23rem); transform: translateX(-50%); filter: blur(7px) hue-rotate(24deg); opacity: .92; }
+.lightBeamCore { stop-color: color-mix(in srgb, var(--pa-bone) 78%, var(--pa-hot-amber)); }
+.lightBeamMiddle { stop-color: color-mix(in srgb, var(--pa-bone) 86%, var(--pa-hot-amber)); stop-opacity: .8; }
+.lightBeamEdge { stop-color: var(--pa-bone); stop-opacity: 0; }
 .sectionLabel, .consoleHeader, .consoleFooter, .step span, .shopLink { font-family: var(--pa-font-mono); font-size: .75rem; letter-spacing: .1em; text-transform: uppercase; }
 .sectionLabel { margin: 0; }
 .shopHeading, .studioHeading { max-width: 10ch; margin: 1.5rem 0 0; font-family: var(--pa-font-display); font-size: clamp(2.75rem, 6vw, 5.75rem); line-height: .92; letter-spacing: -.06em; }
@@ -25,4 +29,4 @@
 .consoleFooter a { color: var(--pa-hot-amber); text-decoration: none; }
 .consoleFooter a:hover { color: var(--pa-bone); }
 @media (min-width: 64rem) { .surface { grid-template-columns: 53% 47%; } .studio { border-top: 0; border-left: 1px solid var(--pa-graphite); } .shopContent, .studioContent { padding: 3.5rem clamp(2rem, 5vw, 5rem); } .gallery { gap: 1rem; } }
-@media (prefers-reduced-motion: reduce) { .spotlight { display: none; } }
+@media (prefers-reduced-motion: reduce) { .spotlight { opacity: .72; } }

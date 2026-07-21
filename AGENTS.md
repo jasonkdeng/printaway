@@ -4,7 +4,7 @@ This file applies to the entire Printaway repository. It is the operating contra
 
 ## Project state
 
-Printaway has an initial application scaffold, package manifest, source directories, and validation scripts. It is not a complete commerce or Studio submission application: catalog data, business-approved currency and contact requirements, policies, assets, and provider adapters remain unimplemented. Do not report an unverified command or unfinished workflow as runnable.
+Printaway has a strict application scaffold, a Square-backed Shop and session cart foundation, and an interactive six-step Studio foundation. It is not a complete commerce or Studio submission application: approved production media and content, account-backed persistence, checkout, reference uploads, authoritative estimates, and quote submission remain unfinished. Do not report an unverified command or unfinished workflow as runnable.
 
 ## Read before changing anything
 

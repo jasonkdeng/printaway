@@ -293,6 +293,8 @@ Name what the customer can do without promising unsupported formats:
 
 Accepted formats, limits, retention, and privacy language must come from the implemented upload policy.
 
+When a reference is only selected in the browser and has not been uploaded, say `Selected locally. Files are not uploaded or stored.` Do not use `uploaded`, `attached`, or a success state until the server confirms storage.
+
 ### Submission
 
 Use:

@@ -13,7 +13,7 @@ This plan stages work from the current first application scaffold. It implements
 - Establish the six Studio steps as a single domain constant: Reference, Material, Size, Finish, Quantity, Review and submit.
 - Keep routes server-rendered by default and retain reduced-motion behavior in the shared styles.
 
-Exit evidence: lint, strict type-check, unit tests, Chromium desktop and mobile smoke tests, and the production build passed on 2026-07-13. The Stage 1 routes remain intentionally data-free until Stage 2 business and content inputs are approved.
+Exit evidence: lint, strict type-check, unit tests, Chromium desktop and mobile smoke tests, and the production build passed on 2026-07-13.
 
 ## Stage 2 — Approved data and business configuration
 
@@ -28,31 +28,35 @@ Exit evidence: reviewed initial catalog fixtures, upload and retention configura
 
 ## Stage 3 — Shop
 
-**Status: in progress.**
+**Status: complete (Shop and session-cart foundation).**
 
 - Implement the restrained product gallery, product detail route, inventory presentation, and cart entry points.
 - Support only material and availability filtering in the initial Shop experience, with URL state and recovery states.
 - Deliver accessible image-first product information; introduce 3D only where responsive stills cannot communicate the object.
-- Add Square configuration and an inventory repository boundary. Live quantities remain disabled until Square credentials and one item-variation ID per product are configured; the catalog must not duplicate sellable inventory.
+- Keep Square configuration and authoritative inventory behind the repository-owned boundary. Configured product variation mappings supply current quantities; the catalog does not duplicate sellable inventory.
 - Keep product summaries and limitations visibly marked as approval-pending placeholders until reviewed content is supplied.
 
-Exit evidence: domain, component, and Playwright coverage for filter state, unavailable products, quantity selection, and cart feedback at the required review widths.
+Exit evidence: domain coverage for cart quantity and totals, component coverage for purchase controls, responsive browser coverage for filters and product configuration, and a server-only Square inventory boundary. Account-backed cart persistence and checkout remain Stage 5 work.
 
 ## Stage 4 — Studio
 
-**Status: pending Stage 2.**
+**Status: in progress — production boundary implemented, activation gated.**
 
 - Implement the focused configurator in the canonical six-step order.
 - Add upload, compatibility, estimate, validation, and recovery states behind repository-owned boundaries.
 - Keep all client estimates explicitly provisional until a server response confirms them.
+- The interactive foundation keeps draft data in memory, validates locally selected reference metadata, and exposes manual-review readouts without uploading, estimating, or submitting data until production activation is configured.
+- Stage 4B–4D adds normalized configuration and capability contracts, an authoritative manual-review estimate endpoint, repository-owned private-upload and quote-submission adapters, idempotency, quarantined private storage, retention cleanup, and a production-gated submit action.
 
-Exit evidence: keyboard, validation-summary, reduced-motion, upload-failure, stale-estimate, and WebGL-unavailable coverage.
+Foundation evidence: pure domain validation and reducer coverage; component coverage for all steps, validation-summary focus, local-reference messaging, readout updates, and retained input; responsive Chromium coverage at 320, 375, 768, 1024, and 1440 px; reduced-motion stability; lint, strict type-check, unit/component tests, Playwright, and production build passed on 2026-07-15.
+
+Stage 4 remains incomplete until approved capability and material content is supplied, the privacy policy is approved and versioned, Supabase migration and private bucket are deployed, server secrets and Vercel Cron are configured, and live upload/submission recovery states are verified.
 
 ## Stage 5 — Cart, checkout, and quote submission
 
 **Status: pending Stages 2–4.**
 
-- Build cart state and persistence behind `CartStore`.
+- Promote the existing session-scoped `CartStore` to approved Google-backed account persistence.
 - Add Square checkout and Google OAuth account-cart adapters after the required server credentials and exact Square catalog mappings are configured.
 - Keep provider types and payment details outside components and domain logic.
 

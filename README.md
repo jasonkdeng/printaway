@@ -2,27 +2,34 @@
 
 ## Current status
 
-The repository contains the strict Next.js App Router scaffold, shared design tokens, staged routes, CAD money handling, the approved Studio contact/consent configuration, initial Shop fixtures, and server-only Supabase and Square configuration boundaries. Production media, live Square mappings, authentication, cart persistence, checkout, and quote submission remain staged.
+Printaway is a product-first 3D-printing storefront for small-batch objects and custom commissions. **Shop** presents ready-to-buy pieces as a restrained gallery. **Studio** guides a customer through Reference, Material, Size, Finish, Quantity, then Review and submit in a focused machine-console interface.
 
-See [the implementation plan](docs/IMPLEMENTATION_PLAN.md) for the staged path from the scaffold to a release-ready application.
+The repository currently includes:
 
-Printaway is a product-first 3D-printing storefront for small-batch objects and custom commissions. **Shop** presents ready-to-buy pieces as a restrained gallery. **Studio** guides a customer through a six-step reference, material, size, finish, quantity, and review flow while a machine-style panel shows provisional production and price estimates.
+- a strict Next.js App Router application and shared design-token system;
+- CAD money handling and approved contact, consent, and reference-file validation;
+- a Square-backed Shop inventory boundary, product-detail purchasing, and a session-scoped cart;
+- the Stage 4 Studio implementation boundary: typed capability validation, manual-review estimate state, private-upload/quote repository adapters, and a production-gated submission flow;
+- server-only Supabase and Square configuration boundaries;
+- Vitest, Testing Library, and Playwright coverage for the implemented journeys.
 
-The repository is currently in its documentation-first setup phase. The application has not been scaffolded yet.
+Production product media and copy, Google-backed cart persistence, Square checkout, Studio capabilities, privacy-policy approval, remote Supabase migration, and quote activation remain staged. Studio submission stays disabled unless its policy version, capability profile, server secret, and rate-limit secret are all configured.
+
+See [the implementation plan](docs/IMPLEMENTATION_PLAN.md) for the staged path to release readiness.
 
 ## Direction
 
-The approved application stack is:
+The application uses:
 
-- Next.js App Router
-- TypeScript in strict mode
-- Tailwind CSS
-- React Three Fiber and Drei
-- Zod
-- Vitest and Testing Library
-- Playwright
+- Next.js App Router;
+- TypeScript in strict mode;
+- Tailwind CSS backed by CSS custom properties;
+- React Three Fiber and Drei for justified 3D scenes;
+- Zod at untrusted boundaries;
+- Vitest and Testing Library;
+- Playwright.
 
-Supabase is the approved production database and private upload storage boundary; Square is the approved payment and Shop-inventory provider; Vercel is the hosting and analytics provider. Google OAuth is approved for account-backed cart persistence. Repository-owned adapters keep those choices out of components and domain logic.
+Supabase is the approved production database and private-upload storage boundary. Square is the approved payment and Shop-inventory provider. Vercel is the hosting and analytics provider, and Google OAuth is approved for future account-backed cart persistence. Repository-owned interfaces keep provider types outside components and domain logic.
 
 ## Project references
 
@@ -37,21 +44,21 @@ Read these before implementation:
 - [3D asset guide](docs/ASSET_GUIDE.md)
 - [Quality gates](docs/QUALITY.md)
 
-`DESIGN.md` is the design authority. The showcase is a non-canonical illustrative companion, not production application code or a token source.
+`DESIGN.md` is the visual authority. The showcase is a non-canonical illustrative companion, not production application code or a token source.
 
-## Planned experience
+## Implemented experiences
 
 ### Shop
 
-A spacious catalog of pre-made prints with strong product imagery, useful technical specifications, honest availability, and direct purchase actions.
+A restrained catalog and product-detail flow with URL-backed material and availability filters, authoritative Square inventory presentation, accessible finish/colour/quantity controls, add-to-cart feedback, and a session-scoped cart. Media, product summaries, and limitations remain approval-pending placeholders.
 
 ### Studio
 
-A focused configurator for custom work. Each step asks for one meaningful decision and updates a persistent readout. Estimates remain clearly provisional until validated by the server or converted into a quote.
+A six-step in-memory configurator with local reference validation, typed configuration normalization, capability-aware server validation, and an authoritative manual-review estimate state. When deliberately activated, references upload only after consent through short-lived private URLs; the server finalizes an idempotent quote request and returns an opaque public reference. Selected files and contact data are never stored in browser persistence.
 
-## Planned development workflow
+## Development workflow
 
-After the Next.js scaffold and `package.json` exist, contributors will use:
+Install dependencies, then use the repository quality interfaces:
 
 ```bash
 npm install
@@ -63,8 +70,4 @@ npm run test:e2e
 npm run build
 ```
 
-These commands define the required script interface for the future scaffold; they are not available in the current documentation-only repository.
-
-## Status
-
-The design system, product boundaries, architecture, content rules, asset pipeline, and quality expectations are documented. The next development phase is the application scaffold and foundational design tokens.
+Do not describe provider-backed workflows as complete unless their current success and recovery paths have been verified.
