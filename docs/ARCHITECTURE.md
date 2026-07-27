@@ -2,7 +2,7 @@
 
 ## Status
 
-This document defines the architecture for the current application and its remaining staged boundaries. The scaffold, Square-backed Shop inventory, session cart, and Stage 4A Studio client workflow exist; production media, account persistence, checkout, uploads, estimates, and quote submission remain staged.
+This document defines the architecture for the current application and its remaining staged boundaries. The scaffold, Square-backed Shop inventory, Google-authenticated account-cart boundary, and Studio production boundary exist; production media, live provider verification, checkout, and Studio activation remain staged.
 
 ### Current Studio foundation
 
@@ -426,8 +426,8 @@ Rules:
 
 - URL search parameters own shareable Shop filters.
 - A feature-local reducer owns the current uncommitted Studio draft. It is intentionally not synchronized to local storage, session storage, a global store, or a server.
-- The selected cart strategy owns cart persistence behind `CartStore`.
-- The server owns authoritative product, availability, estimate, quote, and policy data. Square is the inventory authority for Shop variants; its server-only adapter supplies the current quantity.
+- The selected cart strategy owns cart persistence behind `CartStore`. Anonymous carts remain in browser session storage; authenticated carts synchronize through the server-only Supabase repository after sign-in.
+- The server owns authoritative product, availability, estimate, quote, and policy data. Square is the inventory authority for Shop variants; its server-only adapter supplies the current quantity. Square checkout is not yet implemented.
 - Do not introduce a global client-state library during scaffolding. Add one only when real cross-tree state cannot be handled cleanly by URL, server state, context, or a feature-local reducer.
 - Do not store Studio contact data, selected-file contents, or reference metadata in browser persistence. Selected `File` objects stay only in the mounted configurator ref until submit or removal.
 
@@ -444,6 +444,7 @@ Before production:
 - apply rate limits to quote, upload, and checkout-creation endpoints;
 - establish retention and deletion behavior before accepting uploads;
 - publish approved privacy and acceptable-use policies before collecting personal information.
+- authorize Vercel Cron using `CRON_SECRET`; do not expose a second application-specific cron secret.
 
 No documentation in this repository substitutes for legal or security review.
 

@@ -24,7 +24,7 @@ Exit evidence: lint, strict type-check, unit tests, Chromium desktop and mobile 
 - Supply approved catalog, material, availability, media, and policy content.
 - Introduce repository-owned interfaces and server-only configuration schemas without selecting a provider prematurely.
 
-Exit evidence: reviewed initial catalog fixtures, upload and retention configuration, Zod boundary tests, a Supabase migration with RLS/private storage boundaries, and an explicit business decision record. Initial catalog fixtures are not publishable product records until dimensions, finishes, availability, and approved media are supplied. The migration remains unapplied to the remote project.
+Exit evidence: reviewed initial catalog fixtures, upload and retention configuration, Zod boundary tests, a Supabase migration with RLS/private storage boundaries, and an explicit business decision record. Dimensions, finishes, summaries, and limitations are approved. Production media and provenance remain required; the account-cart migration awaits one-time SQL Editor application.
 
 ## Stage 3 — Shop
 
@@ -34,7 +34,7 @@ Exit evidence: reviewed initial catalog fixtures, upload and retention configura
 - Support only material and availability filtering in the initial Shop experience, with URL state and recovery states.
 - Deliver accessible image-first product information; introduce 3D only where responsive stills cannot communicate the object.
 - Keep Square configuration and authoritative inventory behind the repository-owned boundary. Configured product variation mappings supply current quantities; the catalog does not duplicate sellable inventory.
-- Keep product summaries and limitations visibly marked as approval-pending placeholders until reviewed content is supplied.
+- Keep product media visibly marked as approval-pending until Jason supplies owned photographs or renders.
 
 Exit evidence: domain coverage for cart quantity and totals, component coverage for purchase controls, responsive browser coverage for filters and product configuration, and a server-only Square inventory boundary. Account-backed cart persistence and checkout remain Stage 5 work.
 
@@ -54,10 +54,10 @@ Stage 4 remains incomplete until approved capability and material content is sup
 
 ## Stage 5 — Cart, checkout, and quote submission
 
-**Status: pending Stages 2–4.**
+**Status: in progress — account persistence implemented; provider verification and checkout pending.**
 
-- Promote the existing session-scoped `CartStore` to approved Google-backed account persistence.
-- Add Square checkout and Google OAuth account-cart adapters after the required server credentials and exact Square catalog mappings are configured.
+- Google-backed account persistence, anonymous-cart merge, and Supabase repository boundaries are implemented. Apply the account-cart migration and verify the live OAuth journey before treating this boundary as complete.
+- Add Square checkout only after the required server credentials, catalog mappings, taxes, fulfillment choices, and delivery/refund terms are configured.
 - Keep provider types and payment details outside components and domain logic.
 
 Exit evidence: server-boundary tests, price-conflict and unavailable-line journeys, and safe failure states.
@@ -71,3 +71,11 @@ Exit evidence: server-boundary tests, price-conflict and unavailable-line journe
 - Run the complete quality contract and inspect browser consoles before release.
 
 Exit evidence: documented asset provenance and budgets, all required checks, accessibility and reduced-motion review, and no new console errors.
+
+## Stage 7 — Catalog administration
+
+**Status: future work.**
+
+- Add a dedicated, authorized administration surface for product content, media metadata, prices, Square mappings, and availability.
+- Preserve Square as the sellable-inventory and checkout-price authority.
+- Do not begin this stage as part of checkout or account-cart work.
