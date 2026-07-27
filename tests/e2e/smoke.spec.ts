@@ -18,6 +18,26 @@ test("the homepage preserves its core actions at a mobile width", async ({ page 
   await expect(page.getByRole("link", { name: "Configure a print" })).toBeVisible();
 });
 
+test("the header keeps its wordmark and controls aligned", async ({ page }) => {
+  for (const width of [320, 1440]) {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto("/");
+
+    const wordmark = page.getByRole("link", { name: "Printaway home" });
+    const shop = page.getByRole("link", { name: "Shop", exact: true });
+    await expect(wordmark).toBeVisible();
+    await expect(shop).toBeVisible();
+    expect((await wordmark.boundingBox())?.height).toBe(48);
+    expect((await shop.boundingBox())?.height).toBe(48);
+
+    const signIn = page.getByRole("link", { name: "Sign in with Google" });
+    if (await signIn.count()) {
+      expect((await signIn.boundingBox())?.height).toBe(48);
+    }
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+  }
+});
+
 test("the Shop preserves availability filter state and offers recovery", async ({ page }) => {
   await page.goto("/shop?availability=available");
 
@@ -63,6 +83,24 @@ test("the product configuration remains visible and stable at review widths", as
   await expect(page.getByRole("button", { name: "Add to cart" })).toBeFocused();
 
   expect(consoleErrors).toEqual([]);
+});
+
+test("every initial product links to its shared material limit at review widths", async ({ page }) => {
+  const products = [
+    ["monitor-riser", "PLA"],
+    ["desk-tray", "PLA"],
+    ["coat-hanger", "ABS"],
+    ["keycap-fidget", "PLA"],
+  ] as const;
+
+  for (const width of [320, 375, 768, 1024, 1440]) {
+    await page.setViewportSize({ width, height: 900 });
+    for (const [slug, material] of products) {
+      await page.goto(`/shop/${slug}`);
+      await expect(page.getByRole("link", { name: `Read ${material} material limits` })).toHaveAttribute("href", `/materials#${material.toLowerCase()}`);
+      expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+    }
+  }
 });
 
 test("the cart gives an empty-state recovery message", async ({ page }) => {

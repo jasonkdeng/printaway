@@ -62,6 +62,10 @@ export class CartStore {
     this.setSnapshot(EMPTY_CART);
   }
 
+  public replace(snapshot: CartSnapshot): void {
+    this.setSnapshot({ lines: [...snapshot.lines] });
+  }
+
   private setSnapshot(snapshot: CartSnapshot): void {
     this.snapshot = snapshot;
     this.listeners.forEach((listener) => listener());

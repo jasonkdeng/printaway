@@ -1,5 +1,10 @@
 import Link from "next/link";
 
+import type { AccountSession } from "@/server/auth/account-session";
+
+import { AccountControl } from "./account-control";
+import { headerNavigationControlClassName } from "./header-control-styles";
+
 const links = [
   { href: "/shop", label: "Shop" },
   { href: "/studio", label: "Studio" },
@@ -7,22 +12,23 @@ const links = [
   { href: "/about", label: "About" },
 ];
 
-export function SiteHeader() {
+export function SiteHeader({ account, authenticationAvailable }: { account: AccountSession | null; authenticationAvailable: boolean }) {
   return (
     <header className="border-b border-graphite">
-      <nav aria-label="Primary" className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-3 py-3 sm:px-6 lg:px-12">
-        <Link aria-label="Printaway home" className="font-display text-2xl lowercase tracking-[-0.06em] text-bone focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cure-violet" href="/">
+      <nav aria-label="Primary" className="mx-auto grid max-w-7xl gap-2 px-3 py-2 sm:px-6 lg:grid-cols-[auto_minmax(0,1fr)] lg:items-center lg:px-12">
+        <Link aria-label="Printaway home" className="inline-flex h-6 w-fit shrink-0 self-center items-center px-2 font-display text-[1.75rem] lowercase leading-none tracking-[-0.06em] text-bone focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-cure-violet" href="/">
           printaway
         </Link>
-        <div className="flex flex-wrap justify-end gap-x-3 gap-y-1 font-mono text-sm text-aluminum sm:gap-x-5">
+        <div className="flex flex-wrap items-center justify-start gap-1 lg:justify-end">
           {links.map((link) => (
-            <Link className="hover:text-bone focus-visible:text-bone focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cure-violet" href={link.href} key={link.href}>
+            <Link className={headerNavigationControlClassName} href={link.href} key={link.href}>
               {link.label}
             </Link>
           ))}
-          <Link className="text-bone hover:text-aluminum focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cure-violet" href="/cart">
+          <Link className={headerNavigationControlClassName} href="/cart">
             Cart
           </Link>
+          <AccountControl account={account} authenticationAvailable={authenticationAvailable} />
         </div>
       </nav>
     </header>

@@ -8,12 +8,12 @@ The repository currently includes:
 
 - a strict Next.js App Router application and shared design-token system;
 - CAD money handling and approved contact, consent, and reference-file validation;
-- a Square-backed Shop inventory boundary, product-detail purchasing, and a session-scoped cart;
+- a Square-backed Shop inventory boundary, approved fixture copy, product-detail purchasing, and a session-scoped cart with an account-persistence boundary;
 - the Stage 4 Studio implementation boundary: typed capability validation, manual-review estimate state, private-upload/quote repository adapters, and a production-gated submission flow;
 - server-only Supabase and Square configuration boundaries;
 - Vitest, Testing Library, and Playwright coverage for the implemented journeys.
 
-Production product media and copy, Google-backed cart persistence, Square checkout, Studio capabilities, privacy-policy approval, remote Supabase migration, and quote activation remain staged. Studio submission stays disabled unless its policy version, capability profile, server secret, and rate-limit secret are all configured.
+Production product media, live Google cart verification, Square checkout, Studio activation, and the one-time account-cart migration remain staged. Studio submission stays disabled unless its policy version, capability profile, server secret, rate-limit secret, and production activation flag are configured.
 
 See [the implementation plan](docs/IMPLEMENTATION_PLAN.md) for the staged path to release readiness.
 
@@ -50,7 +50,7 @@ Read these before implementation:
 
 ### Shop
 
-A restrained catalog and product-detail flow with URL-backed material and availability filters, authoritative Square inventory presentation, accessible finish/colour/quantity controls, add-to-cart feedback, and a session-scoped cart. Media, product summaries, and limitations remain approval-pending placeholders.
+A restrained catalog and product-detail flow with URL-backed material and availability filters, authoritative Square inventory presentation, accessible finish/colour/quantity controls, add-to-cart feedback, and a session-scoped cart. Approved summaries, limitations, and material guidance are present; owned production media remains pending.
 
 ### Studio
 

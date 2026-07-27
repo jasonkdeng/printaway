@@ -39,4 +39,13 @@ describe("CartStore", () => {
     cart.remove("monitor-riser:Default:white");
     expect(cart.getSnapshot().lines).toEqual([]);
   });
+
+  it("replaces the snapshot when an account cart is restored", () => {
+    const cart = new CartStore();
+    cart.add({ ...line, quantity: 1 });
+
+    cart.replace({ lines: [{ ...line, id: "monitor-riser:Default:white", quantity: 3 }] });
+
+    expect(cart.getSnapshot().lines).toEqual([{ ...line, id: "monitor-riser:Default:white", quantity: 3 }]);
+  });
 });
