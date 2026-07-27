@@ -31,6 +31,11 @@ export function useCart(): CartStore {
   return cart;
 }
 
+export function useCartSnapshot(): CartSnapshot {
+  const cart = getStore();
+  return useSyncExternalStore(cart.subscribe, cart.getSnapshot, () => EMPTY_CART);
+}
+
 export function cartLineCount(lines: readonly CartLine[]): number {
   return lines.reduce((count, line) => count + line.quantity, 0);
 }

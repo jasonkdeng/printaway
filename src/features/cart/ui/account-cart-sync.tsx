@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { CartStore, type CartSnapshot } from "../domain/cart";
-import { useCart } from "./browser-cart-store";
+import { useCart, useCartSnapshot } from "./browser-cart-store";
 
 const synchronizedAccountKey = "printaway-account-cart-subject-v1";
 
@@ -16,6 +16,9 @@ function mergeSnapshots(first: CartSnapshot, second: CartSnapshot): CartSnapshot
 
 export function AccountCartSync({ accountId }: { accountId: string | null }) {
   const cart = useCart();
+  const snapshot = useCartSnapshot();
+  const [readyAccountId, setReadyAccountId] = useState<string | null>(null);
+  const lastPersistedSnapshot = useRef<string | null>(null);
 
   useEffect(() => {
     if (!accountId) {
@@ -41,12 +44,31 @@ export function AccountCartSync({ accountId }: { accountId: string | null }) {
         if (cancelled) return;
         cart.replace(persisted);
         window.sessionStorage.setItem(synchronizedAccountKey, accountId);
+        lastPersistedSnapshot.current = JSON.stringify(persisted);
+        setReadyAccountId(accountId);
       } catch {
         // Keep the local cart intact; the next mount can retry without losing it.
       }
     })();
     return () => { cancelled = true; };
   }, [accountId, cart]);
+
+  useEffect(() => {
+    if (!accountId || readyAccountId !== accountId) return;
+    const serialized = JSON.stringify(snapshot);
+    if (serialized === lastPersistedSnapshot.current) return;
+    void (async () => {
+      try {
+        const response = await fetch("/api/cart", { method: "PUT", headers: { "content-type": "application/json" }, body: serialized });
+        if (!response.ok) return;
+        const persisted = await response.json() as CartSnapshot;
+        lastPersistedSnapshot.current = JSON.stringify(persisted);
+        cart.replace(persisted);
+      } catch {
+        // Keep the local cart intact; a later cart change can retry.
+      }
+    })();
+  }, [accountId, cart, readyAccountId, snapshot]);
 
   return null;
 }
