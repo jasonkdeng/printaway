@@ -17,3 +17,10 @@ body {
   background: var(--pa-cure-violet);
   color: var(--pa-void);
 }
+
+.pa-page-title {
+  font-family: var(--pa-font-display);
+  font-size: clamp(3rem, 7vw, 6rem);
+  line-height: 0.9;
+  letter-spacing: -0.06em;
+}
