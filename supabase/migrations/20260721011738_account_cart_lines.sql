@@ -1,3 +1,8 @@
+-- Paste this complete file into the Supabase SQL Editor once for a fresh project.
+-- It is intentionally non-idempotent: a conflicting existing schema must be reviewed,
+-- not silently changed.
+begin;
+
 create table public.account_cart_lines (
   account_id text not null,
   line_id text not null,
@@ -72,3 +77,19 @@ $$;
 
 revoke all on function public.replace_account_cart_lines(text, jsonb) from public, anon, authenticated;
 grant execute on function public.replace_account_cart_lines(text, jsonb) to service_role;
+
+commit;
+
+-- Read-only verification output for the SQL Editor.
+select
+  to_regclass('public.account_cart_lines') is not null as account_cart_lines_exists,
+  (select relrowsecurity from pg_class where oid = 'public.account_cart_lines'::regclass) as rls_enabled,
+  has_table_privilege('service_role', 'public.account_cart_lines', 'select')
+    and has_table_privilege('service_role', 'public.account_cart_lines', 'insert')
+    and has_table_privilege('service_role', 'public.account_cart_lines', 'update')
+    and has_table_privilege('service_role', 'public.account_cart_lines', 'delete') as service_role_table_access,
+  has_function_privilege('service_role', 'public.replace_account_cart_lines(text, jsonb)', 'execute') as service_role_function_access,
+  not has_table_privilege('anon', 'public.account_cart_lines', 'select')
+    and not has_table_privilege('authenticated', 'public.account_cart_lines', 'select') as client_table_access_revoked,
+  not has_function_privilege('anon', 'public.replace_account_cart_lines(text, jsonb)', 'execute')
+    and not has_function_privilege('authenticated', 'public.replace_account_cart_lines(text, jsonb)', 'execute') as client_function_access_revoked;
