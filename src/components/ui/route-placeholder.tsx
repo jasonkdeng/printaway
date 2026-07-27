@@ -8,7 +8,7 @@ export function RoutePlaceholder({ eyebrow, title, description }: RoutePlacehold
   return (
     <section className="mx-auto min-h-[50vh] max-w-7xl px-3 py-12 sm:px-6 lg:px-12">
       <p className="font-mono text-sm tracking-[0.16em] text-aluminum">{eyebrow}</p>
-      <h1 className="mt-3 font-display text-5xl leading-[0.95] tracking-[-0.05em] text-bone sm:text-6xl">{title}</h1>
+      <h1 className="pa-page-title mt-3 text-bone">{title}</h1>
       <p className="mt-5 max-w-2xl text-lg leading-8 text-aluminum">{description}</p>
     </section>
   );

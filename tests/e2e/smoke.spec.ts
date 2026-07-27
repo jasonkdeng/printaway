@@ -18,13 +18,15 @@ test("the homepage preserves its core actions at a mobile width", async ({ page 
   await expect(page.getByRole("link", { name: "Configure a print" })).toBeVisible();
 });
 
-test("the header keeps its wordmark and controls aligned", async ({ page }) => {
+test("the header keeps its wordmark left, navigation centred, and account actions right", async ({ page }) => {
   for (const width of [320, 1440]) {
     await page.setViewportSize({ width, height: 900 });
     await page.goto("/");
 
     const wordmark = page.getByRole("link", { name: "Printaway home" });
     const shop = page.getByRole("link", { name: "Shop", exact: true });
+    const navigation = page.getByTestId("header-navigation");
+    const actions = page.getByTestId("header-actions");
     await expect(wordmark).toBeVisible();
     await expect(shop).toBeVisible();
     expect((await wordmark.boundingBox())?.height).toBe(48);
@@ -33,9 +35,45 @@ test("the header keeps its wordmark and controls aligned", async ({ page }) => {
     const signIn = page.getByRole("link", { name: "Sign in with Google" });
     if (await signIn.count()) {
       expect((await signIn.boundingBox())?.height).toBe(48);
+      await expect(signIn).toHaveCSS("border-radius", "8px");
+      await expect(signIn).toHaveCSS("background-color", "rgb(19, 19, 20)");
     }
+
+    const wordmarkBox = await wordmark.boundingBox();
+    const navigationBox = await navigation.boundingBox();
+    const actionsBox = await actions.boundingBox();
+    expect(wordmarkBox).not.toBeNull();
+    expect(navigationBox).not.toBeNull();
+    expect(actionsBox).not.toBeNull();
+    const horizontalPadding = width === 1440 ? 96 : 24;
+    expect(wordmarkBox!.x).toBe(horizontalPadding);
+    expect(Math.abs((navigationBox!.x + navigationBox!.width / 2) - width / 2)).toBeLessThanOrEqual(1);
+    expect(Math.abs((actionsBox!.x + actionsBox!.width) - (width - horizontalPadding))).toBeLessThanOrEqual(1);
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
   }
+});
+
+test("the primary route titles share one display scale", async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  const routes = [
+    ["/", "Objects made in small runs."],
+    ["/shop", "Objects made in small runs."],
+    ["/studio", "Configure a print with control."],
+    ["/materials", "Material reference"],
+    ["/about", "About Printaway"],
+    ["/privacy-policy", "Privacy and personal information"],
+    ["/cart", "Your cart is empty."],
+  ] as const;
+  const fontSizes: string[] = [];
+
+  for (const [route, heading] of routes) {
+    await page.goto(route);
+    const title = page.getByRole("heading", { name: heading, exact: true }).first();
+    await expect(title).toBeVisible();
+    fontSizes.push(await title.evaluate((element) => getComputedStyle(element).fontSize));
+  }
+
+  expect(fontSizes).toEqual(Array(routes.length).fill("96px"));
 });
 
 test("the Shop preserves availability filter state and offers recovery", async ({ page }) => {

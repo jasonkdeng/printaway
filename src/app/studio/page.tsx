@@ -14,7 +14,7 @@ export default function StudioPage() {
     <main className={styles.page}>
       <header className={styles.header}>
         <p className={styles.label}>{"// Studio / Custom print"}</p>
-        <h1>Configure a print with control.</h1>
+        <h1 className="pa-page-title">Configure a print with control.</h1>
         <p>{submissionMessage}</p>
       </header>
       <StudioConfigurator capabilities={studio.capabilities} submissionEnabled={studio.submissionEnabled} />

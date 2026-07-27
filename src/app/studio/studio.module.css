@@ -17,13 +17,7 @@
   text-transform: uppercase;
 }
 
-.header h1 {
-  margin: 1rem 0 0;
-  font-family: var(--pa-font-display);
-  font-size: 2.75rem;
-  line-height: 0.95;
-  letter-spacing: -0.05em;
-}
+.header h1 { margin: 1rem 0 0; }
 
 .header > p:last-child {
   max-width: 66ch;
@@ -37,9 +31,5 @@
 @media (min-width: 48rem) {
   .page {
     padding: 4rem clamp(3rem, 6vw, 6rem) 6rem;
-  }
-
-  .header h1 {
-    font-size: 4.5rem;
   }
 }

@@ -31,7 +31,7 @@ export default async function ShopPage({ searchParams }: { searchParams: Promise
     <section className={styles.page}>
       <header className={styles.header}>
         <p className={styles.label}>{"// Shop"}</p>
-        <h1>Objects made in small runs.</h1>
+        <h1 className="pa-page-title">Objects made in small runs.</h1>
         <p>Initial product fixtures use provisional CAD pricing. Product media, dimensions, finishes, and inventory are still being documented.</p>
       </header>
       <form className={styles.filters} action="/shop">

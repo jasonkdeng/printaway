@@ -22,7 +22,9 @@ describe("AccountControl", () => {
       "href",
       "/api/auth/signin/google?callbackUrl=%2Fcart",
     );
-    expect(signIn).toHaveClass("h-6", "font-mono");
+    expect(signIn).toHaveClass("h-6", "rounded-[8px]", "bg-[#131314]", "font-body");
+    expect(screen.getByTestId("google-logo")).toHaveClass("size-3");
+    expect(screen.getByTestId("google-logo")).toHaveAttribute("viewBox", "0 0 18 18");
   });
 
   it("identifies the signed-in account and provides sign-out", async () => {
