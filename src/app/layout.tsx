@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { AccountCartSync } from "@/features/cart/ui/account-cart-sync";
+import { isAuthenticationConfigured } from "@/auth";
 import { getAccountSession } from "@/server/auth/account-session";
 
 import "./globals.css";
@@ -21,7 +22,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
   return (
     <html lang="en">
       <body>
-        <SiteHeader account={account} />
+        <SiteHeader account={account} authenticationAvailable={isAuthenticationConfigured()} />
         <AccountCartSync accountId={account?.accountId ?? null} />
         <main>{children}</main>
         <SiteFooter />
