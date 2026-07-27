@@ -33,6 +33,8 @@
 .specifications div { display: grid; grid-template-columns: minmax(7rem, .8fr) minmax(0, 1.2fr); gap: 1rem; padding: 1rem 0; border-bottom: 1px solid var(--pa-graphite); }
 .specifications dt, .specifications dd { margin: 0; }
 .specifications dd { color: var(--pa-bone); font-family: var(--pa-font-mono); font-size: .75rem; line-height: 1.6; letter-spacing: .02em; }
+.specifications dd a { color: var(--pa-bone); text-decoration-color: var(--pa-cure-violet); text-underline-offset: .25rem; }
+.specifications dd a:hover { color: var(--pa-cure-violet); }
 .detailNote { max-width: 66ch; color: var(--pa-aluminum); font-family: var(--pa-font-body); font-size: 1rem; line-height: 1.6; }
 .limitations { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--pa-graphite); }
 .limitations h2 { margin: 0; font-family: var(--pa-font-display); font-size: 1.625rem; line-height: 1; letter-spacing: -.04em; }

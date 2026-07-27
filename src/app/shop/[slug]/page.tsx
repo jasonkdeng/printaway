@@ -26,7 +26,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
         <h1>{product.name}</h1>
         <p className={styles.detailNote}>{product.summary}</p>
         <dl className={styles.specifications}>
-          <div><dt>Material</dt><dd>{product.material}</dd></div>
+          <div><dt>Material</dt><dd><Link aria-label={`Read ${product.material} material limits`} href={`/materials#${product.material.toLowerCase()}`}>{product.material}</Link></dd></div>
           <div><dt>Weight</dt><dd>{product.weightGrams} g</dd></div>
           <div><dt>Dimensions</dt><dd>{product.dimensionsMm.length} × {product.dimensionsMm.width} × {product.dimensionsMm.height} mm</dd></div>
           <div><dt>Provisional price</dt><dd>{formatMoney(product.provisionalPrice)}</dd></div>
