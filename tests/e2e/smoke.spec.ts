@@ -35,6 +35,8 @@ test("the header keeps its wordmark left, navigation centred, and account action
     const signIn = page.getByRole("link", { name: "Sign in with Google" });
     if (await signIn.count()) {
       expect((await signIn.boundingBox())?.height).toBe(48);
+      await expect(signIn).toHaveCSS("border-radius", "8px");
+      await expect(signIn).toHaveCSS("background-color", "rgb(19, 19, 20)");
     }
 
     const wordmarkBox = await wordmark.boundingBox();
