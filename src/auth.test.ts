@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { authOptions } from "./auth";
+import { authOptions, isAuthenticationConfigured } from "./auth";
 
 describe("authOptions", () => {
   it("uses Google as the only provider and JWT sessions", () => {
@@ -35,5 +35,17 @@ describe("authOptions", () => {
     expect((session?.user as { id?: string } | undefined)?.id).toBe("google-subject-123");
     expect(session).not.toHaveProperty("accessToken");
     expect(session).not.toHaveProperty("refreshToken");
+  });
+});
+
+describe("isAuthenticationConfigured", () => {
+  it("requires every server-side Google OAuth setting", () => {
+    expect(isAuthenticationConfigured({
+      GOOGLE_CLIENT_ID: "client-id",
+      GOOGLE_CLIENT_SECRET: "client-secret",
+      AUTH_SECRET: "auth-secret",
+      NEXTAUTH_URL: "https://printaway.vercel.app",
+    })).toBe(true);
+    expect(isAuthenticationConfigured({ GOOGLE_CLIENT_ID: "client-id" })).toBe(false);
   });
 });
