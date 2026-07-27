@@ -10,12 +10,12 @@ export function CartPanel() {
   const { lines } = cart.getSnapshot();
 
   if (!lines.length) {
-    return <section><h1>Your cart is empty.</h1><p>Add an available Shop object to begin.</p></section>;
+    return <section><h1 className="pa-page-title">Your cart is empty.</h1><p>Add an available Shop object to begin.</p></section>;
   }
 
   return (
     <section aria-labelledby="cart-heading">
-      <h1 id="cart-heading">Your cart</h1>
+      <h1 className="pa-page-title" id="cart-heading">Your cart</h1>
       <ul>
         {lines.map((line) => (
           <li key={line.id}>
