@@ -33,7 +33,7 @@ export default function PrivacyPolicyPage() {
   return (
     <article className="mx-auto max-w-3xl px-3 py-12 sm:px-6 lg:px-12">
       <p className="font-mono text-sm tracking-[0.16em] text-aluminum">PRIVACY POLICY / EFFECTIVE JULY 20, 2026</p>
-      <h1 className="mt-3 font-display text-5xl leading-[0.95] tracking-[-0.05em] text-bone sm:text-6xl">Privacy and personal information</h1>
+      <h1 className="pa-page-title mt-3 text-bone">Privacy and personal information</h1>
       <p className="mt-5 text-lg leading-8 text-aluminum">This policy explains how Printaway collects, uses, stores, and discloses personal information in connection with commercial website, quoting, manufacturing, and order activities.</p>
       <div className="mt-10 flex flex-col gap-8">
         {sections.map((section) => (
