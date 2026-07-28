@@ -65,7 +65,7 @@ export async function revalidateAccountCartLines(lines: readonly CartLine[]): Pr
       colour: line.colour,
       quantity: Math.min(line.quantity, product.availability.quantity, 10),
       maximumQuantity: product.availability.quantity,
-      unitPrice: product.provisionalPrice,
+      unitPrice: product.basePrice,
     }];
   });
   return normalizeCartLines(revalidated);
