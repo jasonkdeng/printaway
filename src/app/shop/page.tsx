@@ -32,7 +32,7 @@ export default async function ShopPage({ searchParams }: { searchParams: Promise
       <header className={styles.header}>
         <p className={styles.label}>{"// Shop"}</p>
         <h1 className="pa-page-title">Objects made in small runs.</h1>
-        <p>Initial product fixtures use provisional CAD pricing. Product media, dimensions, finishes, and inventory are still being documented.</p>
+        <p>Approved CAD base prices are shown below. Product media and Square checkout configuration remain pending.</p>
       </header>
       <form className={styles.filters} action="/shop">
         <div className={styles.filterField}>
@@ -62,7 +62,7 @@ export default async function ShopPage({ searchParams }: { searchParams: Promise
               <div className={styles.cardBody}>
                 <h2><Link href={`/shop/${product.slug}`}>{product.name}</Link></h2>
                 <p>{product.material} · {product.weightGrams} g · {product.dimensionsMm.length} × {product.dimensionsMm.width} × {product.dimensionsMm.height} mm</p>
-                <p className={styles.price}>Provisional price: {formatMoney(product.provisionalPrice)}</p>
+                <p className={styles.price}>Base price: {formatMoney(product.basePrice)}</p>
                 <p className={product.availability.kind === "unavailable" || (product.availability.kind === "in_stock" && product.availability.quantity <= 5) ? styles.unavailable : styles.inventoryNote}>{product.availability.label}</p>
               </div>
             </li>

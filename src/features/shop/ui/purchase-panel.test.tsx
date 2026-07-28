@@ -11,11 +11,14 @@ describe("PurchasePanel", () => {
     render(
       <PurchasePanel
         colours={["Bone", "Graphite"]}
-        finishes={["Matte", "Glossy"]}
+        finishOptions={[
+          { name: "Matte", surcharge: { amountMinor: 100, currency: "CAD" } },
+          { name: "Glossy", surcharge: { amountMinor: 200, currency: "CAD" } },
+        ]}
         maximumQuantity={12}
         name="Monitor Riser"
         productId="monitor-riser"
-        unitPrice={{ amountMinor: 12900, currency: "CAD" }}
+        basePrice={{ amountMinor: 12900, currency: "CAD" }}
       />,
     );
 
@@ -23,12 +26,13 @@ describe("PurchasePanel", () => {
       screen.getByRole("group", { name: "Select a configuration" }),
     ).toBeInTheDocument();
 
-    const finish = screen.getByRole("combobox", { name: "Finish" });
+    const finish = screen.getByRole("combobox", { name: "Print Finish" });
     const colour = screen.getByRole("combobox", { name: "Colour" });
     const quantity = screen.getByRole("combobox", { name: "Quantity" });
 
     expect(quantity).toHaveTextContent("10");
     expect(quantity.querySelectorAll("option")).toHaveLength(10);
+    expect(screen.getByText("$130.00 per object · 12 available")).toBeInTheDocument();
 
     await user.selectOptions(finish, "Glossy");
     await user.selectOptions(colour, "Graphite");
@@ -38,6 +42,7 @@ describe("PurchasePanel", () => {
     expect(finish).toHaveValue("Glossy");
     expect(colour).toHaveValue("Graphite");
     expect(quantity).toHaveValue("3");
+    expect(screen.getByText("$131.00 per object · 12 available")).toBeInTheDocument();
     expect(screen.getByRole("status")).toHaveTextContent(
       "Added Monitor Riser to cart.",
     );

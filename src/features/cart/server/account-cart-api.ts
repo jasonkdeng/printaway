@@ -2,6 +2,7 @@ import { z } from "zod";
 
 import type { CartLine } from "../domain/cart";
 import { listCatalogWithAuthoritativeInventory } from "@/features/shop/server/catalog-with-inventory";
+import { priceForPrintFinish } from "@/features/shop/domain/initial-catalog";
 import type { CartRepository } from "./cart-repository";
 import { normalizeCartLines } from "./cart-repository";
 
@@ -56,7 +57,8 @@ export async function revalidateAccountCartLines(lines: readonly CartLine[]): Pr
   const revalidated = lines.flatMap((line) => {
     const product = productById.get(line.productId);
     if (!product || product.availability.kind !== "in_stock") return [];
-    if (!product.finishes.includes(line.finish as never) || !product.colours.includes(line.colour as never)) return [];
+    const unitPrice = priceForPrintFinish(product, line.finish);
+    if (!unitPrice || !product.colours.includes(line.colour as never)) return [];
     return [{
       id: `${product.id}:${line.finish}:${line.colour}`,
       productId: product.id,
@@ -65,7 +67,7 @@ export async function revalidateAccountCartLines(lines: readonly CartLine[]): Pr
       colour: line.colour,
       quantity: Math.min(line.quantity, product.availability.quantity, 10),
       maximumQuantity: product.availability.quantity,
-      unitPrice: product.provisionalPrice,
+      unitPrice,
     }];
   });
   return normalizeCartLines(revalidated);
