@@ -246,7 +246,7 @@ The first release excludes:
 
 ## Decisions that require business input
 
-The following are confirmed and may be encoded through repository-owned boundaries: CAD currency; required name/email and optional phone/company for Studio; explicit privacy consent; the listed upload types and 10 MB limit; Supabase database/private storage; Vercel hosting and analytics; Google OAuth for account-backed carts; Square online checkout and authoritative Shop inventory; the initial catalog fixture dimensions, materials, finishes, colours, provisional prices, and sold-out status.
+The following are confirmed and may be encoded through repository-owned boundaries: CAD currency; required name/email and optional phone/company for Studio; explicit privacy consent; the listed upload types and 10 MB limit; Supabase database/private storage; Vercel hosting and analytics; Google OAuth for account-backed carts; Square online checkout and authoritative Shop inventory; the initial catalog fixture dimensions, materials, finishes, colours, approved base prices and Glossy surcharges, and sold-out status. Square catalog configuration must match the approved prices before checkout is enabled.
 
 Implementation must still stop for confirmation before encoding:
 
