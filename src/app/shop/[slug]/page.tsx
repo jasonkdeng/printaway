@@ -30,17 +30,17 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
           <div><dt>Weight</dt><dd>{product.weightGrams} g</dd></div>
           <div><dt>Dimensions</dt><dd>{product.dimensionsMm.length} × {product.dimensionsMm.width} × {product.dimensionsMm.height} mm</dd></div>
           <div><dt>Base price</dt><dd>{formatMoney(product.basePrice)}</dd></div>
-          <div><dt>Glossy surcharge</dt><dd>{formatMoney(product.glossyBaseSurcharge)}; added to the base price</dd></div>
+          <div><dt>Print Finish</dt><dd>{product.finishOptions.map((option) => `${option.name} +${formatMoney(option.surcharge)}`).join(" · ")}; added to the base price</dd></div>
           <div><dt>Availability</dt><dd>{product.availability.label}</dd></div>
         </dl>
         {product.availability.kind === "in_stock" ? (
           <PurchasePanel
             colours={product.colours}
-            finishes={product.finishes}
+            finishOptions={product.finishOptions}
             maximumQuantity={product.availability.quantity}
             name={product.name}
             productId={product.id}
-            unitPrice={product.basePrice}
+            basePrice={product.basePrice}
           />
         ) : <p className={styles.detailNote}>This product is unavailable. Choose another object or return to Shop.</p>}
         <section aria-labelledby="limitations-heading" className={styles.limitations}>
