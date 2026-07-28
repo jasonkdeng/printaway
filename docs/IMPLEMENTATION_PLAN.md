@@ -57,7 +57,7 @@ Stage 4 remains incomplete until approved capability and material content is sup
 **Status: in progress — account persistence implemented; provider verification and checkout pending.**
 
 - Google-backed account persistence, anonymous-cart merge, and Supabase repository boundaries are implemented. Apply the account-cart migration and verify the live OAuth journey before treating this boundary as complete.
-- Add Square checkout only after the required server credentials, catalog mappings, taxes, fulfillment choices, and delivery/refund terms are configured.
+- Add Square checkout only after the required server credentials, catalog mappings, the shared `Print Finish` modifier options (Matte +CAD $1.00; Glossy +CAD $2.00), taxes, fulfillment choices, and delivery/refund terms are configured.
 - Keep provider types and payment details outside components and domain logic.
 
 Exit evidence: server-boundary tests, price-conflict and unavailable-line journeys, and safe failure states.
