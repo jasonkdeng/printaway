@@ -57,7 +57,7 @@ Stage 4 remains incomplete until approved capability and material content is sup
 **Status: in progress — checkout implemented; database deployment and sandbox verification pending.**
 
 - Google-backed account persistence, anonymous-cart merge, the account-cart migration, and the live OAuth journey are complete.
-- Square hosted checkout validates current inventory, approved variation prices, and the shared `Print Finish` modifier options (Matte +CAD $1.00; Glossy +CAD $2.00) before creating a payment link.
+- Square hosted checkout validates current inventory and approved variation prices. Standard finish is included without a Square modifier; the optional shared `Print Finish` modifier adds CAD $1.00 for Matte or CAD $2.00 for Glossy.
 - Supabase stores the Square order reference and webhook event ledger. A verified `payment.updated` event marks completed payment and clears only matching purchased cart lines.
 - Apply `20260728090000_shop_checkout_orders.sql`, subscribe the configured webhook URL to `payment.updated`, and complete the sandbox payment journey before enabling production checkout. Sandbox intentionally has no taxes.
 - Keep provider types and payment details outside components and domain logic.
