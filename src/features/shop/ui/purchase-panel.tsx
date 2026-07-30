@@ -26,7 +26,7 @@ function selectFinish(basePrice: Money, finishOptions: readonly PrintFinishOptio
 
 export function PurchasePanel({ productId, name, colours, finishOptions, basePrice, maximumQuantity }: PurchasePanelProps) {
   const cart = useCart();
-  const [selectedFinish, setSelectedFinish] = useState<SelectedFinish>(() => selectFinish(basePrice, finishOptions, finishOptions[0]?.name ?? ""));
+  const [selectedFinish, setSelectedFinish] = useState<SelectedFinish>(() => selectFinish(basePrice, finishOptions, "Standard") ?? selectFinish(basePrice, finishOptions, finishOptions[0]?.name ?? ""));
   const [colour, setColour] = useState(colours[0] ?? "white");
   const [quantity, setQuantity] = useState(1);
   const [status, setStatus] = useState("");
@@ -51,7 +51,7 @@ export function PurchasePanel({ productId, name, colours, finishOptions, basePri
               }}
               value={selectedFinish?.option.name ?? ""}
             >
-              {finishOptions.map((option) => <option key={option.name} value={option.name}>{option.name} (+{formatMoney(option.surcharge)})</option>)}
+              {finishOptions.map((option) => <option key={option.name} value={option.name}>{option.surcharge.amountMinor ? `${option.name} (+${formatMoney(option.surcharge)})` : `${option.name} (included)`}</option>)}
             </select>
           </span>
         </label>
