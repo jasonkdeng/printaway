@@ -12,6 +12,7 @@ describe("PurchasePanel", () => {
       <PurchasePanel
         colours={["Bone", "Graphite"]}
         finishOptions={[
+          { name: "Standard", surcharge: { amountMinor: 0, currency: "CAD" } },
           { name: "Matte", surcharge: { amountMinor: 100, currency: "CAD" } },
           { name: "Glossy", surcharge: { amountMinor: 200, currency: "CAD" } },
         ]}
@@ -32,7 +33,9 @@ describe("PurchasePanel", () => {
 
     expect(quantity).toHaveTextContent("10");
     expect(quantity.querySelectorAll("option")).toHaveLength(10);
-    expect(screen.getByText("$130.00 per object · 12 available")).toBeInTheDocument();
+    expect(finish).toHaveValue("Standard");
+    expect(screen.getByRole("option", { name: "Standard (included)" })).toBeInTheDocument();
+    expect(screen.getByText("$129.00 per object · 12 available")).toBeInTheDocument();
 
     finish.focus();
     expect(finish).toHaveFocus();

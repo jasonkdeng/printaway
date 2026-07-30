@@ -39,6 +39,10 @@ const catalogModifierSchema = z.object({
   }),
 });
 
+function modifierIdForFinish(finish: string, modifierIds: SquarePrintFinishModifierIds): string | null {
+  return finish === "Matte" || finish === "Glossy" ? modifierIds[finish] : null;
+}
+
 const createPaymentLinkResponseSchema = z.object({
   payment_link: z.object({
     id: z.string().min(1),
@@ -121,26 +125,25 @@ export class SquareCheckoutAdapter {
       const product = initialCatalogProducts.find((candidate) => candidate.id === line.productId);
       const finish = product?.finishOptions.find((candidate) => candidate.name === line.finish);
       const variationId = this.variationIds[line.productId as keyof SquareVariationIds];
-      const modifierId = this.modifierIds[line.finish as keyof SquarePrintFinishModifierIds];
-      if (!product || !finish || !variationId || !modifierId) throw new SquareCheckoutError("catalog_mismatch");
+      const modifierId = modifierIdForFinish(line.finish, this.modifierIds);
+      if (!product || !finish || !variationId) throw new SquareCheckoutError("catalog_mismatch");
 
       const [variation, modifier] = await Promise.all([
         this.catalogObject(variationId).then((value) => catalogVariationSchema.parse(value)),
-        this.catalogObject(modifierId).then((value) => catalogModifierSchema.parse(value)),
+        modifierId ? this.catalogObject(modifierId).then((value) => catalogModifierSchema.parse(value)) : Promise.resolve(null),
       ]).catch((error: unknown) => {
         if (error instanceof SquareCheckoutError) throw error;
         throw new SquareCheckoutError("catalog_mismatch");
       });
 
       const baseAmount = variation.object.item_variation_data.price_money.amount;
-      const modifierAmount = modifier.object.modifier_data.price_money.amount;
+      const modifierAmount = modifier?.object.modifier_data.price_money.amount ?? 0;
       if (
         variation.object.id !== variationId
-        || modifier.object.id !== modifierId
-        || modifier.object.modifier_data.name !== line.finish
         || baseAmount !== product.basePrice.amountMinor
         || modifierAmount !== finish.surcharge.amountMinor
         || line.unitPrice.amountMinor !== baseAmount + modifierAmount
+        || (modifier !== null && (modifier.object.id !== modifierId || modifier.object.modifier_data.name !== line.finish))
       ) {
         throw new SquareCheckoutError("catalog_mismatch");
       }
@@ -152,12 +155,15 @@ export class SquareCheckoutAdapter {
 
     const redirectUrl = new URL(input.redirectUrl);
     redirectUrl.searchParams.set("checkout", input.checkoutId);
-    const lineItems = input.lines.map((line) => ({
-      quantity: String(line.quantity),
-      catalog_object_id: this.variationIds[line.productId as keyof SquareVariationIds],
-      note: `Colour: ${line.colour}`,
-      modifiers: [{ catalog_object_id: this.modifierIds[line.finish as keyof SquarePrintFinishModifierIds] }],
-    }));
+    const lineItems = input.lines.map((line) => {
+      const modifierId = modifierIdForFinish(line.finish, this.modifierIds);
+      return {
+        quantity: String(line.quantity),
+        catalog_object_id: this.variationIds[line.productId as keyof SquareVariationIds],
+        note: `Colour: ${line.colour}`,
+        ...(modifierId ? { modifiers: [{ catalog_object_id: modifierId }] } : {}),
+      };
+    });
     const checkoutOptions = {
       allow_tipping: false,
       enable_coupon: false,

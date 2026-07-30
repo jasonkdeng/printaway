@@ -3,13 +3,14 @@ import { z } from "zod";
 import { moneySchema, type Money } from "@/lib/currency/money";
 
 export const printFinishOptionSchema = z.object({
-  name: z.enum(["Matte", "Glossy"]),
+  name: z.enum(["Standard", "Matte", "Glossy"]),
   surcharge: moneySchema,
 });
 
 export type PrintFinishOption = z.infer<typeof printFinishOptionSchema>;
 
 export const printFinishOptions: PrintFinishOption[] = [
+  { name: "Standard", surcharge: { amountMinor: 0, currency: "CAD" } },
   { name: "Matte", surcharge: { amountMinor: 100, currency: "CAD" } },
   { name: "Glossy", surcharge: { amountMinor: 200, currency: "CAD" } },
 ];

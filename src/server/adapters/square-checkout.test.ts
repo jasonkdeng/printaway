@@ -90,4 +90,31 @@ describe("SquareCheckoutAdapter", () => {
       redirectUrl: "https://localhost:3000/checkout/return",
     })).rejects.toHaveProperty("code", "catalog_mismatch");
   });
+
+  it("creates a base-price line without a Square modifier for the included standard finish", async () => {
+    const requests: string[] = [];
+    const adapter = new SquareCheckoutAdapter(config, variations, modifiers, (async (input: URL | RequestInfo) => {
+      const url = input.toString();
+      requests.push(url);
+      if (url.endsWith("/monitor-variation")) {
+        return Response.json({ object: { id: "monitor-variation", type: "ITEM_VARIATION", item_variation_data: { price_money: { amount: 1200, currency: "CAD" } } } });
+      }
+      return Response.json({ payment_link: { id: "link-id", order_id: "order-id", url: "https://sandbox.square.link/u/example" } });
+    }) as typeof fetch);
+
+    await adapter.createPaymentLink({
+      checkoutId: "checkout-id",
+      idempotencyKey: "idempotency-key",
+      buyerEmail: null,
+      lines: [{ ...line, finish: "Standard", unitPrice: { amountMinor: 1200, currency: "CAD" } }],
+      fulfillment: { kind: "pickup", pickupPointId: "waterloo-engineering-7" },
+      shippingFee: { amountMinor: 0, currency: "CAD" },
+      redirectUrl: "https://localhost:3000/checkout/return",
+    });
+
+    expect(requests).toEqual([
+      "https://connect.squareupsandbox.com/v2/catalog/object/monitor-variation",
+      "https://connect.squareupsandbox.com/v2/online-checkout/payment-links",
+    ]);
+  });
 });

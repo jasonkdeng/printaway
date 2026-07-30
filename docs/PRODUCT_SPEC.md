@@ -246,7 +246,7 @@ The first release excludes:
 
 ## Decisions that require business input
 
-The following are confirmed and may be encoded through repository-owned boundaries: CAD currency; required name/email and optional phone/company for Studio; explicit privacy consent; the listed upload types and 10 MB limit; Supabase database/private storage; Vercel hosting and analytics; Google OAuth for account-backed carts; Square online checkout and authoritative Shop inventory; the initial catalog fixture dimensions, materials, colours, approved base prices, and the shared `Print Finish` modifier (Matte +CAD $1.00; Glossy +CAD $2.00); sandbox checkout without taxes; the approved pickup points and shipping areas; CAD $5.00 shipping below a CAD $30.00 merchandise subtotal; seven-calendar-day delivery; and the approved refund and cancellation terms.
+The following are confirmed and may be encoded through repository-owned boundaries: CAD currency; required name/email and optional phone/company for Studio; explicit privacy consent; the listed upload types and 10 MB limit; Supabase database/private storage; Vercel hosting and analytics; Google OAuth for account-backed carts; Square online checkout and authoritative Shop inventory; the initial catalog fixture dimensions, materials, colours, and approved base prices; included Standard finish with optional shared `Print Finish` modifiers (Matte +CAD $1.00; Glossy +CAD $2.00); sandbox checkout without taxes; the approved pickup points and shipping areas; CAD $5.00 shipping below a CAD $30.00 merchandise subtotal; seven-calendar-day delivery; and the approved refund and cancellation terms.
 
 Implementation must still stop for confirmation before encoding:
 

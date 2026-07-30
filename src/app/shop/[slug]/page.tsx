@@ -30,7 +30,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
           <div><dt>Weight</dt><dd>{product.weightGrams} g</dd></div>
           <div><dt>Dimensions</dt><dd>{product.dimensionsMm.length} × {product.dimensionsMm.width} × {product.dimensionsMm.height} mm</dd></div>
           <div><dt>Base price</dt><dd>{formatMoney(product.basePrice)}</dd></div>
-          <div><dt>Print Finish</dt><dd>{product.finishOptions.map((option) => `${option.name} +${formatMoney(option.surcharge)}`).join(" · ")}; added to the base price</dd></div>
+          <div><dt>Print Finish</dt><dd>{product.finishOptions.map((option) => option.surcharge.amountMinor ? `${option.name} +${formatMoney(option.surcharge)}` : `${option.name} included`).join(" · ")}</dd></div>
           <div><dt>Availability</dt><dd>{product.availability.label}</dd></div>
         </dl>
         {product.availability.kind === "in_stock" ? (
