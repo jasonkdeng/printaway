@@ -34,6 +34,15 @@ describe("PurchasePanel", () => {
     expect(quantity.querySelectorAll("option")).toHaveLength(10);
     expect(screen.getByText("$130.00 per object · 12 available")).toBeInTheDocument();
 
+    finish.focus();
+    expect(finish).toHaveFocus();
+    await user.tab();
+    expect(colour).toHaveFocus();
+    await user.tab();
+    expect(quantity).toHaveFocus();
+    await user.tab();
+    expect(screen.getByRole("button", { name: "Add to cart" })).toHaveFocus();
+
     await user.selectOptions(finish, "Glossy");
     await user.selectOptions(colour, "Graphite");
     await user.selectOptions(quantity, "3");
