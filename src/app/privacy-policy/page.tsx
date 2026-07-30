@@ -17,7 +17,7 @@ const sections = [
   },
   {
     heading: "Files and retention",
-    content: "Uploaded CAD files, images, and project details are treated as confidential and are not published. Information and files associated with an order are retained until the order is completed or cancelled, then deleted after three days. Quote requests that do not become orders are retained for four days. We may retain a limited record when required by law or needed to resolve an active dispute.",
+    content: "Uploaded CAD files, images, and project details are treated as confidential and are not published. Custom-project information and files associated with an order are retained until the order is completed or cancelled, then deleted after three days. Quote requests that do not become orders are retained for four days. Limited Shop checkout and payment references are retained for ten days after delivery or pickup. We may retain a limited record when required by law or needed to resolve an active dispute.",
   },
   {
     heading: "Your choices",
@@ -32,7 +32,7 @@ const sections = [
 export default function PrivacyPolicyPage() {
   return (
     <article className="mx-auto max-w-3xl px-3 py-12 sm:px-6 lg:px-12">
-      <p className="font-mono text-sm tracking-[0.16em] text-aluminum">PRIVACY POLICY / EFFECTIVE JULY 20, 2026</p>
+      <p className="font-mono text-sm tracking-[0.16em] text-aluminum">PRIVACY POLICY / EFFECTIVE JULY 28, 2026</p>
       <h1 className="pa-page-title mt-3 text-bone">Privacy and personal information</h1>
       <p className="mt-5 text-lg leading-8 text-aluminum">This policy explains how Printaway collects, uses, stores, and discloses personal information in connection with commercial website, quoting, manufacturing, and order activities.</p>
       <div className="mt-10 flex flex-col gap-8">
