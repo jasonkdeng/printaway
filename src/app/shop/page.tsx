@@ -32,7 +32,7 @@ export default async function ShopPage({ searchParams }: { searchParams: Promise
       <header className={styles.header}>
         <p className={styles.label}>{"// Shop"}</p>
         <h1 className="pa-page-title">Objects made in small runs.</h1>
-        <p>Approved CAD base prices are shown below. Product media and Square checkout configuration remain pending.</p>
+        <p>Approved CAD base prices are shown below. Product media and live Square checkout verification remain pending.</p>
       </header>
       <form className={styles.filters} action="/shop">
         <div className={styles.filterField}>

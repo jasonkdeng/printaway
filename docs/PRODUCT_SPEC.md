@@ -183,7 +183,7 @@ The cart must:
 - persist through a reasonable same-device return once a storage strategy is selected;
 - remain usable without WebGL.
 
-Square is the selected payment and checkout provider. Payment and checkout behavior must remain behind the repository-owned adapter boundary until its server credentials, item-variation mappings, tax treatment, and delivery/refund terms are configured.
+Square is the selected payment and checkout provider. The server validates current Square inventory, each mapped item-variation price, and the selected shared `Print Finish` modifier before creating a Square-hosted payment link. A signed `payment.updated` webhook, rather than the browser return URL, confirms completed payment. The sandbox environment intentionally applies no taxes; production tax configuration remains a separate release gate.
 
 ## Content and data requirements
 
@@ -232,7 +232,7 @@ See [quality gates](QUALITY.md) for test and performance requirements.
 
 The first release excludes:
 
-- customer accounts and saved profiles;
+- saved customer profiles beyond the Google-authenticated account cart;
 - wishlists, loyalty, referrals, reviews, and ratings;
 - marketplace or third-party seller features;
 - augmented-reality placement;
@@ -246,15 +246,14 @@ The first release excludes:
 
 ## Decisions that require business input
 
-The following are confirmed and may be encoded through repository-owned boundaries: CAD currency; required name/email and optional phone/company for Studio; explicit privacy consent; the listed upload types and 10 MB limit; Supabase database/private storage; Vercel hosting and analytics; Google OAuth for account-backed carts; Square online checkout and authoritative Shop inventory; the initial catalog fixture dimensions, materials, colours, approved base prices, and the shared `Print Finish` modifier (Matte +CAD $1.00; Glossy +CAD $2.00), and sold-out status. Square catalog configuration must match the approved prices and modifier options before checkout is enabled.
+The following are confirmed and may be encoded through repository-owned boundaries: CAD currency; required name/email and optional phone/company for Studio; explicit privacy consent; the listed upload types and 10 MB limit; Supabase database/private storage; Vercel hosting and analytics; Google OAuth for account-backed carts; Square online checkout and authoritative Shop inventory; the initial catalog fixture dimensions, materials, colours, approved base prices, and the shared `Print Finish` modifier (Matte +CAD $1.00; Glossy +CAD $2.00); sandbox checkout without taxes; the approved pickup points and shipping areas; CAD $5.00 shipping below a CAD $30.00 merchandise subtotal; seven-calendar-day delivery; and the approved refund and cancellation terms.
 
 Implementation must still stop for confirmation before encoding:
 
-- exact Square item-variation IDs and server credentials;
-- taxes, production, dispatch, pickup, shipping, return, and refund terms;
+- production taxes and final live Square verification;
 - approved production product media, summaries, and limitations;
 - production upload deletion/review operations and active service providers beyond those confirmed;
-- checkout implementation details and the actual authorized product catalog.
+- release approval for the configured production catalog.
 
 ## Related references
 

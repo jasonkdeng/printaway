@@ -25,3 +25,10 @@ export function getOptionalSquarePrintFinishModifierIdsFromEnvironment(): Square
   });
   return result.success ? result.data : null;
 }
+
+export function getSquarePrintFinishModifierIdsFromEnvironment(): SquarePrintFinishModifierIds {
+  return getSquarePrintFinishModifierIds({
+    SQUARE_PRINT_FINISH_MATTE_MODIFIER_ID: process.env["SQUARE_PRINT_FINISH_MATTE_MODIFIER_ID"],
+    SQUARE_PRINT_FINISH_GLOSSY_MODIFIER_ID: process.env["SQUARE_PRINT_FINISH_GLOSSY_MODIFIER_ID"],
+  });
+}

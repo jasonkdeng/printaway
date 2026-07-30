@@ -5,6 +5,7 @@ const mocks = vi.hoisted(() => ({
   findExpiredIntentIds: vi.fn(),
   removeExpiredReferences: vi.fn(),
   removeExpiredQuotes: vi.fn(),
+  removeExpiredCheckouts: vi.fn(),
 }));
 
 vi.mock("@/server/adapters/supabase-studio", () => ({
@@ -17,6 +18,12 @@ vi.mock("@/server/adapters/supabase-studio", () => ({
   }),
 }));
 
+vi.mock("@/server/adapters/supabase-checkout", () => ({
+  createSupabaseCheckoutRepository: () => ({
+    removeExpired: mocks.removeExpiredCheckouts,
+  }),
+}));
+
 import { GET } from "./route";
 
 describe("studio retention route", () => {
@@ -24,6 +31,7 @@ describe("studio retention route", () => {
     mocks.findExpiredIntentIds.mockResolvedValue(["quote-1"]);
     mocks.removeExpiredReferences.mockResolvedValue(undefined);
     mocks.removeExpiredQuotes.mockResolvedValue(undefined);
+    mocks.removeExpiredCheckouts.mockResolvedValue(2);
     vi.stubEnv("CRON_SECRET", "scheduled-secret");
     vi.stubEnv("STUDIO_CRON_SECRET", "");
   });
@@ -36,9 +44,10 @@ describe("studio retention route", () => {
     }));
 
     expect(response.status).toBe(200);
-    await expect(response.json()).resolves.toEqual({ removed: 1 });
+    await expect(response.json()).resolves.toEqual({ quoteRequestsRemoved: 1, checkoutOrdersRemoved: 2 });
     expect(mocks.removeExpiredReferences).toHaveBeenCalledWith(["quote-1"]);
     expect(mocks.removeExpiredQuotes).toHaveBeenCalledWith(["quote-1"]);
+    expect(mocks.removeExpiredCheckouts).toHaveBeenCalledOnce();
   });
 
   it("rejects an incorrect secret", async () => {

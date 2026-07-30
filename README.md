@@ -8,12 +8,12 @@ The repository currently includes:
 
 - a strict Next.js App Router application and shared design-token system;
 - CAD money handling and approved contact, consent, and reference-file validation;
-- a Square-backed Shop inventory boundary, approved fixture copy, product-detail purchasing, and a session-scoped cart with an account-persistence boundary;
+- a Square-backed Shop inventory and hosted-checkout boundary, approved fixture copy, product-detail purchasing, and Google-authenticated account-cart persistence;
 - the Stage 4 Studio implementation boundary: typed capability validation, manual-review estimate state, private-upload/quote repository adapters, and a production-gated submission flow;
 - server-only Supabase and Square configuration boundaries;
 - Vitest, Testing Library, and Playwright coverage for the implemented journeys.
 
-Production product media, live Google cart verification, Square checkout, Studio activation, and the one-time account-cart migration remain staged. Studio submission stays disabled unless its policy version, capability profile, server secret, rate-limit secret, and production activation flag are configured.
+Production product media, the checkout-order migration, a signed Square Sandbox payment verification, production taxes, and Studio activation remain staged. Studio submission stays disabled unless its policy version, capability profile, server secret, rate-limit secret, and production activation flag are configured.
 
 See [the implementation plan](docs/IMPLEMENTATION_PLAN.md) for the staged path to release readiness.
 
@@ -29,7 +29,9 @@ The application uses:
 - Vitest and Testing Library;
 - Playwright.
 
-Supabase is the approved production database and private-upload storage boundary. Square is the approved payment and Shop-inventory provider. Vercel is the hosting and analytics provider, and Google OAuth is approved for future account-backed cart persistence. Repository-owned interfaces keep provider types outside components and domain logic.
+Supabase is the approved production database and private-upload storage boundary. Square is the approved payment and Shop-inventory provider. Vercel is the hosting and analytics provider, and Google OAuth supplies account-backed cart persistence. Repository-owned interfaces keep provider types outside components and domain logic.
+
+For Square configuration, the access token, location ID, variation IDs, and print-finish modifier IDs must all belong to the same merchant account and environment. Sandbox and production credentials, catalog IDs, and inventory are isolated from one another.
 
 ## Project references
 
@@ -50,7 +52,7 @@ Read these before implementation:
 
 ### Shop
 
-A restrained catalog and product-detail flow with URL-backed material and availability filters, authoritative Square inventory presentation, accessible finish/colour/quantity controls, add-to-cart feedback, and a session-scoped cart. Approved summaries, limitations, and material guidance are present; owned production media remains pending.
+A restrained catalog and product-detail flow with URL-backed material and availability filters, authoritative Square inventory presentation, accessible finish/colour/quantity controls, add-to-cart feedback, account-backed cart persistence, fulfillment selection, and a Square-hosted checkout handoff. Completed payment is accepted only from a signed Square webhook; owned production media remains pending.
 
 ### Studio
 

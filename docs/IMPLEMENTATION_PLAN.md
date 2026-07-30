@@ -24,7 +24,7 @@ Exit evidence: lint, strict type-check, unit tests, Chromium desktop and mobile 
 - Supply approved catalog, material, availability, media, and policy content.
 - Introduce repository-owned interfaces and server-only configuration schemas without selecting a provider prematurely.
 
-Exit evidence: reviewed initial catalog fixtures, upload and retention configuration, Zod boundary tests, a Supabase migration with RLS/private storage boundaries, and an explicit business decision record. Dimensions, finishes, summaries, and limitations are approved. Production media and provenance remain required; the account-cart migration awaits one-time SQL Editor application.
+Exit evidence: reviewed initial catalog fixtures, upload and retention configuration, Zod boundary tests, Supabase migrations with RLS/private storage boundaries, and an explicit business decision record. Dimensions, finishes, summaries, and limitations are approved. Production media and provenance remain required.
 
 ## Stage 3 — Shop
 
@@ -54,13 +54,15 @@ Stage 4 remains incomplete until approved capability and material content is sup
 
 ## Stage 5 — Cart, checkout, and quote submission
 
-**Status: in progress — account persistence implemented; provider verification and checkout pending.**
+**Status: in progress — checkout implemented; database deployment and sandbox verification pending.**
 
-- Google-backed account persistence, anonymous-cart merge, and Supabase repository boundaries are implemented. Apply the account-cart migration and verify the live OAuth journey before treating this boundary as complete.
-- Add Square checkout only after the required server credentials, catalog mappings, the shared `Print Finish` modifier options (Matte +CAD $1.00; Glossy +CAD $2.00), taxes, fulfillment choices, and delivery/refund terms are configured.
+- Google-backed account persistence, anonymous-cart merge, the account-cart migration, and the live OAuth journey are complete.
+- Square hosted checkout validates current inventory, approved variation prices, and the shared `Print Finish` modifier options (Matte +CAD $1.00; Glossy +CAD $2.00) before creating a payment link.
+- Supabase stores the Square order reference and webhook event ledger. A verified `payment.updated` event marks completed payment and clears only matching purchased cart lines.
+- Apply `20260728090000_shop_checkout_orders.sql`, subscribe the configured webhook URL to `payment.updated`, and complete the sandbox payment journey before enabling production checkout. Sandbox intentionally has no taxes.
 - Keep provider types and payment details outside components and domain logic.
 
-Exit evidence: server-boundary tests, price-conflict and unavailable-line journeys, and safe failure states.
+Exit evidence: migration verification output, server-boundary tests, price-conflict and unavailable-line journeys, a signed completed-payment webhook, post-payment cart clearing, safe failure states, and a successful Square Sandbox payment.
 
 ## Stage 6 — Production media and release readiness
 

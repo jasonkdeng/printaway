@@ -2,7 +2,7 @@
 
 ## Status
 
-This document defines the architecture for the current application and its remaining staged boundaries. The scaffold, Square-backed Shop inventory, Google-authenticated account-cart boundary, and Studio production boundary exist; production media, live provider verification, checkout, and Studio activation remain staged.
+This document defines the architecture for the current application and its remaining staged boundaries. The scaffold, Square-backed Shop inventory and hosted checkout boundary, Google-authenticated account cart, and Studio production boundary exist; production media, live checkout verification, database deployment, and Studio activation remain staged.
 
 ### Current Studio foundation
 
@@ -393,11 +393,14 @@ The quote repository and private-reference repository are implemented behind ser
 
 ### Checkout handoff
 
-1. The cart is revalidated on the server.
-2. Changed price or availability returns a review-required result.
-3. The Square commerce adapter creates the handoff only after confirmation.
-4. The client navigates to the provider or internal checkout.
-5. Handoff failure leaves the cart intact and offers a retry.
+1. Google authentication identifies the account cart; anonymous carts must merge before checkout.
+2. The server revalidates current Square inventory, the mapped catalog variation price, and the selected `Print Finish` modifier price.
+3. Changed price or availability updates the account cart and returns a review-required result.
+4. A unique client-generated idempotency key creates one Square-hosted payment link and one local checkout record.
+5. The client navigates only to an allowlisted HTTPS Square checkout URL.
+6. Square signs `payment.updated` notifications using the exact notification URL and raw request body. The server verifies that signature before processing.
+7. Only a verified `COMPLETED` payment event marks the local order paid and clears matching purchased lines. The return URL never proves payment by itself.
+8. Handoff or verification failure leaves the cart intact and offers a retry.
 
 ## Error model
 
@@ -427,7 +430,7 @@ Rules:
 - URL search parameters own shareable Shop filters.
 - A feature-local reducer owns the current uncommitted Studio draft. It is intentionally not synchronized to local storage, session storage, a global store, or a server.
 - The selected cart strategy owns cart persistence behind `CartStore`. Anonymous carts remain in browser session storage; authenticated carts synchronize through the server-only Supabase repository after sign-in.
-- The server owns authoritative product, availability, estimate, quote, and policy data. Square is the inventory authority for Shop variants; its server-only adapter supplies the current quantity. Square checkout is not yet implemented.
+- The server owns authoritative product, availability, estimate, quote, and policy data. Square is the inventory and checkout-price authority for Shop variants. The server-only checkout adapter validates mapped variation and modifier prices before creating a hosted payment link; Supabase stores the local order reference and idempotent webhook ledger.
 - Do not introduce a global client-state library during scaffolding. Add one only when real cross-tree state cannot be handled cleanly by URL, server state, context, or a feature-local reducer.
 - Do not store Studio contact data, selected-file contents, or reference metadata in browser persistence. Selected `File` objects stay only in the mounted configurator ref until submit or removal.
 

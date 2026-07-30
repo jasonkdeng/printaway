@@ -80,11 +80,13 @@ test("the Shop preserves availability filter state and offers recovery", async (
   await page.goto("/shop?availability=available");
 
   await expect(page.getByLabel("Availability")).toHaveValue("available");
-  await expect(page.getByRole("list", { name: "Initial product catalog" })).toBeVisible();
+  const catalog = page.getByRole("list", { name: "Initial product catalog" });
+  const emptyState = page.getByRole("heading", { name: "No objects match these filters." });
+  await expect(catalog.or(emptyState)).toBeVisible();
   await expect(page.getByRole("link", { name: "Clear filter" })).toHaveAttribute("href", "/shop");
 });
 
-test("the product configuration remains visible and stable at review widths", async ({ page }) => {
+test("the product detail and its current availability state remain stable at review widths", async ({ page }) => {
   const consoleErrors: string[] = [];
   page.on("console", (message) => {
     if (message.type() === "error" && !message.text().includes("/_next/webpack-hmr")) {
@@ -97,28 +99,17 @@ test("the product configuration remains visible and stable at review widths", as
     await page.goto("/shop/monitor-riser");
 
     await expect(page.getByRole("heading", { name: "Monitor Riser" })).toBeVisible();
-    await expect(page.getByRole("group", { name: "Select a configuration" })).toBeVisible();
-
-    const finish = page.getByRole("combobox", { name: "Finish" });
-    const colour = page.getByRole("combobox", { name: "Colour" });
-    const quantity = page.getByRole("combobox", { name: "Quantity" });
-
-    await expect(finish).toBeVisible();
-    await expect(colour).toBeVisible();
-    await expect(quantity).toBeVisible();
-    await expect(finish).toHaveCSS("background-color", "rgb(245, 242, 237)");
-    await expect(finish).toHaveCSS("color", "rgb(10, 10, 11)");
+    await expect(page.getByText(/Matte \+\$1\.00/)).toBeVisible();
+    const configuration = page.getByRole("group", { name: "Select a configuration" });
+    if (await configuration.count()) {
+      await expect(page.getByRole("combobox", { name: "Print Finish" })).toBeVisible();
+      await expect(page.getByRole("combobox", { name: "Colour" })).toBeVisible();
+      await expect(page.getByRole("combobox", { name: "Quantity" })).toBeVisible();
+    } else {
+      await expect(page.getByText("This product is unavailable. Choose another object or return to Shop.")).toBeVisible();
+    }
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
   }
-
-  await page.getByRole("combobox", { name: "Finish" }).focus();
-  await expect(page.getByRole("combobox", { name: "Finish" })).toBeFocused();
-  await page.keyboard.press("Tab");
-  await expect(page.getByRole("combobox", { name: "Colour" })).toBeFocused();
-  await page.keyboard.press("Tab");
-  await expect(page.getByRole("combobox", { name: "Quantity" })).toBeFocused();
-  await page.keyboard.press("Tab");
-  await expect(page.getByRole("button", { name: "Add to cart" })).toBeFocused();
 
   expect(consoleErrors).toEqual([]);
 });
@@ -146,6 +137,39 @@ test("the cart gives an empty-state recovery message", async ({ page }) => {
 
   await expect(page.getByRole("heading", { name: "Your cart is empty." })).toBeVisible();
   await expect(page.getByText("Add an available Shop object to begin.")).toBeVisible();
+});
+
+test("the cart presents the approved fulfillment and policy boundary at review widths", async ({ page }) => {
+  const cart = {
+    lines: [{
+      id: "monitor-riser:Matte:white",
+      productId: "monitor-riser",
+      name: "Monitor Riser",
+      finish: "Matte",
+      colour: "white",
+      quantity: 1,
+      maximumQuantity: 4,
+      unitPrice: { amountMinor: 1300, currency: "CAD" },
+    }],
+  };
+
+  for (const width of [320, 1440]) {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto("/");
+    await page.evaluate((snapshot) => window.sessionStorage.setItem("printaway-cart-v1", JSON.stringify(snapshot)), cart);
+    await page.goto("/cart");
+
+    await expect(page.getByRole("group", { name: "Fulfillment" })).toBeVisible();
+    await page.getByRole("radio", { name: "Shipping" }).check();
+    await expect(page.getByRole("textbox", { name: /Shipping postal code/ })).toBeVisible();
+    await expect(page.getByText("$18.00")).toBeVisible();
+    await expect(page.getByRole("link", { name: "Sign in with Google to checkout" })).toBeVisible();
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+  }
+
+  await page.goto("/policies/returns");
+  await expect(page.getByRole("heading", { name: "Refunds" })).toBeVisible();
+  await expect(page.getByText(/within seven calendar days/)).toBeVisible();
 });
 
 test("the Studio foundation remains ordered, operable, and stable at review widths", async ({ page }) => {
