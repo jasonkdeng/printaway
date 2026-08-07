@@ -167,7 +167,7 @@ export function CartPanel({ signedIn }: { signedIn: boolean }) {
           {!signedIn ? (
             <Link className={styles.signIn} href="/api/auth/signin/google?callbackUrl=%2Fcart">Sign in with Google to checkout</Link>
           ) : (
-            <button className={styles.checkout} disabled={checkoutState === "submitting"} onClick={beginCheckout} type="button">{checkoutState === "submitting" ? "Preparing Square checkout" : "Continue to Square"}</button>
+            <button className={styles.checkout} disabled={checkoutState === "submitting"} onClick={beginCheckout} type="button">{checkoutState === "submitting" ? "Preparing Square checkout" : "Continue to checkout"}</button>
           )}
           <p aria-live="polite" className={styles.status} role="status">{message}</p>
           <button className={styles.clear} onClick={() => cart.clear()} type="button">Clear cart</button>

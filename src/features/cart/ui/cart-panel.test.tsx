@@ -39,6 +39,6 @@ describe("CartPanel", () => {
 
     expect(screen.getByRole("textbox", { name: /Shipping postal code/ })).toBeInTheDocument();
     expect(screen.getByText("$18.00")).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "Continue to Square" })).toBeEnabled();
+    expect(screen.getByRole("button", { name: "Continue to checkout" })).toBeEnabled();
   });
 });
