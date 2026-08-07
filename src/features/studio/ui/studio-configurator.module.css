@@ -20,6 +20,7 @@
   color: var(--pa-aluminum);
   padding: 0.75rem;
   text-align: left;
+  box-shadow: var(--pa-shadow-inset);
 }
 
 .progress button:not(:disabled) {
@@ -28,6 +29,11 @@
 
 .progress button[data-state="current"] {
   background: var(--pa-graphite);
+  color: var(--pa-bone);
+  box-shadow: inset 0 2px 0 var(--pa-bone), var(--pa-shadow-inset);
+}
+
+.progress button[data-state="complete"] {
   color: var(--pa-bone);
 }
 
@@ -97,8 +103,10 @@
 
 .editor {
   min-width: 0;
-  border-top: 1px solid var(--pa-graphite);
-  padding-top: 1.5rem;
+  border: 1px solid var(--pa-edge-subtle);
+  background: var(--pa-void);
+  padding: 1.5rem;
+  box-shadow: var(--pa-shadow-inset);
 }
 
 .stepLabel {
@@ -415,9 +423,10 @@
 .readout {
   min-width: 0;
   border: 1px solid var(--pa-graphite);
-  background: var(--pa-void);
+  background: var(--pa-graphite);
   padding: 1rem;
   cursor: crosshair;
+  box-shadow: var(--pa-shadow-inset), var(--pa-shadow-tight);
 }
 
 .readoutHeader {
