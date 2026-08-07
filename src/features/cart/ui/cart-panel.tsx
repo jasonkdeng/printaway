@@ -89,7 +89,6 @@ export function CartPanel({ signedIn }: { signedIn: boolean }) {
         <div>
           <p className={styles.eyebrow}>{"// Cart / Empty"}</p>
           <h1 className="pa-page-title" id="cart-heading">Your cart is empty.</h1>
-          <p>Add an available Shop object to begin.</p>
         </div>
         <Link href="/shop">Browse Shop</Link>
       </section>
