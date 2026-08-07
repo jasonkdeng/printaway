@@ -9,7 +9,7 @@ describe("SiteHeader", () => {
 
     expect(screen.getByRole("link", { name: "Printaway home" })).toHaveClass("h-6");
     expect(screen.getByRole("link", { name: "Shop" })).toHaveClass("h-6");
-    expect(screen.getByRole("link", { name: "Sign in with Google" })).toHaveClass("h-6");
+    expect(screen.getByRole("button", { name: "Sign in with Google" })).toHaveClass("h-6");
     expect(screen.getByRole("link", { name: "Cart" }).parentElement).toHaveClass("justify-self-end");
     expect(screen.getByRole("link", { name: "Shop" }).parentElement).toHaveClass("justify-self-center");
   });
