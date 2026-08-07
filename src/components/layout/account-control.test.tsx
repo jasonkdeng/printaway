@@ -4,27 +4,27 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 
 import { AccountControl } from "./account-control";
 
-const { signOut } = vi.hoisted(() => ({ signOut: vi.fn() }));
+const { signIn, signOut } = vi.hoisted(() => ({ signIn: vi.fn(), signOut: vi.fn() }));
 
-vi.mock("next-auth/react", () => ({ signOut }));
+vi.mock("next-auth/react", () => ({ signIn, signOut }));
 
 afterEach(() => {
   cleanup();
+  signIn.mockReset();
   signOut.mockReset();
 });
 
 describe("AccountControl", () => {
-  it("provides a direct Google sign-in action to anonymous visitors", () => {
+  it("starts Google OAuth directly for anonymous visitors", async () => {
+    const user = userEvent.setup();
     render(<AccountControl account={null} authenticationAvailable />);
 
-    const signIn = screen.getByRole("link", { name: "Sign in with Google" });
-    expect(signIn).toHaveAttribute(
-      "href",
-      "/api/auth/signin/google?callbackUrl=%2Fcart",
-    );
-    expect(signIn).toHaveClass("h-6", "rounded-[8px]", "bg-[#131314]", "font-body");
+    const signInControl = screen.getByRole("button", { name: "Sign in with Google" });
+    expect(signInControl).toHaveClass("h-6", "rounded-[8px]", "bg-[#131314]", "font-body");
     expect(screen.getByTestId("google-logo")).toHaveClass("size-3");
     expect(screen.getByTestId("google-logo")).toHaveAttribute("viewBox", "0 0 18 18");
+    await user.click(signInControl);
+    expect(signIn).toHaveBeenCalledWith("google", { callbackUrl: "/cart" });
   });
 
   it("identifies the signed-in account and provides sign-out", async () => {
@@ -40,6 +40,6 @@ describe("AccountControl", () => {
   it("does not advertise account sign-in when required OAuth configuration is unavailable", () => {
     render(<AccountControl account={null} authenticationAvailable={false} />);
 
-    expect(screen.queryByRole("link", { name: "Sign in with Google" })).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "Sign in with Google" })).not.toBeInTheDocument();
   });
 });
