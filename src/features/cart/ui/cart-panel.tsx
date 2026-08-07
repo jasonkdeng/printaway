@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 
 import { formatMoney } from "@/lib/currency/money";
+import { GoogleSignInButton } from "@/components/auth/google-sign-in-button";
 
 import { cartSubtotal, type CartSnapshot } from "../domain/cart";
 import { pickupPoints, shippingFeeFor, type CheckoutFulfillment } from "../domain/checkout";
@@ -164,7 +165,7 @@ export function CartPanel({ signedIn }: { signedIn: boolean }) {
           </dl>
           <p className={styles.terms}>Sandbox checkout has no taxes. By continuing, you acknowledge the <Link href="/policies/shipping">shipping and pickup terms</Link>, <Link href="/policies/returns">refund terms</Link>, and <Link href="/policies/cancellation">cancellation terms</Link>.</p>
           {!signedIn ? (
-            <Link className={styles.signIn} href="/api/auth/signin/google?callbackUrl=%2Fcart">Sign in with Google to checkout</Link>
+            <GoogleSignInButton className={styles.signIn} label="Sign in with Google to checkout" />
           ) : (
             <button className={styles.checkout} disabled={checkoutState === "submitting"} onClick={beginCheckout} type="button">{checkoutState === "submitting" ? "Preparing Square checkout" : "Continue to checkout"}</button>
           )}
