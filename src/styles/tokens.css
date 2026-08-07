@@ -5,6 +5,11 @@
   --pa-aluminum: #b8b8b4;
   --pa-cure-violet: #7c5cff;
   --pa-hot-amber: #ff7a33;
+  --pa-edge-subtle: rgb(184 184 180 / 0.26);
+  --pa-edge-strong: rgb(245 242 237 / 0.72);
+  --pa-shadow-raised: 0 18px 34px rgb(0 0 0 / 0.32);
+  --pa-shadow-tight: 0 8px 16px rgb(0 0 0 / 0.28);
+  --pa-shadow-inset: inset 0 1px 0 rgb(245 242 237 / 0.1), inset 0 -1px 0 rgb(0 0 0 / 0.42);
   --pa-font-display: "Neue Machina", Arial, sans-serif;
   --pa-font-body: "General Sans", Arial, sans-serif;
   --pa-font-mono: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;

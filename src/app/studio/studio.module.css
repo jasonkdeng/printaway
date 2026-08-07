@@ -6,6 +6,8 @@
 
 .header {
   max-width: 58rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--pa-edge-subtle);
 }
 
 .label {

@@ -31,19 +31,21 @@ const sections = [
 
 export default function PrivacyPolicyPage() {
   return (
-    <article className="mx-auto max-w-3xl px-3 py-12 sm:px-6 lg:px-12">
-      <p className="font-mono text-sm tracking-[0.16em] text-aluminum">PRIVACY POLICY / EFFECTIVE JULY 28, 2026</p>
-      <h1 className="pa-page-title mt-3 text-bone">Privacy and personal information</h1>
-      <p className="mt-5 text-lg leading-8 text-aluminum">This policy explains how Printaway collects, uses, stores, and discloses personal information in connection with commercial website, quoting, manufacturing, and order activities.</p>
-      <div className="mt-10 flex flex-col gap-8">
+    <article className="pa-page-shell max-w-5xl">
+      <header className="pa-page-intro">
+        <p className="font-mono text-sm tracking-[0.16em] text-aluminum">PRIVACY POLICY / EFFECTIVE JULY 28, 2026</p>
+        <h1 className="pa-page-title mt-3 text-bone">Privacy and personal information</h1>
+        <p>This policy explains how Printaway collects, uses, stores, and discloses personal information in connection with commercial website, quoting, manufacturing, and order activities.</p>
+      </header>
+      <div className="mt-8 grid gap-4 sm:grid-cols-2">
         {sections.map((section) => (
-          <section key={section.heading}>
+          <section className="border border-[var(--pa-edge-subtle)] bg-graphite p-5 shadow-[var(--pa-shadow-inset)]" key={section.heading}>
             <h2 className="font-display text-2xl tracking-[-0.04em] text-bone">{section.heading}</h2>
             <p className="mt-2 leading-7 text-aluminum">{section.content}</p>
           </section>
         ))}
       </div>
-      <p className="mt-10 border-t border-graphite pt-5 font-mono text-sm leading-6 text-aluminum">Printaway operates in Canada and follows applicable privacy obligations, including the federal <a className="text-bone underline decoration-cure-violet underline-offset-4" href="https://www.priv.gc.ca/en/privacy-topics/privacy-laws-in-canada/the-personal-information-protection-and-electronic-documents-act-pipeda/pipeda_brief/">Personal Information Protection and Electronic Documents Act (PIPEDA)</a> principles of meaningful consent, limited collection, appropriate safeguards, openness, access, correction, and accountability.</p>
+      <p className="mt-8 border-t border-[var(--pa-edge-subtle)] pt-5 font-mono text-sm leading-6 text-aluminum">Printaway operates in Canada and follows applicable privacy obligations, including the federal <a className="text-bone underline decoration-cure-violet underline-offset-4" href="https://www.priv.gc.ca/en/privacy-topics/privacy-laws-in-canada/the-personal-information-protection-and-electronic-documents-act-pipeda/pipeda_brief/">Personal Information Protection and Electronic Documents Act (PIPEDA)</a> principles of meaningful consent, limited collection, appropriate safeguards, openness, access, correction, and accountability.</p>
       <Link className="mt-6 inline-block font-mono text-sm text-bone underline decoration-cure-violet underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cure-violet" href="/">Return home</Link>
     </article>
   );

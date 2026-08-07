@@ -59,13 +59,15 @@ export function CheckoutReturnStatus({ checkoutId }: { checkoutId: string | null
   }[status];
 
   return (
-    <section className="mx-auto max-w-3xl px-3 py-12 sm:px-6 lg:px-12">
-      <p className="font-mono text-sm tracking-[0.16em] text-aluminum">{"// Square checkout"}</p>
-      <h1 className="pa-page-title mt-3">{status === "paid" ? "Payment confirmed." : "Order status."}</h1>
-      <p aria-live="polite" className="mt-5 max-w-prose text-lg leading-8 text-aluminum" role="status">{copy}</p>
-      <div className="mt-8 flex flex-wrap gap-4">
-        <Link className="min-h-11 border border-aluminum px-5 py-3 font-mono text-sm text-bone" href="/cart">Return to cart</Link>
-        <Link className="min-h-11 border border-aluminum px-5 py-3 font-mono text-sm text-bone" href="/shop">Return to Shop</Link>
+    <section className="pa-page-shell">
+      <div className="pa-state-panel">
+        <p className="font-mono text-sm tracking-[0.16em] text-aluminum">{"// Square checkout"}</p>
+        <h1 className="pa-page-title mt-3">{status === "paid" ? "Payment confirmed." : "Order status."}</h1>
+        <p aria-live="polite" className="mt-5 max-w-prose text-lg leading-8 text-aluminum" role="status">{copy}</p>
+        <div className="mt-8 flex flex-wrap gap-3">
+          <Link className="min-h-11 border border-bone px-5 py-3 font-mono text-sm text-bone focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cure-violet" href="/cart">Return to cart</Link>
+          <Link className="min-h-11 border border-graphite px-5 py-3 font-mono text-sm text-bone focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cure-violet" href="/shop">Return to Shop</Link>
+        </div>
       </div>
     </section>
   );

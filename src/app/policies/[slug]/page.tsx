@@ -36,11 +36,13 @@ export default async function PolicyPage({ params }: { params: Promise<{ slug: s
   if (!policy) notFound();
 
   return (
-    <article className="mx-auto max-w-3xl px-3 py-12 sm:px-6 lg:px-12">
-      <p className="font-mono text-sm tracking-[0.16em] text-aluminum">{"// Policy"}</p>
-      <h1 className="pa-page-title mt-3">{policy.title}</h1>
-      <div className="mt-8 space-y-5">
-        {policy.sections.map((section) => <p className="leading-7 text-aluminum" key={section}>{section}</p>)}
+    <article className="pa-page-shell max-w-5xl">
+      <header className="pa-page-intro">
+        <p className="font-mono text-sm tracking-[0.16em] text-aluminum">{"// Policy"}</p>
+        <h1 className="pa-page-title mt-3">{policy.title}</h1>
+      </header>
+      <div className="mt-8 grid gap-4">
+        {policy.sections.map((section, index) => <p className="border border-[var(--pa-edge-subtle)] bg-graphite p-5 leading-7 text-aluminum shadow-[var(--pa-shadow-inset)]" key={section}><span className="mr-3 font-mono text-sm text-cure-violet">0{index + 1}</span>{section}</p>)}
       </div>
       <Link className="mt-8 inline-block font-mono text-sm text-bone underline decoration-cure-violet underline-offset-4" href="/cart">Return to cart</Link>
     </article>
