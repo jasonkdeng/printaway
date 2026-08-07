@@ -32,7 +32,7 @@ test("the header keeps its wordmark left, navigation centred, and account action
     expect((await wordmark.boundingBox())?.height).toBe(48);
     expect((await shop.boundingBox())?.height).toBe(48);
 
-    const signIn = page.getByRole("link", { name: "Sign in with Google" });
+    const signIn = page.getByRole("button", { name: "Sign in with Google" });
     if (await signIn.count()) {
       expect((await signIn.boundingBox())?.height).toBe(48);
       await expect(signIn).toHaveCSS("border-radius", "8px");
@@ -136,7 +136,7 @@ test("the cart gives an empty-state recovery message", async ({ page }) => {
   await page.goto("/cart");
 
   await expect(page.getByRole("heading", { name: "Your cart is empty." })).toBeVisible();
-  await expect(page.getByText("Add an available Shop object to begin.")).toBeVisible();
+  await expect(page.getByRole("link", { name: "Browse Shop" })).toHaveAttribute("href", "/shop");
 });
 
 test("the cart presents the approved fulfillment and policy boundary at review widths", async ({ page }) => {
@@ -163,7 +163,7 @@ test("the cart presents the approved fulfillment and policy boundary at review w
     await page.getByRole("radio", { name: "Shipping" }).check();
     await expect(page.getByRole("textbox", { name: /Shipping postal code/ })).toBeVisible();
     await expect(page.getByText("$18.00")).toBeVisible();
-    await expect(page.getByRole("link", { name: "Sign in with Google to checkout" })).toBeVisible();
+    await expect(page.getByRole("button", { name: "Sign in with Google to checkout" })).toBeVisible();
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
   }
 
